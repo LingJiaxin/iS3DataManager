@@ -18,11 +18,13 @@ namespace iS3_DataManager.DataManager
     {
         
 
-        public List<DomainDef> Import()
+        public List<DataSet> Import()
         {
-            List<DomainDef> domainContainer = null;
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = true;
+            List<DataSet> domainContainer = null;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Multiselect = true
+            };
             if (ofd.ShowDialog() == true)
             {
                 foreach (string path in ofd.FileNames)
@@ -34,7 +36,7 @@ namespace iS3_DataManager.DataManager
             return domainContainer;
         }
 
-        public DomainDef Import(string path)
+        public DataSet Import(string path)
         {
             IWorkbook wb = readWorkbook(path);
             try
@@ -48,7 +50,7 @@ namespace iS3_DataManager.DataManager
                     dt.TableName = sheetName;                    
                     ds.Tables.Add(dt);
                 }
-                return null;
+                return ds;
             }
 
             catch (Exception)

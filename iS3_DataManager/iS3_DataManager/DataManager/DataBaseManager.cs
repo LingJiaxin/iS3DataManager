@@ -6,55 +6,66 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using iS3_DataManager.Models;
 using System.Data;
+using System.IO;
+using iS3_DataManager.Interface;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataBaseManager
+    public class DataBaseManager: IDataBaseManager
     {
-        SQLiteConnection dbConnection;
+                  
+        SQLiteConnection conn;
         SQLiteDataReader dataReader;
-        SQLiteCommand dbCommand;
-        string defaultDB = AppDomain.CurrentDomain.BaseDirectory + "Data\\defaultDB.db";
 
-        public void Data2DB(DataSet ds)
+        void IDataBaseManager.WriteData(DataSet ds)
         {
             try
             {
-
-                CreateTable();
-
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-        public DataSet DB2Data()
-        {
-            return null;
-        }
-        public SQLiteDataReader ExecuteQuery(string queryString)
-        {
-            try
-            {
-                dbCommand = dbConnection.CreateCommand();
-                dbCommand.CommandText = queryString;
-                dataReader = dbCommand.ExecuteReader();
+                LinkDB();
             }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show(e.ToString());
             }
+        }
+
+        public DataSet DB2Data()
+        {
+            return null;
+        }
+             
+
+        public SQLiteDataReader ExecuteQuery(string queryString)
+        {
+            try
+            {
+                SQLiteCommand cmd=new SQLiteCommand();
+                cmd = conn.CreateCommand();
+                cmd.CommandText = queryString;
+                dataReader = cmd.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show(e.ToString());
+                return null;
+            }
 
             return dataReader;
         }
 
-        private SQLiteConnection CreateTable()
+        /// <summary>
+        /// link2Default DataBase
+        /// </summary>
+        /// <returns></returns>
+        private void LinkDB()
         {
             try
             {
-                defaultDB = "DefaultDB";
-                SQLiteConnection.CreateFile(defaultDB);
+                string defaultDB = "DefaultDB.db";
+                if (!File.Exists(defaultDB))
+                {
+                    SQLiteConnection.CreateFile(defaultDB);
+                }
                 SQLiteConnection conn = new SQLiteConnection();
                 SQLiteConnectionStringBuilder connStr = new SQLiteConnectionStringBuilder
                 {
@@ -68,14 +79,15 @@ namespace iS3_DataManager.DataManager
                 cmd.CommandText = sql;
                 cmd.Connection = conn;
                 cmd.ExecuteNonQuery();
-                return conn;
+                this.conn = conn;
+
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.ToString());
-                return null;
+                System.Windows.MessageBox.Show(e.ToString());               
             }
         }
+
         public SQLiteDataReader CreateTable(string tableName, string[] colNames, string[] colTypes)
         {
             string queryString = "CREATE TABLE IF NOT EXISTS " + tableName + "( " + colNames[0] + " " + colTypes[0];
@@ -110,5 +122,10 @@ namespace iS3_DataManager.DataManager
             }
             return ExecuteQuery(queryString);
         }
+
+        
+
+        
     }
+
 }

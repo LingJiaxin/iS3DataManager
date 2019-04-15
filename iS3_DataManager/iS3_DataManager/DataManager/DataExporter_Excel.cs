@@ -99,6 +99,11 @@ namespace iS3_DataManager.DataManager
             row0.CreateCell(0).SetCellValue(item.Code + "表");
             row0.CreateCell(1).SetCellValue(item.Desctiption);
             row0.CreateCell(3).SetCellValue("请勿修改sheet名");
+
+            for (int i = 0; i < 20; i++)
+            {
+                sheet.SetColumnWidth(i, 20 * 175);
+            }
         }
 
         void wrtieTitle(ISheet sheet, DGObjectDef item)
@@ -107,6 +112,7 @@ namespace iS3_DataManager.DataManager
             int i = 0;
             foreach (PropertyMeta property in item.PropertyContainer)
             {
+
                 row1.CreateCell(i++).SetCellValue(property.LangStr + property.DataType);
             }
 

@@ -39,17 +39,23 @@ namespace iS3_DataManager
             //string aimDGObjectType = "Borehole";
             //StandardLoader loader = new StandardLoader();
             // DataStandardDef standard = loader.getStandard();
+            //IDataExporter exporter = new DataExporter_Excel();
+            //exporter.Export(standard);
             //IDSExporter exporter = new Exporter_For_JSON();
             //DGObjectDef aimDGObjectDef = standard.getDGObjectDefByCode(aimDGObjectType);
 
             //step2:
+            IDataImporter importer = new DataImporter_Excel();
+            string path = @"C:\Users\litao\Desktop\TunnelStandard.xls";
+            System.Data.DataSet ds= importer.Import(path);
 
-
+            ClassGenerator classGenerator = new ClassGenerator();
+            classGenerator.generateClass(ds);
 
 
             //setp7 : save the data
-            DataBaseManager dataManager = new DataBaseManager();
-            dataManager.Data2DB(new System.Data.DataSet());
+            IDataBaseManager dataManager = new DataBaseManager();
+            dataManager.WriteData(new System.Data.DataSet());
 
             //step8 : exporter the data
         }

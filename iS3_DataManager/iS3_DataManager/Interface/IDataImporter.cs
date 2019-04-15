@@ -5,7 +5,7 @@ namespace iS3_DataManager.Interface
 {
    public interface IDataImporter
     {
-        List<DomainDef> Import();
-        DomainDef Import(string path);
+        List<System.Data.DataSet> Import();
+        System.Data.DataSet Import(string path);
     }
 }

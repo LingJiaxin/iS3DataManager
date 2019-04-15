@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -91,6 +91,7 @@
     <Compile Include="Interface\IDataExporter.cs" />
     <Compile Include="Interface\IDataFormatConverter.cs" />
     <Compile Include="Interface\IDataImporter.cs" />
+    <Compile Include="Interface\IDataManager.cs" />
     <Compile Include="Interface\IDataVerification.cs" />
     <Compile Include="Interface\IDSExporter.cs" />
     <Compile Include="Interface\IDSImporter.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="Models\LangBase.cs" />
     <Compile Include="Models\LangType.cs" />
     <Compile Include="Models\PropertyMeta.cs" />
-    <Compile Include="StandardManager\classWriter.cs" />
+    <Compile Include="StandardManager\ClassGenerator.cs" />
     <Compile Include="StandardManager\Exporter_For_JSON.cs" />
     <Compile Include="StandardManager\Importer_For_JSON.cs" />
     <Compile Include="StandardManager\StandardLoader.cs" />
