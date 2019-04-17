@@ -100,7 +100,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataManager\DataBaseManager_EF.cs" />
-    <Compile Include="DataManager\DataBase_EF.cs" />
+    <Compile Include="DataManager\DB_EF.cs" />
     <Compile Include="DataManager\DataBaseManager_SQL.cs" />
     <Compile Include="DataManager\DataExporter_Excel.cs" />
     <Compile Include="DataManager\DataImporter_Excel.cs" />
@@ -112,14 +112,13 @@
     <Compile Include="Interface\IDSExporter.cs" />
     <Compile Include="Interface\IDSImporter.cs" />
     <Compile Include="Interface\IPropertyMapping.cs" />
-    <Compile Include="Models\CommonDataFormat.cs" />
-    <Compile Include="Models\DataSchema.cs" />
     <Compile Include="Models\DataStandardDef.cs" />
     <Compile Include="Models\DGObjectDef.cs" />
     <Compile Include="Models\DomainDef.cs" />
     <Compile Include="Models\LangBase.cs" />
     <Compile Include="Models\LangType.cs" />
     <Compile Include="Models\PropertyMeta.cs" />
+    <Compile Include="ObjectModels\Borehole.cs" />
     <Compile Include="StandardManager\ClassGenerator.cs" />
     <Compile Include="StandardManager\Exporter_For_JSON.cs" />
     <Compile Include="StandardManager\Importer_For_JSON.cs" />
@@ -186,8 +185,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ObjectModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

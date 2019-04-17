@@ -3,9 +3,9 @@ using System;
  { 
  	public class Borehole
  	{ 
-		public Nullable<Int> Id {get;set;}
-		public Nullable<String> Boreholeid {get;set;}
-		public Nullable<Datetime> Boreholetime {get;set;}
+		public Nullable<int> Id {get;set;}
+		public String Boreholeid {get;set;}
+		public Nullable<DateTime> Boreholetime {get;set;}
 		public Nullable<Double> Boreholedepth {get;set;}
 	}
 }

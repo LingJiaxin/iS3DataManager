@@ -14,9 +14,9 @@ using Microsoft.Win32;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataImporter_Excel :IDataImporter
+    public class DataImporter_Excel : IDataImporter
     {
-        
+
 
         public List<DataSet> Import()
         {
@@ -38,16 +38,16 @@ namespace iS3_DataManager.DataManager
 
         public DataSet Import(string path)
         {
-            IWorkbook wb = readWorkbook(path);
+            IWorkbook wb = ReadWorkbook(path);
             try
             {
-                string domainName = Path.GetFileNameWithoutExtension(path);            
-                                DataSet ds = new DataSet(domainName);
-                List<string> sheetNames = getSheetNames(wb);
-                foreach (string sheetName in getSheetNames(wb))
-                {                    
-                    DataTable dt = readSheet(wb.GetSheet(sheetName));
-                    dt.TableName = sheetName;                    
+                string domainName = Path.GetFileNameWithoutExtension(path);
+                DataSet ds = new DataSet(domainName);
+                List<string> sheetNames = GetSheetNames(wb);
+                foreach (string sheetName in GetSheetNames(wb))
+                {
+                    DataTable dt = ReadSheet(wb.GetSheet(sheetName));
+                    dt.TableName = sheetName;
                     ds.Tables.Add(dt);
                 }
                 return ds;
@@ -61,7 +61,7 @@ namespace iS3_DataManager.DataManager
         }
 
 
-        IWorkbook readWorkbook(string path)
+        IWorkbook ReadWorkbook(string path)
         {
             IWorkbook workbook = null;
             try
@@ -79,15 +79,15 @@ namespace iS3_DataManager.DataManager
             return null;
         }
 
-        List<string> getSheetNames(IWorkbook wb)
+        List<string> GetSheetNames(IWorkbook wb)
         {
-            
+
             try
             {
                 if (wb == null)
                 {
                     return null;
-                    
+
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace iS3_DataManager.DataManager
             }
         }
 
-        DataTable readSheet(ISheet sheet)
+        DataTable ReadSheet(ISheet sheet)
         {
 
             if (sheet == null)
@@ -122,18 +122,18 @@ namespace iS3_DataManager.DataManager
 
                 foreach (IRow row in sheet)
                 {
-                    dt.Rows.Add(readRow(row, dt));
+                    dt.Rows.Add(ReadRow(row, dt));
                 }
                 return dt;
             }
         }
 
-        DataRow readRow(IRow row, DataTable dt)
+        DataRow ReadRow(IRow row, DataTable dt)
         {
             DataRow dr = dt.NewRow();
             try
             {
-                for (int i = 0; i < row.LastCellNum-1; i++)
+                for (int i = 0; i < row.LastCellNum - 1; i++)
                 {
                     dr[i.ToString()] = row.Cells[i].ToString();
                 }

@@ -29,20 +29,22 @@ namespace iS3_DataManager.StandardManager
                 
                 foreach (DGObjectDef dGObject in domain.DGObjectContainer)
                 {
-                    List<string> property = new List<string>();
-                    List<string> type = new List<string>();
-                   
+                    
+                    string newClass = "using System; \n namespace iS3_DataManager.ObjectModels\n { \n \tpublic class " + dGObject.Code + "\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
-                        property.Add(meta.PropertyName.Substring(0,1).ToUpper()+meta.PropertyName.Substring(1).ToLower());
-                        type.Add(meta.DataType.Substring(0, 1).ToUpper()+ meta.DataType.Substring(1).ToLower());
-                    }
-                    string newClass = "using System; \n namespace iS3_DataManager.ObjectModels\n { \n \tpublic class "+dGObject.Code+"\n \t{ \n";
-                    for(int i = 0; i < property.Count; i++)
-                    {
+
+                        if (meta.DataType != "string")
+                        {
+                            newClass += "\t\tpublic Nullable<" + meta.DataType + "> " + meta.PropertyName + " {get;set;}\n";
+                        }
+                        else
+                        {
+                            newClass+= "\t\tpublic " + meta.DataType + " " + meta.PropertyName + " {get;set;}\n";
+                        }
                         
-                        newClass += "\t\tpublic Nullable<" + type[i] + "> " + property[i] + " {get;set;}\n";
                     }
+                      
                     newClass += "\t}\n}";
                     string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\ObjectModels\"+dGObject.Code + ".cs";
                     FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
@@ -56,8 +58,7 @@ namespace iS3_DataManager.StandardManager
             }
             catch(Exception e)
             {
-                System.Windows.MessageBox.Show(e.ToString());
-                
+                System.Windows.MessageBox.Show(e.ToString());                
             }
         }
         
