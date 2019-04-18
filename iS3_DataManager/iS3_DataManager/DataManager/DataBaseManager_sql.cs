@@ -11,15 +11,16 @@ using iS3_DataManager.Interface;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataBaseManager_SQL: IDataBaseManager
+    public class DataBaseManager_SQL : IDataBaseManager
     {
         //readonly string connectionString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
         readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=..\default.mdf;Integrated Security=True;Connect Timeout=30";
-        void IDataBaseManager.WriteData(DataSet ds,DataStandardDef standardDef)
+        public void Data2DB(DataSet ds, DataStandardDef standardDef)
         {
             try
             {
                 LinkDB();
+                System.Windows.MessageBox.Show("数据导入成功");
             }
             catch (Exception e)
             {
@@ -31,9 +32,9 @@ namespace iS3_DataManager.DataManager
         {
             return null;
         }
-             
 
-        
+
+
 
         /// <summary>
         /// link2Default DataBase
@@ -53,7 +54,7 @@ namespace iS3_DataManager.DataManager
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.Message);               
+                System.Windows.MessageBox.Show(e.Message);
             }
         }
 
@@ -62,10 +63,10 @@ namespace iS3_DataManager.DataManager
 
             //var q = from c in connection select; 
         }
-        
-        
 
-        
+
+
+
     }
 
 }

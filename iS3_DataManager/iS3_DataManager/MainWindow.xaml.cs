@@ -16,6 +16,7 @@ using iS3_DataManager.Models;
 using iS3_DataManager.Interface;
 using iS3_DataManager.DataManager;
 using iS3_DataManager.StandardManager;
+using System.Data;
 
 namespace iS3_DataManager
 {
@@ -37,25 +38,31 @@ namespace iS3_DataManager
         {
             //step1 : find the aim object def
             //string aimDGObjectType = "Borehole";
-            StandardLoader loader = new StandardLoader();
-             DataStandardDef standard = loader.getStandard();
-            //IDataExporter exporter = new DataExporter_Excel();
-            //exporter.Export(standard);
-            //IDSExporter exporter = new Exporter_For_JSON();
-            //DGObjectDef aimDGObjectDef = standard.getDGObjectDefByCode(aimDGObjectType);
+            
+            //导入、加载数据标准
+            StandardLoader loader = new StandardLoader();            
+            DataStandardDef standard = loader.getStandard();
 
-            //step2:
-            //IDataImporter importer = new DataImporter_Excel();
-            //string path = @"C:\Users\litao\Desktop\TunnelStandard.xls";
-            //System.Data.DataSet ds= importer.Import(path);
+            //根据数据标准导出Excel模板
+            IDataExporter exporter = new DataExporter_Excel();
+            exporter.Export(standard);
 
+            //根据数据标准生成数据类（写cs文件，需后续手动导入到解决方案）
             ClassGenerator classGenerator = new ClassGenerator();
             classGenerator.GenerateClass(standard);
 
+            //IDSExporter exporter = new Exporter_For_JSON();//导出数据标准
+            //DGObjectDef aimDGObjectDef = standard.getDGObjectDefByCode(aimDGObjectType);
 
-            //setp7 : save the data
-            IDataBaseManager dataManager = new DataBaseManager_SQL();
-            //dataManager.WriteData(new System.Data.DataSet());
+            //从Excel导入数据
+            IDataImporter importer = new DataImporter_Excel();
+            string path = @"C:\Users\litao\Desktop\TunnelStandard.xls";
+            DataSet ds= importer.Import(path);
+
+             
+            //存储数据
+            IDataBaseManager dataManager = new DataBaseManager_EF();
+            dataManager.Data2DB(ds, standard);
 
             //step8 : exporter the data
         }

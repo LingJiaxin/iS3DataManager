@@ -8,29 +8,21 @@ using iS3_DataManager.Models;
 using iS3_DataManager.ObjectModels;
 using System.Data;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataBaseManager_EF
+    public class DataBaseManager_EF:iS3_DataManager.Interface.IDataBaseManager
     {
 
         public partial class GeologyDB_EF : DbContext
         {
-
             public DbSet<Borehole> Boreholes { get; set; }
-
         }
 
-        public void Initial(DataStandardDef standardDef)
-        {
 
-            foreach (DomainDef domain in standardDef.DomainContainer)
-            {
-
-            }
-        }
-
-        public bool Data2DB(DataSet dataSet, DataStandardDef standardDef)
+        
+        public void Data2DB(DataSet dataSet, DataStandardDef standardDef)
         {
             try
             {
@@ -43,38 +35,92 @@ namespace iS3_DataManager.DataManager
                         Assembly assembly = Assembly.GetExecutingAssembly();
 
                         //create Entity for specific domain                   
-                        dynamic db = assembly.CreateInstance("iS3_DataManager.DataManager." + domainName + "DB_EF");                        
+                        dynamic db = assembly.CreateInstance("iS3_DataManager.DataManager." + domainName + "DB_EF");
+                        //GeologyDB_EF db = new GeologyDB_EF();
                         foreach (DataTable table in dataSet.Tables)
                         {
                             DGObjectDef objectDef = GetObjectDef(domain,table);
-
+                            Insert(db, objectDef, table);
                         }
                     }
 
                 }
-                return true;
+                System.Windows.MessageBox.Show("数据导入成功");
             }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show(e.Message);
-                return false;
+               
             }
 
         }
 
         /// <summary>
-        /// 向entity中写入数据
+        /// 向entity中写入数据,实例形式
         /// </summary>
         /// <param name="db">entity实例</param>
         /// <param name="data">数据对象</param>
         /// <returns></returns>
-        public bool Insert(dynamic db, DGObjectDef objectDef,DataTable table)
+        public bool BoreholeInsert(GeologyDB_EF db,DGObjectDef objectDef, DataTable table)
         {
-            foreach (PropertyMeta property in objectDef.PropertyContainer )
+            
+            for (int i = 3; i < table.Rows.Count; i++)
             {
+                int j = 0;
+                List<object> data = new List<object>();
+                foreach (PropertyMeta property in objectDef.PropertyContainer)
+                {
+                    data.Add(table.Rows[i][j.ToString()]);
+                }
 
+                Borehole borehole = new Borehole { };
+                db.Boreholes.Add(borehole);
+                
             }
+            db.SaveChanges();
             return false;
+        }
+
+        /// <summary>
+        /// 向entity中写入数据，SQL语句形式
+        /// </summary>
+        /// <param name="db">entity实例</param>
+        /// <param name="data">数据对象</param>
+        /// <returns></returns>
+        public bool Insert(dynamic db,DGObjectDef objectDef,DataTable table)        
+        {
+            try
+            {
+                for (int i = 3; i < table.Rows.Count; i++)
+                {
+                    GeologyDB_EF test = new GeologyDB_EF();
+                    int j = 0;
+                    string sql = "INSERT INTO " + objectDef.Code;
+                    string column = "(";
+                    string value = " VALUES(";
+                    foreach (PropertyMeta property in objectDef.PropertyContainer)
+                    {
+                        string dataCell = table.Rows[i][j++.ToString()].ToString();
+                        if (dataCell != null)
+                        {
+                            column += property.PropertyName + ", ";
+                            value += "'" + dataCell + "', ";
+                        }
+                    }
+                    column += ")  ";
+                    value += ")";
+                    sql += column + value;
+                    test.Database.ExecuteSqlCommand(sql);
+                    test.SaveChanges();
+                }
+                return true;
+            }
+            catch(Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -98,5 +144,6 @@ namespace iS3_DataManager.DataManager
             }
         }
 
+       
     }
 }
