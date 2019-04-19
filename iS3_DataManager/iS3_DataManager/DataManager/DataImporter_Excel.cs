@@ -18,7 +18,7 @@ namespace iS3_DataManager.DataManager
     {
 
 
-        public List<DataSet> Import()
+        public List<DataSet> Import(DataStandardDef standard)
         {
             List<DataSet> domainContainer = null;
             OpenFileDialog ofd = new OpenFileDialog
@@ -29,25 +29,30 @@ namespace iS3_DataManager.DataManager
             {
                 foreach (string path in ofd.FileNames)
                 {
-                    domainContainer.Add(Import(path));
+                    domainContainer.Add(Import(path,standard));
                 }
             }
 
             return domainContainer;
         }
 
-        public DataSet Import(string path)
+        public DataSet Import(string path,DataStandardDef standard)
         {
-            IWorkbook wb = ReadWorkbook(path);
+            
             try
             {
                 string domainName = Path.GetFileNameWithoutExtension(path);
+                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName);
                 DataSet ds = new DataSet(domainName);
+
+                IWorkbook wb = ReadWorkbook(path);
+
                 List<string> sheetNames = GetSheetNames(wb);
-                foreach (string sheetName in GetSheetNames(wb))
+                //sheetNames equal to objectName
+                foreach (string sheetName in sheetNames)
                 {
-                    DataTable dt = ReadSheet(wb.GetSheet(sheetName));
-                    dt.TableName = sheetName;
+                    DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == sheetName);
+                    DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
                     ds.Tables.Add(dt);
                 }
                 return ds;
@@ -94,7 +99,7 @@ namespace iS3_DataManager.DataManager
                     List<string> sheetNames = new List<string>();
                     for (int i = 0; i < wb.NumberOfSheets; i++)
                     {
-                        sheetNames.Add(wb.GetSheetName(i).ToString());
+                        sheetNames.Add(wb.GetSheetName(i));
                     }
                     return sheetNames;
                 }
@@ -105,7 +110,12 @@ namespace iS3_DataManager.DataManager
             }
         }
 
-        DataTable ReadSheet(ISheet sheet)
+        /// <summary>
+        /// sheet to object datatable
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <returns></returns>
+        DataTable ReadSheet(ISheet sheet, DGObjectDef objectDef)
         {
 
             if (sheet == null)
@@ -114,36 +124,28 @@ namespace iS3_DataManager.DataManager
             }
             else
             {
-                DataTable dt = new DataTable();
-                for (int i = 0; i < 20; i++)
+                DataTable dt = new DataTable(objectDef.Code);
+                foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
-                    dt.Columns.Add(i.ToString());
+                    dt.Columns.Add(meta.PropertyName);
                 }
-
+                               
                 foreach (IRow row in sheet)
                 {
-                    dt.Rows.Add(ReadRow(row, dt));
+                    DataRow dr = dt.NewRow();
+                    int i = 0;
+                    foreach(PropertyMeta meta in objectDef.PropertyContainer)
+                    {
+                        dr[meta.PropertyName] = row.Cells[i++];
+                    }
+                    dt.Rows.Add(dr);
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 lines )
                 }
                 return dt;
             }
-        }
-
-        DataRow ReadRow(IRow row, DataTable dt)
-        {
-            DataRow dr = dt.NewRow();
-            try
-            {
-                for (int i = 0; i < row.LastCellNum - 1; i++)
-                {
-                    dr[i.ToString()] = row.Cells[i].ToString();
-                }
-                return dr;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-        }
+        }        
     }
 }
