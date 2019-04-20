@@ -106,13 +106,10 @@
     <Compile Include="DataManager\DataExporter_Excel.cs" />
     <Compile Include="DataManager\DataImporter_Excel.cs" />
     <Compile Include="Interface\IDataExporter.cs" />
-    <Compile Include="Interface\IDataFormatConverter.cs" />
     <Compile Include="Interface\IDataImporter.cs" />
     <Compile Include="Interface\IDataManager.cs" />
-    <Compile Include="Interface\IDataVerification.cs" />
     <Compile Include="Interface\IDSExporter.cs" />
     <Compile Include="Interface\IDSImporter.cs" />
-    <Compile Include="Interface\IPropertyMapping.cs" />
     <Compile Include="Models\DataStandardDef.cs" />
     <Compile Include="Models\DGObjectDef.cs" />
     <Compile Include="Models\DomainDef.cs" />
@@ -165,15 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="default.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="default_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>default.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">

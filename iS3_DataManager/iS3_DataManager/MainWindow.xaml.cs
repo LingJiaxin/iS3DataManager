@@ -39,28 +39,28 @@ namespace iS3_DataManager
             //step1 : find the aim object def
             //string aimDGObjectType = "Borehole";
             
-            //导入、加载数据标准
+            //load standard
             StandardLoader loader = new StandardLoader();            
             DataStandardDef standard = loader.getStandard();
 
-            //根据数据标准导出Excel模板
-            IDataExporter exporter = new DataExporter_Excel();
-            exporter.Export(standard);
+            //export excel templete for data input 
+            //IDataExporter exporter = new DataExporter_Excel();
+            //exporter.Export(standard);
 
-            //根据数据标准生成数据类（写cs文件，需后续手动导入到解决方案）
-            ClassGenerator classGenerator = new ClassGenerator();
-            classGenerator.GenerateClass(standard);
+            //generate data model according standard（write cs file ,need to be added manually）
+            //ClassGenerator classGenerator = new ClassGenerator();
+            //classGenerator.GenerateClass(standard);
 
-            //IDSExporter exporter = new Exporter_For_JSON();//导出数据标准
+            //IDSExporter exporter = new Exporter_For_JSON();//export data standard
             //DGObjectDef aimDGObjectDef = standard.getDGObjectDefByCode(aimDGObjectType);
 
-            //从Excel导入数据
+            //Import Data from excel
             IDataImporter importer = new DataImporter_Excel();
-            string path = @"C:\Users\litao\Desktop\TunnelStandard.xls";
-            DataSet ds= importer.Import(path);
+            string path = @"C:\Users\litao\Desktop\Geology.xls";
+            DataSet ds= importer.Import(path,standard);
 
              
-            //存储数据
+            //store data to database
             IDataBaseManager dataManager = new DataBaseManager_EF();
             dataManager.Data2DB(ds, standard);
 

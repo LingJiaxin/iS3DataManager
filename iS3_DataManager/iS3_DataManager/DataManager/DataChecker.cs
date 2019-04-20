@@ -18,19 +18,18 @@ namespace iS3_DataManager.DataManager
             foreach (DataTable table in dataSet.Tables)
             {
                 DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == table.TableName);
-                
             }
             return false;
         }
 
-        private bool CheckRows(DataTable table,DGObjectDef objectDef)
+        private bool CheckRows(DataTable table, DGObjectDef objectDef)
         {
             string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\OutPut\CheckResult.txt";
-            FileStream fs = new FileStream(path,FileMode.OpenOrCreate);
+            FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
             fs.Close();
-            StreamWriter streamWriter = new StreamWriter(path:path,append:true);
+            StreamWriter streamWriter = new StreamWriter(path: path, append: true);
             int line = 1;
-            foreach(DataRow row in table.Rows)
+            foreach (DataRow row in table.Rows)
             {
                 int column = 1;
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)

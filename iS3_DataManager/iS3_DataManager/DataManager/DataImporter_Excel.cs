@@ -14,7 +14,7 @@ using Microsoft.Win32;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataImporter_Excel : IDataImporter
+    public class DataImporter_Excel :IDataImporter
     {
 
 
@@ -29,16 +29,16 @@ namespace iS3_DataManager.DataManager
             {
                 foreach (string path in ofd.FileNames)
                 {
-                    domainContainer.Add(Import(path,standard));
+                    domainContainer.Add(Import(path, standard));
                 }
             }
 
             return domainContainer;
         }
 
-        public DataSet Import(string path,DataStandardDef standard)
+        public DataSet Import(string path, DataStandardDef standard)
         {
-            
+
             try
             {
                 string domainName = Path.GetFileNameWithoutExtension(path);
@@ -121,6 +121,7 @@ namespace iS3_DataManager.DataManager
             if (sheet == null)
             {
                 return null;
+                
             }
             else
             {
@@ -129,14 +130,17 @@ namespace iS3_DataManager.DataManager
                 {
                     dt.Columns.Add(meta.PropertyName);
                 }
-                               
+
                 foreach (IRow row in sheet)
                 {
                     DataRow dr = dt.NewRow();
                     int i = 0;
-                    foreach(PropertyMeta meta in objectDef.PropertyContainer)
+                    foreach (PropertyMeta meta in objectDef.PropertyContainer)
                     {
-                        dr[meta.PropertyName] = row.Cells[i++];
+                        if (row.GetCell(i) != null)
+                        {
+                            dr[meta.PropertyName] = row.GetCell(i);
+                        }
                     }
                     dt.Rows.Add(dr);
                 }
@@ -146,6 +150,6 @@ namespace iS3_DataManager.DataManager
                 }
                 return dt;
             }
-        }        
+        }
     }
 }

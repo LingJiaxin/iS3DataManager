@@ -19,68 +19,63 @@ namespace iS3_DataManager.DataManager
         DomainDef domain;
 
 
-
+        /// <summary>
+        /// export standard to excel for data input
+        /// </summary>
+        /// <param name="standard"></param>
+        /// <param name="path">the path where excel will generate at</param>
+        /// <returns></returns>
         public bool Export(DataStandardDef standard, string path = null)
         {
             this.standard = standard;
-            if (path == null)
-            {
-            }
-            else
+            if (path != null)
             {
                 this.path = path;
             }
-            return Export();
+            try
+            {
+                foreach (DomainDef domain in standard.DomainContainer)
+                {
+                    this.domain = domain;
+                    Export();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+                return false;
+            }
+            return true;
         }
 
         public bool Export(DomainDef domain, string path = null)
         {
-            this.domain = domain ;
-            if (path == null)
-            {
-            }
-            else
+            this.domain = domain;
+            if (path != null)
             {
                 this.path = path;
             }
+
             return Export();
         }
 
-        /// <summary>
-        /// export standard to excel for data input
-        /// </summary>
-        /// <param name="path">the path where excel will generate at</param>
-        /// <param name="standard"></param>
-        /// <returns></returns>
-        bool Export()
+        private bool Export()
         {
-            //default file format 'xls'
-            IWorkbook workbook = new HSSFWorkbook();
             try
             {
-                if (standard == null)
-                {
-                    fileName = path + "\\default.xls";
-                    write2Exl(this.domain, workbook);
-                }
-                else
-                {
-                    fileName = path + "\\" + standard.Code + ".xls";
-                    foreach (DomainDef domain in standard.DomainContainer)
-                    {
-                        write2Exl(domain, workbook);
-                    }
-                }
+                IWorkbook workbook = new HSSFWorkbook();
+                fileName = path + "\\" + domain.Code + ".xls";
+                write2Exl(domain, workbook);
+                saveExl(workbook);
             }
-            catch (Exception)
+            catch (Exception e
+            )
             {
+                System.Windows.MessageBox.Show(e.Message);
                 return false;
             }
-            saveExl(workbook);
             return true;
-
         }
-
 
         bool write2Exl(DomainDef domain, IWorkbook workbook)
         {
@@ -109,11 +104,13 @@ namespace iS3_DataManager.DataManager
         void wrtieTitle(ISheet sheet, DGObjectDef item)
         {
             IRow row1 = sheet.CreateRow(1);
+            IRow row2 = sheet.CreateRow(2);
             int i = 0;
             foreach (PropertyMeta property in item.PropertyContainer)
             {
 
-                row1.CreateCell(i++).SetCellValue(property.LangStr + property.DataType);
+                row1.CreateCell(i).SetCellValue(property.LangStr);
+                row2.CreateCell(i++).SetCellValue(property.DataType);
             }
 
         }

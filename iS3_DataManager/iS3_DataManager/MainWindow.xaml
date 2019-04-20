@@ -22,9 +22,6 @@
             <MenuItem Header="About"></MenuItem>
         </Menu>
         <TabControl Name="MainTab"  Grid.Row="1">
-            <TabItem Header="数据标准" Name="DataStandardTab">
-
-            </TabItem>
             <TabItem Header="数据录入" Name="DataImportTab">
 
             </TabItem>
