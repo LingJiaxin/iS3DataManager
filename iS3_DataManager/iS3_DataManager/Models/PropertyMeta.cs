@@ -26,7 +26,7 @@ namespace iS3_DataManager.Models
         {
 
         }
-        public PropertyMeta(string propertyName, string dataType, string unit, string description, string langStr, bool IsKey = false, bool nullable = true, string re = null)
+        public PropertyMeta(string propertyName, string dataType, string unit, string description, string langStr, bool IsKey = false, bool nullable = true, string regularExpression = null)
         {
             this.LangStr = langStr;
             this.PropertyName = propertyName;
@@ -34,7 +34,7 @@ namespace iS3_DataManager.Models
             this.Unit = unit;
             this.Description = description;
             this.Nullable = nullable;
-            this.RegularExp = re;
+            this.RegularExp = regularExpression;
             this.IsKey = IsKey;
         }
     }

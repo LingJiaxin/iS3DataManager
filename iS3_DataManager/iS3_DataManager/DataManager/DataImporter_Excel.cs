@@ -139,7 +139,11 @@ namespace iS3_DataManager.DataManager
                     {
                         if (row.GetCell(i) != null)
                         {
-                            dr[meta.PropertyName] = row.GetCell(i);
+                            dr[meta.PropertyName] = row.GetCell(i++);
+                        }
+                        else
+                        {
+                            dr[meta.PropertyName] = null;
                         }
                     }
                     dt.Rows.Add(dr);
