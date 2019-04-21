@@ -59,8 +59,8 @@ namespace iS3_DataManager
             string path = @"C:\Users\litao\Desktop\Geology.xls";
             DataSet ds= importer.Import(path,standard);
 
-            DataChecker checker = new DataChecker(ds,standard);
-            checker.Check();
+            //DataChecker checker = new DataChecker(ds,standard);
+            //checker.Check();
             //store data to database
             IDataBaseManager dataManager = new DataBaseManager_EF();
             dataManager.Data2DB(ds, standard);

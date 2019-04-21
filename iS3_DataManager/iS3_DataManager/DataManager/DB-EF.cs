@@ -1,11 +1,11 @@
-using System;
-using System.Data.Entity;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using iS3_DataManager.ObjectModels;
-
 namespace iS3_DataManager.DataManager
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using iS3_DataManager.ObjectModels;
+
     public partial class GeologyDB_EF : DbContext
     {
 
@@ -15,10 +15,4 @@ namespace iS3_DataManager.DataManager
         protected override void OnModelCreating(DbModelBuilder modelBuilder) { }
 
     }
-
 }
-
-  
-    
-    
-

@@ -65,6 +65,7 @@ namespace iS3_DataManager.DataManager
                 int column = 1;
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
+                    string time = "\t" + DateTime.Now.ToShortDateString().ToString() + " " + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
                     if (meta.RegularExp != null)
                     {
                         if (row[meta.PropertyName] != null & !Regex.IsMatch(row[meta.PropertyName].ToString(), meta.RegularExp))
@@ -72,12 +73,14 @@ namespace iS3_DataManager.DataManager
                             string message = "Data Format Error At sheet:" + objectDef.Code;
                             message += ",line:" + line++.ToString();
                             message += ",column:" + column++.ToString();
+                            message += time;
                             streamWriter.WriteLine(message);
                         }
                     }
                     else
                     {
-                        string message = "Lack of data check regulations at: " + objectDef.Code;                        
+                        string message = "Lack of data check regulations at: " + objectDef.Code+"."+meta.PropertyName;
+                        message += time;
                         streamWriter.WriteLine(message);
                     }
                 }
