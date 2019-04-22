@@ -141,6 +141,7 @@
     <Compile Include="StandardManager\Exporter_Excel.cs" />
     <Compile Include="StandardManager\Exporter_For_JSON.cs" />
     <Compile Include="StandardManager\Importer_For_JSON.cs" />
+    <Compile Include="StandardManager\StandardImport_Exl.cs" />
     <Compile Include="StandardManager\StandardLoader.cs" />
     <Compile Include="StandardManager\StandardWriter.cs" />
     <Page Include="MainWindow.xaml">
