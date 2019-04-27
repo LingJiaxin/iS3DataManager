@@ -27,23 +27,21 @@ namespace iS3_DataManager.DataManager
             try
             {
                 string domainName = dataSet.DataSetName;
-                foreach (DomainDef domain in standardDef.DomainContainer)
-                {
-                    if (domain.Code != domainName)
+                DomainDef domain = standardDef.DomainContainer.Find(x => x.Code == domainName);
+
+                if (domain != null)
                     {
                         // get current assembly(程序集) 
-                        Assembly assembly = Assembly.GetExecutingAssembly();
+                        //Assembly assembly = Assembly.GetExecutingAssembly();
 
                         //create Entity for specific domain                   
-                        dynamic db = assembly.CreateInstance("iS3_DataManager.DataManager." + domainName + "DB_EF");
-                        //GeologyDB_EF db = new GeologyDB_EF();
+                        //dynamic db = assembly.CreateInstance("iS3_DataManager.DataManager." + domainName + "DB_EF");
+                        GeologyDB_EF db = new GeologyDB_EF();
                         foreach (DataTable table in dataSet.Tables)
                         {
-                            DGObjectDef objectDef = GetObjectDef(domain,table);
+                            DGObjectDef objectDef = domain.DGObjectContainer.Find(x=>x.Code==table.TableName);
                             Insert(db, objectDef, table);
                         }
-                    }
-
                 }
                 System.Windows.MessageBox.Show("数据导入成功");
             }
@@ -87,31 +85,32 @@ namespace iS3_DataManager.DataManager
         /// <param name="db">entity实例</param>
         /// <param name="data">数据对象</param>
         /// <returns></returns>
-        public bool Insert(dynamic db,DGObjectDef objectDef,DataTable table)        
+        public bool Insert(GeologyDB_EF db,DGObjectDef objectDef,DataTable table)        
         {
             try
             {
-                for (int i = 3; i < table.Rows.Count; i++)
+                for (int i = 0; i < table.Rows.Count; i++)
                 {
-                    GeologyDB_EF test = new GeologyDB_EF();
-                    int j = 0;
+                    
                     string sql = "INSERT INTO " + objectDef.Code;
-                    string column = "(";
+                    string column = "s(";
                     string value = " VALUES(";
-                    foreach (PropertyMeta property in objectDef.PropertyContainer)
+                    foreach (PropertyMeta meta in objectDef.PropertyContainer)
                     {
-                        string dataCell = table.Rows[i][j++.ToString()].ToString();
+                        string dataCell = table.Rows[i][meta.PropertyName].ToString();
                         if (dataCell != null)
                         {
-                            column += property.PropertyName + ", ";
-                            value += "'" + dataCell + "', ";
+                            column += meta.PropertyName + ",";
+                            value += "'" + dataCell + "',";
                         }
                     }
-                    column += ")  ";
-                    value += ")";
+                    column =column.TrimEnd(',') +")  ";
+                    value =value.TrimEnd(',')+ ") ";
                     sql += column + value;
-                    test.Database.ExecuteSqlCommand(sql);
-                    test.SaveChanges();
+                    db.Boreholes.SqlQuery(sql);
+                    db.Database.ExecuteSqlCommand(sql);
+                        //ExecuteSqlCommand(sql);
+                    db.SaveChanges();
                 }
                 return true;
             }
@@ -123,26 +122,6 @@ namespace iS3_DataManager.DataManager
             
         }
 
-        /// <summary>
-        /// 根据table名去寻找对应的数据类型
-        /// </summary>
-        /// <param name="domain"></param>
-        /// <param name="table"></param>
-        /// <returns></returns>
-        public DGObjectDef GetObjectDef(DomainDef domain, DataTable table)
-        {
-            try
-            {
-                foreach (DGObjectDef objectDef in domain.DGObjectContainer)
-                {
-                    if (objectDef.Code == table.TableName) { return objectDef; }
-                } return null;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
 
        
     }

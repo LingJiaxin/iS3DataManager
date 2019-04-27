@@ -92,7 +92,7 @@ namespace iS3_DataManager.DataManager
         {
             IRow row0 = sheet.CreateRow(0);
             row0.CreateCell(0).SetCellValue(item.Code + "表");
-            row0.CreateCell(1).SetCellValue(item.Desctiption);
+            row0.CreateCell(1).SetCellValue(item.LangStr);
             row0.CreateCell(3).SetCellValue("请勿修改sheet名");
 
             for (int i = 0; i < 20; i++)
