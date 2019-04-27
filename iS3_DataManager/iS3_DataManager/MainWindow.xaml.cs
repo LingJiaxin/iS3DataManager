@@ -43,8 +43,8 @@ namespace iS3_DataManager
             IDSImporter importer = new StandardImport_Exl();
             DataStandardDef standard= importer.Import(null);
 
-            //StandardLoader loader = new StandardLoader();
-            //DataStandardDef standard = loader.getStandard(null);
+            StandardLoader loader = new StandardLoader();
+            DataStandardDef standard1 = loader.getStandard(null);
 
             // excel templete for data input
             IDataExporter dexporter = new DataExporter_Excel();

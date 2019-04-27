@@ -23,7 +23,7 @@ namespace iS3_DataManager.StandardManager
                     path = AppDomain.CurrentDomain.BaseDirectory + "Standard\\" + dataStandard.Code + ".json";
                 }
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
-                StreamWriter sw = new StreamWriter(fs);
+                StreamWriter sw = new StreamWriter(fs,Encoding.UTF8);
                 sw.Write(json);
                 sw.Flush();
                 sw.Close();

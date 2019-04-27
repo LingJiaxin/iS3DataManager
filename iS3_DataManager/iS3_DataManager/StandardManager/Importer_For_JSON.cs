@@ -59,12 +59,13 @@ namespace iS3_DataManager.StandardManager
             
             var fullPath = Directory.GetFiles(path, "*.json");
 
-            if (!(fullPath[0] == null))
+            if ((fullPath[0] != null))
             {
                 FileStream fs = new FileStream(fullPath[0], FileMode.Open, FileAccess.Read);
-                int n = (int)fs.Length;
-                byte[] b = new byte[n];
-                string json = Encoding.Default.GetString(b, 0, n);
+                StreamReader streamReader = new StreamReader(fs, Encoding.UTF8);
+                string json = streamReader.ReadToEnd();
+                fs.Close();
+                streamReader.Close();
                 DataStandardDef standard = JsonConvert.DeserializeObject<DataStandardDef>(json);
                 return standard;
             }

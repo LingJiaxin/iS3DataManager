@@ -91,7 +91,8 @@ namespace iS3_DataManager.StandardManager
                     DataType = dataType,
                     Unit = unit,
                     Description = proDes,
-                    RegularExp = regularExp
+                    RegularExp = regularExp,
+                    LangStr=proLanStr
                 };
 
                 if (this.standardDef.DomainContainer.Exists(x => x.Code == domainName))
