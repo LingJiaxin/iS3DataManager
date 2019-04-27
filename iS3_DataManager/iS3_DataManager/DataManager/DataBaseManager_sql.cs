@@ -13,21 +13,27 @@ namespace iS3_DataManager.DataManager
 {
     public class DataBaseManager_SQL : IDataBaseManager
     {
-        //readonly string connectionString = @"Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;";
-        readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=..\default.mdf;Integrated Security=True;Connect Timeout=30";
+        
+        readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|GeologyDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+        public bool CreatTable(DataStandardDef standardDef)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            return false;
+        }
         public void Data2DB(DataSet ds, DataStandardDef standardDef)
         {
             try
             {
                 string domainName = ds.DataSetName;
-                DomainDef domain = standardDef.DomainContainer.Find(x => x.Code == domainName);
+                DomainDef domain = standardDef.DomainContainer.Find(x => x.LangStr == domainName);
 
                 if (domain != null)
                 {
                     
                     foreach (DataTable table in ds.Tables)
                     {
-                        DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == table.TableName);
+                        DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.LangStr == table.TableName);
                         Insert(objectDef, table);
                     }
                     System.Windows.MessageBox.Show("数据导入成功");

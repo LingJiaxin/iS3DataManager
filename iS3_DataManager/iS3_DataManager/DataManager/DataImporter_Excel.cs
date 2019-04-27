@@ -51,7 +51,7 @@ namespace iS3_DataManager.DataManager
                 //sheetNames equal to objectName
                 foreach (string sheetName in sheetNames)
                 {
-                    DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == sheetName);
+                    DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.LangStr == sheetName);
                     DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
                     ds.Tables.Add(dt);
                 }
