@@ -11,9 +11,14 @@ namespace iS3_DataManager.StandardManager
     {
         public DataStandardDef Import(string path)
         {
-            //return readJson(path);
-            return GetSample();
+            path = path ?? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\");
+            return ReadJson(path);
+            //return GetSample();
         }
+        /// <summary>
+        /// just for test
+        /// </summary>
+        /// <returns></returns>
         public DataStandardDef GetSample()
         {
             //定义隧道数据标准和地质域
@@ -49,7 +54,7 @@ namespace iS3_DataManager.StandardManager
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public DataStandardDef readJson(string path)
+        public DataStandardDef ReadJson(string path)
         {
             
             var fullPath = Directory.GetFiles(path, "*.json");

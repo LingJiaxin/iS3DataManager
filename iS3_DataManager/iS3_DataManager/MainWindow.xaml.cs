@@ -38,10 +38,12 @@ namespace iS3_DataManager
         {
             //step1 : find the aim object def
             //string aimDGObjectType = "Borehole";
-            
+
             //load standard
-            StandardLoader loader = new StandardLoader();            
-            DataStandardDef standard = loader.getStandard();
+            IDSImporter importer = new StandardImport_Exl();
+            importer.Import(null);
+            //StandardLoader loader = new StandardLoader();            
+            //DataStandardDef standard = loader.getStandard(null);
 
             //export excel templete for data input 
             //IDataExporter exporter = new DataExporter_Excel();
@@ -55,15 +57,15 @@ namespace iS3_DataManager
             //DGObjectDef aimDGObjectDef = standard.getDGObjectDefByCode(aimDGObjectType);
 
             //Import Data from excel
-            IDataImporter importer = new DataImporter_Excel();
-            string path = @"C:\Users\litao\Desktop\Geology.xls";
-            DataSet ds= importer.Import(path,standard);
+            //IDataImporter importer = new DataImporter_Excel();
+            //string path = @"C:\Users\litao\Desktop\Geology.xls";
+            //DataSet ds= importer.Import(path,standard);
 
             //DataChecker checker = new DataChecker(ds,standard);
             //checker.Check();
             //store data to database
-            IDataBaseManager dataManager = new DataBaseManager_EF();
-            dataManager.Data2DB(ds, standard);
+            //IDataBaseManager dataManager = new DataBaseManager_EF();
+            //dataManager.Data2DB(ds, standard);
 
             //step8 : exporter the data
         }

@@ -20,7 +20,7 @@ namespace iS3_DataManager.StandardManager
                 string json = JsonConvert.SerializeObject(dataStandard);
                 if (path==null)
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory + "\\dlls\\" + dataStandard.Code + ".json";
+                    path = AppDomain.CurrentDomain.BaseDirectory + "Standard\\" + dataStandard.Code + ".json";
                 }
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs);

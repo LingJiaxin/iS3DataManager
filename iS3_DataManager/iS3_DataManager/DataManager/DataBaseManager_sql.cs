@@ -19,8 +19,19 @@ namespace iS3_DataManager.DataManager
         {
             try
             {
-                LinkDB();
-                System.Windows.MessageBox.Show("数据导入成功");
+                string domainName = ds.DataSetName;
+                DomainDef domain = standardDef.DomainContainer.Find(x => x.Code == domainName);
+
+                if (domain != null)
+                {
+                    
+                    foreach (DataTable table in ds.Tables)
+                    {
+                        DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == table.TableName);
+                        Insert(objectDef, table);
+                    }
+                    System.Windows.MessageBox.Show("数据导入成功");
+                }
             }
             catch (Exception e)
             {
@@ -34,10 +45,45 @@ namespace iS3_DataManager.DataManager
         }
 
 
+        public bool Insert( DGObjectDef objectDef, DataTable table)
+        {
+            try
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
 
+                    string sql = "INSERT INTO " + objectDef.Code;
+                    string column = "s(";
+                    string value = " VALUES(";
+                    foreach (PropertyMeta meta in objectDef.PropertyContainer)
+                    {
+                        string dataCell = table.Rows[i][meta.PropertyName].ToString();
+                        if (dataCell != null)
+                        {
+                            column += meta.PropertyName + ",";
+                            value += "'" + dataCell + "',";
+                        }
+                    }
+                    column = column.TrimEnd(',') + ")  ";
+                    value = value.TrimEnd(',') + ") ";
+                    sql += column + value;
+                    //db.Boreholes.SqlQuery(sql);
+                    //db.Database.ExecuteSqlCommand(sql);
+                    ////ExecuteSqlCommand(sql);
+                    //db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+                return false;
+            }
+
+        }
 
         /// <summary>
-        /// link2Default DataBase
+        /// link2Default DataBase   
         /// </summary>
         /// <returns></returns>
         private void LinkDB()

@@ -15,14 +15,11 @@ namespace iS3_DataManager.StandardManager
             this.path = AppDomain.CurrentDomain.BaseDirectory;
 
         }
-        public DataStandardDef getStandard()
+        public DataStandardDef getStandard(string path)
         {
             //!!!!poay attention that other exsiting files will affect the import process
             IDSImporter importer = new Importer_For_Json();
-            return importer.Import("");
-           
-
-
+            return importer.Import(path);
         }
     }
 }

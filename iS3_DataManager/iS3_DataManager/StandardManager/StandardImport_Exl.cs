@@ -14,109 +14,126 @@ namespace iS3_DataManager.StandardManager
 {
     public class StandardImport_Exl : IDSImporter
     {
-
+        DataStandardDef standardDef { get; set; }
         public DataStandardDef Import(string path)
         {
-            path = AppDomain.CurrentDomain.BaseDirectory + @"Standard\iS3Standard.xls";
-            return null;
+            path = path ?? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\");
+            return ReadExl(ReadWorkbook(path));
         }
 
-        public DataStandardDef ReadExl(ref IWorkbook workbook)
+        public DataStandardDef ReadExl(IWorkbook workbook)
         {
-            DataStandardDef standardDef = new DataStandardDef();
+            //string path = AppDomain.CurrentDomain.BaseDirectory + @"Standard\";
+            //DataStandardDef standardDef = new StandardLoader().getStandard(path);
+            
             ISheet sheet = workbook.GetSheetAt(0);
             for (int i = 1; i < sheet.LastRowNum; i++)
             {
                 IRow row = sheet.GetRow(i);
-                Row2Object(ref standardDef, row);
+                Row2Object( row);
             }
+            IDSExporter exporter = new Exporter_For_JSON();
+            exporter.Export(this.standardDef);
             workbook.Close();
-            return null;
+            return this.standardDef;
         }
 
         IWorkbook ReadWorkbook(string path)
         {
-            IWorkbook workbook = null;
             try
             {
+                var fullPath = Directory.GetFiles(path, "*.xlsx");
+                if (fullPath.Equals(null))
+                    fullPath = Directory.GetFiles(path, "*.xls");
+                path = fullPath.Length == 0 ? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\RockTunnel.xlsx") : fullPath[0];
+                this.standardDef = new DataStandardDef { Code = Path.GetFileNameWithoutExtension(path) };
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 if (path.IndexOf(".xlsx") > 0) // for excel version over 2007
-                    return workbook = new XSSFWorkbook(fs);
+                    return new XSSFWorkbook(fs);
                 else if (path.IndexOf(".xls") > 0) //for excel version 97-03
-                    return workbook = new HSSFWorkbook(fs);
+                    return new HSSFWorkbook(fs);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                System.Windows.MessageBox.Show(e.Message);
                 return null;
             }
             return null;
         }
-        public void Row2Object(ref DataStandardDef standardDef, IRow row)
+        public void Row2Object(IRow row)
         {
+            
             try
             {
                 string domainName = row.GetCell(0).ToString();
-                string domainDes = row.GetCell(1).ToString();
-                string domainlangStr = row.GetCell(2).ToString();
-                string objectName = row.GetCell(3).ToString();
-                string objDescrip = row.GetCell(4).ToString();
-                string objLangStr = row.GetCell(5).ToString();
+                string domainDes = row.GetCell(1)?.ToString();
+                string domainlangStr = row.GetCell(2)?.ToString();
+                string objectName = row.GetCell(3)?.ToString();
+                string objDescrip = row.GetCell(4)?.ToString();
+                string objLangStr = row.GetCell(5)?.ToString();
                 string propertyName = row.GetCell(6).ToString();
-                bool IsKey = row.GetCell(7).ToString() == "TRUE";
-                string dataType = row.GetCell(8).ToString();
-                bool Nullable = row.GetCell(9).ToString() == "TRUE";
-                string unit = row.GetCell(10).ToString();
-                string regularExp = row.GetCell(11).ToString();
-                string proDes = row.GetCell(12).ToString();
-                string proLanStr = row.GetCell(13).ToString();
+                bool IsKey = row.GetCell(7)?.ToString() == null ? false : row.GetCell(7).ToString() == "TRUE";
+                string dataType = row.GetCell(8)?.ToString();
+                bool Nullable = row.GetCell(9)?.ToString() == null ? true : row.GetCell(9).ToString() != "FALSE";
+                string unit = row.GetCell(10)?.ToString();
+                string regularExp = row.GetCell(11)?.ToString();
+                string proDes = row.GetCell(12)?.ToString();
+                string proLanStr = row.GetCell(13)?.ToString();
 
-                if (standardDef.DomainContainer.Exists(x => x.Code == domainName))
+                
+                DomainDef domain = null;
+                DGObjectDef objectDef = null;
+                PropertyMeta property = new PropertyMeta
                 {
-                    DomainDef domain = standardDef.DomainContainer.Find(x => x.Code == domainName);
+                    PropertyName = propertyName,
+                    IsKey = IsKey,
+                    Nullable = Nullable,
+                    DataType = dataType,
+                    Unit = unit,
+                    Description = proDes,
+                    RegularExp = regularExp
+                };
+
+                if (this.standardDef.DomainContainer.Exists(x => x.Code == domainName))
+                {
+                    domain = this.standardDef.DomainContainer.Find(x => x.Code == domainName);
+
                     if (domain.DGObjectContainer.Exists(x => x.Code == objectName))
                     {
-                        DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == objectName);
-                        PropertyMeta property = new PropertyMeta
+                        objectDef = domain.DGObjectContainer.Find(x => x.Code == objectName);
+                        if (!objectDef.PropertyContainer.Exists(x => x.PropertyName == property.PropertyName))
+                            objectDef.PropertyContainer.Add(property);
+                    }
+                    else
+                    {
+                        objectDef = new DGObjectDef
                         {
-                            PropertyName = propertyName,
-                            IsKey = IsKey,
-                            Nullable = Nullable,
-                            DataType = dataType,
-                            Unit = unit,
-                            Description = proDes,
-                            RegularExp = regularExp
+                            Code = objectName,
+                            Desctiption = objDescrip,
+                            LangStr = objLangStr
                         };
+                        objectDef.PropertyContainer.Add(property);
+                        domain.DGObjectContainer.Add(objectDef);
                     }
                 }
                 else
                 {
-                    DomainDef domain = new DomainDef
+                    domain = new DomainDef
                     {
                         Code = domainName,
                         Desciption = domainDes,
                         LangStr = domainlangStr
                     };
-                    DGObjectDef objectDef = new DGObjectDef
+                    objectDef = new DGObjectDef
                     {
-                        Code=objectName,
-                        Desctiption=objDescrip,
-                        LangStr=objLangStr
-                    };
-                    PropertyMeta property = new PropertyMeta
-                    {
-                        PropertyName = propertyName,
-                        IsKey = IsKey,
-                        Nullable = Nullable,
-                        DataType = dataType,
-                        Unit = unit,
-                        Description = proDes,
-                        RegularExp = regularExp
+                        Code = objectName,
+                        Desctiption = objDescrip,
+                        LangStr = objLangStr
                     };
                     objectDef.PropertyContainer.Add(property);
                     domain.DGObjectContainer.Add(objectDef);
-                    standardDef.DomainContainer.Add(domain);
+                    this.standardDef.DomainContainer.Add(domain);
                 }
-
             }
             catch (Exception e)
             {
