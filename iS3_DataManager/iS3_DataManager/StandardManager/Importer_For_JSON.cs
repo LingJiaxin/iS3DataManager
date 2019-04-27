@@ -64,7 +64,6 @@ namespace iS3_DataManager.StandardManager
                 FileStream fs = new FileStream(fullPath[0], FileMode.Open, FileAccess.Read);
                 int n = (int)fs.Length;
                 byte[] b = new byte[n];
-                int r = fs.Read(b, 0, n);
                 string json = Encoding.Default.GetString(b, 0, n);
                 DataStandardDef standard = JsonConvert.DeserializeObject<DataStandardDef>(json);
                 return standard;

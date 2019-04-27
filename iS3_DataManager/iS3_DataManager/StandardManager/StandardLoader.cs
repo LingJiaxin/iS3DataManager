@@ -12,8 +12,7 @@ namespace iS3_DataManager.StandardManager
         string path { get; set; }
         public StandardLoader()
         {
-            this.path = AppDomain.CurrentDomain.BaseDirectory;
-
+            this.path = AppDomain.CurrentDomain.BaseDirectory+@"Standard\";
         }
         public DataStandardDef getStandard(string path)
         {
