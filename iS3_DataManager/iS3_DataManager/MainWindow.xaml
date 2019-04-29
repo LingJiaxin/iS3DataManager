@@ -46,8 +46,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="File" >
-                <MenuItem Header="Open" Click="Open_click"></MenuItem>
-                <MenuItem Header="Save"></MenuItem>
+                <MenuItem Header="import" Click="Open_click"></MenuItem>
+                <MenuItem Header="Save" Click="SaveData_Click"></MenuItem>
                 <MenuItem Header="Delete"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit"></MenuItem>
@@ -76,7 +76,7 @@
             </StackPanel>            
             <StackPanel Orientation="Horizontal" Grid.Row="1" >
                 <ListBox 
-                    x:Name="DomainNameLB" Width="80" Margin="5,0,5,0" DisplayMemberPath="Code" 
+                    x:Name="DomainNameLB" Width="80" Margin="5,0,5,0" DisplayMemberPath="LangStr" 
                     MouseLeftButtonUp="DomainName_Click"
                     SelectionMode="Multiple"
                     >

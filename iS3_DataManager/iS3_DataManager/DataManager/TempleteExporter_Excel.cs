@@ -12,7 +12,7 @@ namespace iS3_DataManager.DataManager
     /// <summary>
     /// generate exl templete for data input
     /// </summary>
-     class DataExporter_Excel :IDataExporter
+     class TempleteExporter_Excel :IDSExporter
     {
 
         string path=Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -28,13 +28,10 @@ namespace iS3_DataManager.DataManager
         /// <param name="standard"></param>
         /// <param name="path">the path where excel will generate at</param>
         /// <returns></returns>
-        bool IDataExporter.Export(DataStandardDef standard, string path)
+        public bool Export(DataStandardDef standard, string path=null)
         {
             this.standard = standard;
-            if (path != null)
-            {
-                this.path = path;
-            }
+            this.path = path ?? this.path;
             try
             {
                 foreach (DomainDef domain in standard.DomainContainer)
@@ -50,14 +47,11 @@ namespace iS3_DataManager.DataManager
             }
             return true;
         }
-       
-         bool IDataExporter.Export(DomainDef domain, string path)
+
+        public bool Export(DomainDef domain, string path = null)
         {
             this.domain = domain;
-            if (path != null)
-            {
-                this.path = path;
-            }
+            this.path = path ?? this.path;
 
             return Export();
         }

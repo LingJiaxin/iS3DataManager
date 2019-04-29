@@ -35,12 +35,9 @@ namespace iS3_DataManager
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            IDSImporter importer = new StandardImport_Exl();
-            standard = importer.Import(null);
-
-            //StandardLoader loader = new StandardLoader();
-            //DataStandardDef standard1 = loader.getStandard(null);
-            //List<string> domainNameList = new List<string>();
+            StandardLoader standardLoader = new StandardLoader();
+            standard = standardLoader.getStandard(null);           
+            
             if (standard != null)
             {
                 DomainNameLB.ItemsSource = standard.DomainContainer;
@@ -55,7 +52,20 @@ namespace iS3_DataManager
 
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
+            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
+            OpenExcelFile.Multiselect = true;
+            OpenExcelFile.InitialDirectory = "D:\\";
+            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
+            OpenExcelFile.ShowDialog();
+            string[] filenames = OpenExcelFile.FileNames;
+            IDataImporter dataImporter = new DataImporter_Excel();
 
+            DataSet dataSet = new DataSet();
+            foreach (string path in filenames)
+            {
+             dataSet= dataImporter.Import(path,standard);
+            }
+            
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
@@ -79,10 +89,8 @@ namespace iS3_DataManager
 
         private void Open_click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
-            OpenExcelFile.InitialDirectory = "D:\\";
-            OpenExcelFile.Filter = "Excel文件|*.xls";
-            OpenExcelFile.ShowDialog();
+           
+            
         }
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
@@ -92,7 +100,7 @@ namespace iS3_DataManager
             {
                 objList.Add(item);
             }
-             ;            
+                         
             DomainDef selectedDomain = (DomainDef)DomainNameLB.SelectedItem ?? (DomainDef)DomainNameLB.Items[0];
             DomainDef domain = new DomainDef
             {
@@ -101,9 +109,8 @@ namespace iS3_DataManager
                 Desciption = selectedDomain.Desciption,
                 DGObjectContainer = objList
             };
-            IDataExporter dataExporter = new DataExporter_Excel();
-            dataExporter.Export(domain);
-            
+            IDSExporter dsExporter = new TempleteExporter_Excel();//export exl templete for data input
+            dsExporter.Export(domain);            
         }
 
         /// <summary>
@@ -116,8 +123,7 @@ namespace iS3_DataManager
             if (DomainNameLB.SelectedItem != null)
             {
                 ObjectNameLB.ItemsSource = ((DomainDef)DomainNameLB.SelectedItem).DGObjectContainer;
-            }
-            
+            }            
         }
 
         private void ObjectNameLB_SelectionChanged(object sender, SelectionChangedEventArgs e)

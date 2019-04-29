@@ -36,5 +36,9 @@ namespace iS3_DataManager.StandardManager
             }
         }
 
+        public bool Export(DomainDef domain, string path = null)
+        {
+           return false;
+        }
     }
 }

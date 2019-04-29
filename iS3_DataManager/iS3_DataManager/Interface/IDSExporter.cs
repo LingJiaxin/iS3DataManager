@@ -15,5 +15,6 @@ namespace iS3_DataManager.Interface
         //export dataStandard to ...
         //return the state of export
         bool Export(DataStandardDef dataStandard,string path=null );
+        bool Export(DomainDef domain, string path = null);
     }
 }

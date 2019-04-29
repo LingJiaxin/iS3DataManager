@@ -14,7 +14,7 @@ using Microsoft.Win32;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataImporter_Excel :IDataImporter
+    public class DataImporter_Excel : IDataImporter
     {
 
 
@@ -53,7 +53,7 @@ namespace iS3_DataManager.DataManager
                 {
                     DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.LangStr == sheetName);
                     DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
-                    ds.Tables.Add(dt);
+                    if(dt!=null)ds.Tables.Add(dt);
                 }
                 return ds;
             }
@@ -121,10 +121,10 @@ namespace iS3_DataManager.DataManager
             if (sheet == null)
             {
                 return null;
-                
             }
             else
             {
+                if (sheet.PhysicalNumberOfRows < 4) return null;
                 DataTable dt = new DataTable(objectDef.Code);
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
@@ -150,7 +150,7 @@ namespace iS3_DataManager.DataManager
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 lines )
+                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 linesS)
                 }
                 return dt;
             }
