@@ -5,13 +5,14 @@ using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.IO;
+using System.Collections.Generic;
 
 namespace iS3_DataManager.DataManager
 {
     /// <summary>
     /// generate exl templete for data input
     /// </summary>
-    public class DataExporter_Excel :IDataExporter
+     class DataExporter_Excel :IDataExporter
     {
 
         string path=Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -27,7 +28,7 @@ namespace iS3_DataManager.DataManager
         /// <param name="standard"></param>
         /// <param name="path">the path where excel will generate at</param>
         /// <returns></returns>
-        public bool Export(DataStandardDef standard, string path = null)
+        bool IDataExporter.Export(DataStandardDef standard, string path)
         {
             this.standard = standard;
             if (path != null)
@@ -49,8 +50,8 @@ namespace iS3_DataManager.DataManager
             }
             return true;
         }
-
-        public bool Export(DomainDef domain, string path = null)
+       
+         bool IDataExporter.Export(DomainDef domain, string path)
         {
             this.domain = domain;
             if (path != null)

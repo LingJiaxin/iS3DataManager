@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iS3_DataManager"
         mc:Ignorable="d"
-        Title="iS3 Data Manager" Height="400" Width="600">
+        Title="iS3团标工具" Height="400" Width="600">
     <Window.Background>
         <ImageBrush ImageSource="image/background.jpg"/>
     </Window.Background>
@@ -72,29 +72,16 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
                 <TextBlock Text="Domain:" Margin="20,0,40,0"/>
                 <TextBlock Text="Object:" Margin="40,0,40,0"/>
-                <TextBlock Text="Properties:" Margin="40,0,40,0"/>
-            </StackPanel>            
-            <StackPanel Orientation="Horizontal" Grid.Row="1" >
-                <ListBox 
-                    x:Name="DomainNameLB" Width="80" Margin="5,0,5,0" DisplayMemberPath="Code" 
-                    MouseLeftButtonUp="DomainName_Click"
-                    SelectionMode="Multiple"
-                    >
-                </ListBox>
-                <ListBox 
-                    x:Name="ObjectNameLB" 
-                    Width="120" 
-                    Margin="25,0,5,0" 
-                    DisplayMemberPath="LangStr" 
-                    SelectionChanged="ObjectNameLB_SelectionChanged"
-                    SelectionMode="Extended">
-                </ListBox>
-                <ListBox x:Name="DescriptionLB" Width="300" Margin="25,0,5,0"  DisplayMemberPath="LangStr">
-                </ListBox>              
+                <TextBlock Text="Description:" Margin="40,0,40,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <ListBox x:Name="DomainNameLB" Width="100" Margin="5,0,5,0"/>
+                <ListBox x:Name="ObjectNameLB" Width="100" Margin="25,0,5,0"/>
+                <ListBox x:Name="DescriptionLB" Width="300" Margin="25,0,5,0"/>
             </StackPanel>
             <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Content="Export Data Template" Click="ExportDataTemplate_Click" HorizontalAlignment="Right"/>
         </Grid>
-        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Visible">
+        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
@@ -105,18 +92,12 @@
                       AutoGenerateColumns="True"
                       AlternationCount="2"
                       CanUserAddRows="False"
-                      IsReadOnly="False"
+                      IsReadOnly="True"
                       HorizontalGridLinesBrush="#FF6EADD4"
                       VerticalGridLinesBrush="#FF6EADD4"
-                      EnableRowVirtualization="True"
-                      
-                      >
-                <DataGrid.Columns x:Uid="column1" >
-                    
-                </DataGrid.Columns>
-            </DataGrid>
+                      EnableRowVirtualization="True"/>
         </Grid>
-
+        
     </Grid>
 </Window>
 

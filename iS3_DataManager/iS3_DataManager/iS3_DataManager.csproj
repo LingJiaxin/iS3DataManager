@@ -204,6 +204,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>GeologyDB.mdf</DependentUpon>
     </Content>
+    <Resource Include="image\background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
