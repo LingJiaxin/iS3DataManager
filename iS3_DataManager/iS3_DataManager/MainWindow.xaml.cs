@@ -54,8 +54,8 @@ namespace iS3_DataManager
         }
 
         private void ImportData_Click(object sender, RoutedEventArgs e)
+        {
 
-            //generate data model according standard（write cs file ,need to be added manually）
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
