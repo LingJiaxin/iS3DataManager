@@ -35,6 +35,8 @@ namespace iS3_DataManager
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            IDSImporter importer = new StandardImport_Exl();
+            importer.Import(null);
             StandardLoader standardLoader = new StandardLoader();
             standard = standardLoader.getStandard(null);           
             

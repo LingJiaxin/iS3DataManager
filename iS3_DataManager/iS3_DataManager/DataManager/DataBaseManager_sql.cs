@@ -19,6 +19,7 @@ namespace iS3_DataManager.DataManager
         public bool CreatTable(DataStandardDef standardDef)
         {
             SqlConnection connection = new SqlConnection(connectionString);
+
             return false;
         }
         public void Data2DB(DataSet ds, DataStandardDef standardDef)
