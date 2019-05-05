@@ -55,7 +55,8 @@ namespace iS3_DataManager.DataManager
 
         private bool CheckRows(DataTable table, DGObjectDef objectDef)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "CheckResult.txt";
+            DirectoryInfo localPath = new DirectoryInfo( AppDomain.CurrentDomain.BaseDirectory);
+            string path = localPath.Parent.Parent+@"\Data\" + "CheckResult.txt";
             FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
             fs.Close();
             StreamWriter streamWriter = new StreamWriter(path: path, append: true);

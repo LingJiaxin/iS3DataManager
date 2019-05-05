@@ -119,10 +119,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataManager\DataBaseManager_EF.cs" />
-    <Compile Include="DataManager\DataChecker.cs" />
-    <Compile Include="DataManager\DB-EF.cs" />
     <Compile Include="DataManager\DataBaseManager_SQL.cs" />
+    <Compile Include="DataManager\DataChecker.cs" />
     <Compile Include="DataManager\TempleteExporter_Excel.cs" />
     <Compile Include="DataManager\DataImporter_Excel.cs" />
     <Compile Include="Interface\IDataExporter.cs" />

@@ -12,9 +12,16 @@ namespace iS3_DataManager.StandardManager
         string path { get; set; }
         public StandardLoader()
         {
-            this.path = AppDomain.CurrentDomain.BaseDirectory+@"Standard\";
+            DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            path = localPath.Parent.Parent.FullName + "\\Standard\\";
         }
-        public DataStandardDef getStandard(string path)
+        public DataStandardDef GetStandard()
+        {
+            IDSImporter importer = new Importer_For_Json();
+            return importer.Import(path);
+        }
+
+        public DataStandardDef GetStandard(string path)
         {
             //!!!!poay attention that other exsiting files will affect the import process
             IDSImporter importer = new Importer_For_Json();

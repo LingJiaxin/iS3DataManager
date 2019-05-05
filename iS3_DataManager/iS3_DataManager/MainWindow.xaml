@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iS3_DataManager"
         mc:Ignorable="d"
-        Title="iS3 Data Manager" Height="400" Width="600">
+        Title="iS3 Data Manager" MinWidth="500" MinHeight="400">
     <Window.Background>
         <ImageBrush ImageSource="image/background.jpg"/>
     </Window.Background>
@@ -51,6 +51,7 @@
                 <MenuItem Header="Delete"></MenuItem>
             </MenuItem>
             <MenuItem Header="Edit"></MenuItem>
+            <MenuItem Header="Initial Standard" Click="MenuItem_Click"/>
             <MenuItem Header="View"></MenuItem>
             <MenuItem Header="About"></MenuItem>
         </Menu>
@@ -70,50 +71,57 @@
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
-                <TextBlock Text="Domain:" Margin="20,0,40,0"/>
+                <TextBlock Text="Domain:" Margin="25,0,40,0"/>
                 <TextBlock Text="Object:" Margin="40,0,40,0"/>
                 <TextBlock Text="Properties:" Margin="40,0,40,0"/>
-            </StackPanel>            
+                <TextBlock Text="Description：" Margin="35,0,0,0" Panel.ZIndex="-2"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="1" >
                 <ListBox 
-                    x:Name="DomainNameLB" Width="80" Margin="5,0,5,0" DisplayMemberPath="LangStr" 
+                    x:Name="DomainNameLB" Margin="15,0,5,0" DisplayMemberPath="LangStr" 
                     MouseLeftButtonUp="DomainName_Click"
-                    SelectionMode="Multiple"
-                    >
-                </ListBox>
+                    SelectionMode="Multiple" MinWidth="80"
+                    />
                 <ListBox 
                     x:Name="ObjectNameLB" 
-                    Width="120" 
                     Margin="25,0,5,0" 
                     DisplayMemberPath="LangStr" 
                     SelectionChanged="ObjectNameLB_SelectionChanged"
-                    SelectionMode="Extended">
-                </ListBox>
-                <ListBox x:Name="DescriptionLB" Width="300" Margin="25,0,5,0"  DisplayMemberPath="LangStr">
-                </ListBox>              
+                    SelectionMode="Extended" MinWidth="120"/>
+                <ListBox x:Name="DescriptionLB" Margin="25,0,5,0"  DisplayMemberPath="LangStr" MinWidth="100"/>
+                <ListView x:Name="PropertyLV" MinWidth="100" Margin="25,0,0,0" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="PropertyName" DisplayMemberBinding="{Binding PropertyName}"/>
+                            <GridViewColumn Header="DataType" DisplayMemberBinding="{Binding DataType}"/>
+                            <GridViewColumn Header="Unit" DisplayMemberBinding="{Binding Unit}"/>
+                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+
             </StackPanel>
-            <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Content="Export Data Template" Click="ExportDataTemplate_Click" HorizontalAlignment="Right"/>
+            <Button Margin="0,5,113.667,5" Grid.Row="2" Width="150" Height="20" Content="Export Data Template" Click="ExportDataTemplate_Click" HorizontalAlignment="Right"/>
         </Grid>
         <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="500*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Width="100" Height="20" Content="Import Data" Click="ImportData_Click" HorizontalAlignment="Left"/>
-            <Button Grid.Row="0" Width="100" Height="20" Content="Save Data" Click="SaveData_Click" HorizontalAlignment="Right"/>
-            <DataGrid x:Name="DataSetDG" Grid.Row="1" Margin="5,5,5,5" 
-                      AutoGenerateColumns="True"
-                      AlternationCount="2"
-                      CanUserAddRows="False"
-                      IsReadOnly="False"
-                      HorizontalGridLinesBrush="#FF6EADD4"
-                      VerticalGridLinesBrush="#FF6EADD4"
-                      EnableRowVirtualization="True"
-                      
-                      >
-                <DataGrid.Columns x:Uid="column1" >
-                    
-                </DataGrid.Columns>
+            <Button Grid.Row="0" Height="20" Content="Import Data" Click="ImportData_Click" Margin="-2.667,5,0,5"/>
+            <Button Grid.Row="0" Width="100" Height="20" Content="Save Data" Click="SaveData_Click" HorizontalAlignment="Right" Grid.Column="1" Margin="0,5,81.667,5"/>
+            <ListBox x:Name="DataLB" Margin="10,19,5,33" Grid.Row="1" 
+                     DisplayMemberPath="{Binding}" 
+                     SelectionMode="Single"
+                     SelectionChanged="DataLB_SelectionChanged"/>
+            <DataGrid x:Name="DataDG" Grid.Column="1" Margin="10,19,81.667,33" Grid.Row="1"
+                      AutoGenerateColumns="True" DataContext="{Binding}" CellEditEnding="DataDG_CellEditEnding">
+
             </DataGrid>
         </Grid>
 
