@@ -30,7 +30,10 @@ namespace iS3_DataManager.DataManager
             {
                 this.path = path;
             }
-            return Export();
+            bool succeed = Export();
+            if (succeed) System.Windows.MessageBox.Show("The Exl templete generated successfully at Destop!");
+            else System.Windows.MessageBox.Show("Someting getting wrong during generating,Please try again!");
+            return succeed;
         }
 
         public bool Export(DomainDef domain, string path = null)
@@ -43,13 +46,16 @@ namespace iS3_DataManager.DataManager
             {
                 this.path = path;
             }
-            return Export();
+            bool succeed = Export();
+            if (succeed) System.Windows.MessageBox.Show("The Exl templete generated successfully at Destop!");
+            else System.Windows.MessageBox.Show("Someting getting wrong during generating,Please try again!");
+            return succeed;
         }
 
         /// <summary>
         /// export standard to excel for data input
         /// </summary>
-        /// <param name="path">the path where excel will generate at</param>
+        /// <param name="path">the path where excel will generate to</param>
         /// <param name="standard"></param>
         /// <returns></returns>
         bool Export()
