@@ -15,11 +15,9 @@ namespace iS3_DataManager.StandardManager
     public class StandardImport_Exl : IDSImporter
     {
         DataStandardDef standardDef { get; set; }
-        
         public DataStandardDef Import(string path)
         {
-            DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            path = path ?? (localPath.Parent.Parent.FullName + "\\Standard\\");
+            path = path ?? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\");
             return ReadExl(ReadWorkbook(path));
         }
 

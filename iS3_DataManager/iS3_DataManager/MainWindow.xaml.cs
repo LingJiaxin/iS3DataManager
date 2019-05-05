@@ -1,6 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using iS3_DataManager.Models;
 using iS3_DataManager.Interface;
 using iS3_DataManager.DataManager;
@@ -15,7 +26,6 @@ namespace iS3_DataManager
     public partial class MainWindow : Window
     {
         private DataStandardDef standard { get; set; }
-        DataSet dataSet { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -25,11 +35,11 @@ namespace iS3_DataManager
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            //IDSImporter importer = new StandardImport_Exl();
-            //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
+            IDSImporter importer = new StandardImport_Exl();
+            importer.Import(null);
             StandardLoader standardLoader = new StandardLoader();
-            standard = standardLoader.GetStandard();
-
+            standard = standardLoader.getStandard(null);           
+            
             if (standard != null)
             {
                 DomainNameLB.ItemsSource = standard.DomainContainer;
@@ -46,32 +56,23 @@ namespace iS3_DataManager
         {
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
             OpenExcelFile.Multiselect = true;
+            OpenExcelFile.InitialDirectory = "D:\\";
             OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
             OpenExcelFile.ShowDialog();
-            if (OpenExcelFile.FileNames == null) return;
+            string[] filenames = OpenExcelFile.FileNames;
             IDataImporter dataImporter = new DataImporter_Excel();
 
-            foreach (string path in OpenExcelFile.FileNames)
+            DataSet dataSet = new DataSet();
+            foreach (string path in filenames)
             {
-                dataSet = dataImporter.Import(path, standard);                
+             dataSet= dataImporter.Import(path,standard);
             }
-            new DataChecker(dataSet, standard).Check();
-
-            List<string> tableNames = new List<string>();
-            foreach (DataTable table in dataSet.Tables)
-            {
-                tableNames.Add(table.TableName + "数据");
-            }
-            DataLB.ItemsSource = tableNames;
+            
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
-            DataChecker checker = new DataChecker(dataSet,standard);
-            checker.Check();
-            System.Windows.MessageBox.Show("Data check result has been stored at app data folder");
-            DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
-            //manager_SQL.Data2DB(dataSet,standard);
+
         }
 
         private void SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,25 +91,8 @@ namespace iS3_DataManager
 
         private void Open_click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
-            OpenExcelFile.Multiselect = true;
-            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            OpenExcelFile.ShowDialog();
-            string[] filenames = OpenExcelFile.FileNames;
-            IDataImporter dataImporter = new DataImporter_Excel();
-
-
-            foreach (string path in filenames)
-            {
-                dataSet = dataImporter.Import(path, standard);
-            }
-            List<string> tableNames = new List<string>();
-            foreach (DataTable table in dataSet.Tables)
-            {
-                tableNames.Add(table.TableName + "数据");
-            }
-            DataLB.ItemsSource = tableNames;
-
+           
+            
         }
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
@@ -118,7 +102,7 @@ namespace iS3_DataManager
             {
                 objList.Add(item);
             }
-
+                         
             DomainDef selectedDomain = (DomainDef)DomainNameLB.SelectedItem ?? (DomainDef)DomainNameLB.Items[0];
             DomainDef domain = new DomainDef
             {
@@ -128,7 +112,7 @@ namespace iS3_DataManager
                 DGObjectContainer = objList
             };
             IDSExporter dsExporter = new TempleteExporter_Excel();//export exl templete for data input
-            dsExporter.Export(domain);
+            dsExporter.Export(domain);            
         }
 
         /// <summary>
@@ -141,49 +125,13 @@ namespace iS3_DataManager
             if (DomainNameLB.SelectedItem != null)
             {
                 ObjectNameLB.ItemsSource = ((DomainDef)DomainNameLB.SelectedItem).DGObjectContainer;
-            }
+            }            
         }
 
         private void ObjectNameLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DGObjectDef dGObject = (DGObjectDef)ObjectNameLB.SelectedItems[ObjectNameLB.SelectedItems.Count - 1];
             DescriptionLB.ItemsSource = dGObject.PropertyContainer;
-            PropertyLV.ItemsSource = dGObject.PropertyContainer;
-        }
-
-        private void DataLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedTable = DataLB.SelectedItem.ToString().Replace("数据", string.Empty);
-            int index = 0;
-            foreach (DataTable dataTable in dataSet.Tables)
-            {
-                if (dataTable.TableName == selectedTable) break;
-                else index++;
-            }
-            DataTable table = dataSet.Tables[index];
-            DataDG.ItemsSource = table.DefaultView;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            IDSImporter importer = new StandardImport_Exl();
-            if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
-        }
-
-        private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            DataTable tmpDT = ((DataView)DataDG.ItemsSource).Table;
-            int index = 0;
-            foreach (DataTable table in dataSet.Tables)
-            {
-                if (table.TableName == tmpDT.TableName) break;
-                else
-                {
-                    index++;                    
-                }
-            }
-            dataSet.Tables.RemoveAt(index);
-            dataSet.Tables.Add(tmpDT);
         }
     }
 }

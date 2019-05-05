@@ -125,10 +125,10 @@ namespace iS3_DataManager.DataManager
             else
             {
                 if (sheet.PhysicalNumberOfRows < 4) return null;
-                DataTable dt = new DataTable(objectDef.LangStr);
+                DataTable dt = new DataTable(objectDef.Code);
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
-                    dt.Columns.Add(meta.LangStr);
+                    dt.Columns.Add(meta.PropertyName);
                 }
 
                 foreach (IRow row in sheet)
@@ -139,11 +139,11 @@ namespace iS3_DataManager.DataManager
                     {
                         if (row.GetCell(i) != null)
                         {
-                            dr[meta.LangStr] = row.GetCell(i++);
+                            dr[meta.PropertyName] = row.GetCell(i++);
                         }
                         else
                         {
-                            dr[meta.LangStr] = null;
+                            dr[meta.PropertyName] = null;
                         }
                     }
                     dt.Rows.Add(dr);
