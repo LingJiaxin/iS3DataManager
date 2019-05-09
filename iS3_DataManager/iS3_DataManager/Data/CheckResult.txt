@@ -1,0 +1,271 @@
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 1456
+Data Format Error At sheet:STRA,line:1,column:1	2019/5/5 1456
+Data Format Error At sheet:STRA,line:2,column:2	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 1456
+Data Format Error At sheet:STRA,line:3,column:3	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 1456
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 1456
+Data Format Error At sheet:STRA,line:4,column:1	2019/5/5 1456
+Data Format Error At sheet:STRA,line:5,column:2	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 1456
+Data Format Error At sheet:STRA,line:6,column:3	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 1456
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_ID	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_NAME	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_PURP	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_LOCA	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_TRND	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_CLNT	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_CONT	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_MNGR	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_COND	2019/5/5 1456
+Lack of data check regulations at: PROJ .PROJ_REM	2019/5/5 1456
+Lack of data check regulations at: PROJ .FILE_FSET	2019/5/5 1456
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 1457
+Data Format Error At sheet:STRA,line:1,column:1	2019/5/5 1457
+Data Format Error At sheet:STRA,line:2,column:2	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 1457
+Data Format Error At sheet:STRA,line:3,column:3	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 1457
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 1457
+Data Format Error At sheet:STRA,line:4,column:1	2019/5/5 1457
+Data Format Error At sheet:STRA,line:5,column:2	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 1457
+Data Format Error At sheet:STRA,line:6,column:3	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 1457
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_ID	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_NAME	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_PURP	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_LOCA	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_TRND	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_CLNT	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_CONT	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_MNGR	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_COND	2019/5/5 1457
+Lack of data check regulations at: PROJ .PROJ_REM	2019/5/5 1457
+Lack of data check regulations at: PROJ .FILE_FSET	2019/5/5 1457
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 1930
+Data Format Error At sheet:STRA,line:1,column:1	2019/5/5 1930
+Data Format Error At sheet:STRA,line:2,column:2	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 1930
+Data Format Error At sheet:STRA,line:3,column:3	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 1930
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 1930
+Data Format Error At sheet:STRA,line:4,column:1	2019/5/5 1930
+Data Format Error At sheet:STRA,line:5,column:2	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 1930
+Data Format Error At sheet:STRA,line:6,column:3	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 1930
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_ID	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_NAME	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_PURP	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_LOCA	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_TRND	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_CLNT	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_CONT	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_MNGR	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_COND	2019/5/5 1930
+Lack of data check regulations at: PROJ .PROJ_REM	2019/5/5 1930
+Lack of data check regulations at: PROJ .FILE_FSET	2019/5/5 1930
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 2046
+Data Format Error At sheet:STRA,line:1,column:1	2019/5/5 2046
+Data Format Error At sheet:STRA,line:2,column:2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 2046
+Data Format Error At sheet:STRA,line:3,column:3	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 2046
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 2046
+Data Format Error At sheet:STRA,line:4,column:1	2019/5/5 2046
+Data Format Error At sheet:STRA,line:5,column:2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 2046
+Data Format Error At sheet:STRA,line:6,column:3	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 2046
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_ID	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_NAME	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_PURP	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_LOCA	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_TRND	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_CLNT	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_CONT	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_MNGR	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_COND	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_REM	2019/5/5 2046
+Lack of data check regulations at: PROJ .FILE_FSET	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 2046
+Data Format Error At sheet:STRA,line:1,column:1	2019/5/5 2046
+Data Format Error At sheet:STRA,line:2,column:2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 2046
+Data Format Error At sheet:STRA,line:3,column:3	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 2046
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_ID	2019/5/5 2046
+Data Format Error At sheet:STRA,line:4,column:1	2019/5/5 2046
+Data Format Error At sheet:STRA,line:5,column:2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_HDFW	2019/5/5 2046
+Data Format Error At sheet:STRA,line:6,column:3	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_YTWZ	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DESC	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO1	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_GEO2	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STAT	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DSRG	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DIR	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COLO	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_CAUS	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_COMP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_STRU	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_DEGW	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_PHYP	2019/5/5 2046
+Lack of data check regulations at: STRA.STRA_MECP	2019/5/5 2046
+Lack of data check regulations at: STRA.FILE_FSET	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_ID	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_NAME	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_PURP	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_LOCA	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_TRND	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_CLNT	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_CONT	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_MNGR	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_COND	2019/5/5 2046
+Lack of data check regulations at: PROJ .PROJ_REM	2019/5/5 2046
+Lack of data check regulations at: PROJ .FILE_FSET	2019/5/5 2046
+Data Format Error At sheet:STRA,line:1,column:1\t	2019/5/5 2117
+Data Format Error At sheet:STRA,line:2,column:2\t	2019/5/5 2117
+Data Format Error At sheet:STRA,line:3,column:3\t	2019/5/5 2117
+Data Format Error At sheet:STRA,line:4,column:1\t	2019/5/5 2117
+Data Format Error At sheet:STRA,line:5,column:2\t	2019/5/5 2117
+Data Format Error At sheet:STRA,line:6,column:3\t	2019/5/5 2117

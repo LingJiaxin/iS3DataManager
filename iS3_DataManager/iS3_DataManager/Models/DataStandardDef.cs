@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace iS3_DataManager.Models
 {
-    public class DataStandardDef:LangBase, INotifyPropertyChanged
+    public class DataStandardDef:LangBase
     {
         public string Code { get; set; }
         public string Description { get; set; }
@@ -16,17 +16,23 @@ namespace iS3_DataManager.Models
         public DataStandardDef()
         {
             DomainContainer = new List<DomainDef>();
-        }
+        }        
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public DGObjectDef getDGObjectDefByCode(string Code)
+        public DGObjectDef GetDGObjectDefByCode(string Code)
         {
             foreach (var domain in DomainContainer)
             {
                 return domain.DGObjectContainer.Find(DGObject => DGObject.Code == Code);
             }
             return null;            
+        }
+        public DGObjectDef GetDGObjectDefByName(string name)
+        {
+            foreach (var domain in DomainContainer)
+            {
+                return domain.DGObjectContainer.Find(DGObject => DGObject.LangStr == name);
+            }
+            return null;
         }
     }
 }

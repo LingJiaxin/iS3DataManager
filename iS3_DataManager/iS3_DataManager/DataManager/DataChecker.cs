@@ -34,13 +34,13 @@ namespace iS3_DataManager.DataManager
                     DomainDef domain = standardDef.DomainContainer.Find(x => x.Code == dataSet.DataSetName);
                     foreach (DataTable table in dataSet.Tables)
                     {
-                        DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == table.TableName);
+                        DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.LangStr == table.TableName);
                         CheckRows(table, objectDef);
                     }
                 }
                 else if (dataTable != null)
                 {
-                    DGObjectDef objectDef = standardDef.getDGObjectDefByCode(dataTable.TableName);
+                    DGObjectDef objectDef = standardDef.GetDGObjectDefByName(dataTable.TableName);
                     CheckRows(dataTable, objectDef);
                 }
                 return true;
@@ -56,7 +56,7 @@ namespace iS3_DataManager.DataManager
         private bool CheckRows(DataTable table, DGObjectDef objectDef)
         {
             DirectoryInfo localPath = new DirectoryInfo( AppDomain.CurrentDomain.BaseDirectory);
-            string path = localPath.Parent.Parent+@"\Data\" + "CheckResult.txt";
+            string path = localPath.Parent.Parent.FullName+@"\Data\" + "CheckResult.txt";
             FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
             fs.Close();
             StreamWriter streamWriter = new StreamWriter(path: path, append: true);
@@ -69,26 +69,26 @@ namespace iS3_DataManager.DataManager
                     string time = "\t" + DateTime.Now.ToShortDateString().ToString() + " " + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
                     if (meta.RegularExp != null)
                     {
-                        if (row[meta.PropertyName] != null & !Regex.IsMatch(row[meta.PropertyName].ToString(), meta.RegularExp))
+                        if (row[meta.LangStr] != null & !Regex.IsMatch(row[meta.LangStr].ToString(), meta.RegularExp))
                         {
                             string message = "Data Format Error At sheet:" + objectDef.Code;
                             message += ",line:" + line++.ToString();
                             message += ",column:" + column++.ToString();
-                            message += time;
+                            message += (@"\t"+time);
                             streamWriter.WriteLine(message);
                         }
                     }
                     else
                     {
-                        string message = "Lack of data check regulations at: " + objectDef.Code+"."+meta.PropertyName;
-                        message += time;
-                        streamWriter.WriteLine(message);
+                        //string message = "Lack of data check regulations at: " + objectDef.Code+"."+meta.PropertyName;
+                        //message += time;
+                        //streamWriter.WriteLine(message);
                     }
                 }
             }
             streamWriter.Flush();
             streamWriter.Close();
-            return false;
+            return true;
         }
     }
 }

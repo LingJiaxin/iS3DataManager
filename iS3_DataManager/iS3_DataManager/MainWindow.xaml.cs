@@ -47,30 +47,32 @@ namespace iS3_DataManager
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
             OpenExcelFile.Multiselect = true;
             OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            OpenExcelFile.ShowDialog();
-            if (OpenExcelFile.FileNames == null) return;
-            IDataImporter dataImporter = new DataImporter_Excel();
-
-            foreach (string path in OpenExcelFile.FileNames)
+            if (OpenExcelFile.ShowDialog() == true)
             {
-                dataSet = dataImporter.Import(path, standard);                
-            }
-            new DataChecker(dataSet, standard).Check();
+                IDataImporter dataImporter = new DataImporter_Excel();
 
-            List<string> tableNames = new List<string>();
-            foreach (DataTable table in dataSet.Tables)
-            {
-                tableNames.Add(table.TableName + "数据");
+                foreach (string path in OpenExcelFile.FileNames)
+                {
+                    dataSet = dataImporter.Import(path, standard);
+                }
+                new DataChecker(dataSet, standard).Check();
+
+                List<string> tableNames = new List<string>();
+                foreach (DataTable table in dataSet.Tables)
+                {
+                    tableNames.Add(table.TableName + "数据");
+                }
+                DataLB.ItemsSource = tableNames;
             }
-            DataLB.ItemsSource = tableNames;
+
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
-            DataChecker checker = new DataChecker(dataSet,standard);
+            DataChecker checker = new DataChecker(dataSet, standard);
             checker.Check();
             System.Windows.MessageBox.Show("Data check result has been stored at app data folder");
-            DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
+            //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);
         }
 
@@ -127,7 +129,8 @@ namespace iS3_DataManager
                 Desciption = selectedDomain.Desciption,
                 DGObjectContainer = objList
             };
-            IDSExporter dsExporter = new TempleteExporter_Excel();//export exl templete for data input
+            //export exl templete for data input
+            IDSExporter dsExporter = new TempleteExporter_Excel();
             dsExporter.Export(domain);
         }
 
@@ -179,8 +182,8 @@ namespace iS3_DataManager
                 if (table.TableName == tmpDT.TableName) break;
                 else
                 {
-                    index++;                    
-                }
+                    index++;
+                }                
             }
             dataSet.Tables.RemoveAt(index);
             dataSet.Tables.Add(tmpDT);

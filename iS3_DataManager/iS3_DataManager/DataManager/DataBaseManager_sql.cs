@@ -14,12 +14,18 @@ namespace iS3_DataManager.DataManager
     public class DataBaseManager_SQL : IDataBaseManager
     {
         
-        readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|GeologyDB.mdf;Integrated Security=True;Connect Timeout=30";
+        readonly string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\GitHub\Respositories\iS3_DataManager\iS3_DataManager\Data\GeologyDB.mdf;Integrated Security=True;Connect Timeout=30";
 
         public bool CreatTable(DataStandardDef standardDef)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-
+            foreach (DomainDef domain in standardDef.DomainContainer)
+            {
+                foreach (DGObjectDef item in domain.DGObjectContainer)
+                {
+                    string sql_create = "CREATE TABLE " + item.Code+"(";                    
+                }
+            }
             return false;
         }
         public void Data2DB(DataSet ds, DataStandardDef standardDef)

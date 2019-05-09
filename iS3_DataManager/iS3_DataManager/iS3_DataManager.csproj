@@ -119,7 +119,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataManager\DataBaseManager_SQL.cs" />
     <Compile Include="DataManager\DataChecker.cs" />
     <Compile Include="DataManager\TempleteExporter_Excel.cs" />
     <Compile Include="DataManager\DataImporter_Excel.cs" />
@@ -195,13 +194,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GeologyDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="GeologyDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>GeologyDB.mdf</DependentUpon>
-    </Content>
     <Resource Include="image\background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
