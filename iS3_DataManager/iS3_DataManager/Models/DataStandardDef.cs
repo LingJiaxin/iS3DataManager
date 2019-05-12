@@ -20,7 +20,7 @@ namespace iS3_DataManager.Models
 
         public DGObjectDef GetDGObjectDefByCode(string Code)
         {
-            foreach (var domain in DomainContainer)
+            foreach (DomainDef domain in DomainContainer)
             {
                 return domain.DGObjectContainer.Find(DGObject => DGObject.Code == Code);
             }

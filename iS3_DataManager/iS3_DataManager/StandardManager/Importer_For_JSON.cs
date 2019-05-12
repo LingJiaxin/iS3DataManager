@@ -4,6 +4,7 @@ using iS3_DataManager.Interface;
 using iS3_DataManager.Models;
 using Newtonsoft.Json;
 using System.Text;
+using iS3_DataManager.StandardManager;
 
 namespace iS3_DataManager.StandardManager
 {
@@ -57,7 +58,7 @@ namespace iS3_DataManager.StandardManager
         public DataStandardDef ReadJson(string path)
         {
             
-            var fullPath = Directory.GetFiles(path, "*.json");
+            var fullPath = Directory.GetFiles(path, "RockTunnel.json");
 
             if ((fullPath[0] != null))
             {
@@ -74,5 +75,6 @@ namespace iS3_DataManager.StandardManager
                 return null;
             }
         }
+       
     }
 }

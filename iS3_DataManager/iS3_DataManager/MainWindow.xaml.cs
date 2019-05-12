@@ -6,6 +6,7 @@ using iS3_DataManager.Interface;
 using iS3_DataManager.DataManager;
 using iS3_DataManager.StandardManager;
 using System.Data;
+using System.Linq;
 
 namespace iS3_DataManager
 {
@@ -14,7 +15,8 @@ namespace iS3_DataManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DataStandardDef standard { get; set; }
+        private DataStandardDef Standard { get; set; }
+        private DataStandardDef NewDataStandard { get; set; }
         DataSet dataSet { get; set; }
         public MainWindow()
         {
@@ -27,18 +29,33 @@ namespace iS3_DataManager
         {
             //IDSImporter importer = new StandardImport_Exl();
             //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
+                        
+           // StandardFilter filter = new StandardFilter();
+            //new Exporter_For_JSON().Export(filter);
             StandardLoader standardLoader = new StandardLoader();
-            standard = standardLoader.GetStandard();
+            Standard = standardLoader.GetStandard();
 
-            if (standard != null)
-            {
-                DomainNameLB.ItemsSource = standard.DomainContainer;
-                if (standard.DomainContainer.Count <= 1)
-                {
-                    ObjectNameLB.ItemsSource = standard.DomainContainer[0].DGObjectContainer;
-                }
-            }
-
+            StandardFilter filter = standardLoader.CreateFilter();
+            ////TunnelTypeCB.ItemsSource = filter.Tunnels;
+            ShowTreeView(filter);
+            //NewDataStandard=filter.Filter(Standard, "longTunnel", "Exploration");
+            //new Exporter_For_JSON().Export(filter);
+            //if (Standard != null)
+            //{
+            //    DomainNameLB.ItemsSource = Standard.DomainContainer;
+            //    if (Standard.DomainContainer.Count <= 1)
+            //    {
+            //        ObjectNameLB.ItemsSource = Standard.DomainContainer[0].DGObjectContainer;
+            //    }
+            //}
+            //if(NewDataStandard!=null)
+            //{
+            //    DomainNameLB.ItemsSource = NewDataStandard.DomainContainer;
+            //    if (NewDataStandard.DomainContainer.Count <= 1)
+            //    {
+            //        ObjectNameLB.ItemsSource = NewDataStandard.DomainContainer[0].DGObjectContainer;
+            //    }
+            //}
 
         }
 
@@ -53,23 +70,22 @@ namespace iS3_DataManager
 
                 foreach (string path in OpenExcelFile.FileNames)
                 {
-                    dataSet = dataImporter.Import(path, standard);
+                    dataSet = dataImporter.Import(path, Standard);
                 }
-                new DataChecker(dataSet, standard).Check();
+                new DataChecker(dataSet, Standard).Check();
 
                 List<string> tableNames = new List<string>();
                 foreach (DataTable table in dataSet.Tables)
                 {
                     tableNames.Add(table.TableName + "数据");
                 }
-                DataLB.ItemsSource = tableNames;
+                //DataLB.ItemsSource = tableNames;
             }
-
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
-            DataChecker checker = new DataChecker(dataSet, standard);
+            DataChecker checker = new DataChecker(dataSet, Standard);
             checker.Check();
             System.Windows.MessageBox.Show("Data check result has been stored at app data folder");
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
@@ -90,6 +106,11 @@ namespace iS3_DataManager
             }
         }
 
+        /// <summary>
+        /// import Data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Open_click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
@@ -102,36 +123,36 @@ namespace iS3_DataManager
 
             foreach (string path in filenames)
             {
-                dataSet = dataImporter.Import(path, standard);
+                dataSet = dataImporter.Import(path, Standard);
             }
             List<string> tableNames = new List<string>();
             foreach (DataTable table in dataSet.Tables)
             {
                 tableNames.Add(table.TableName + "数据");
             }
-            DataLB.ItemsSource = tableNames;
+            //DataLB.ItemsSource = tableNames;
 
         }
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
         {
-            List<DGObjectDef> objList = new List<DGObjectDef>();
-            foreach (DGObjectDef item in ObjectNameLB.SelectedItems)
-            {
-                objList.Add(item);
-            }
+            //List<DGObjectDef> objList = new List<DGObjectDef>();
+            //foreach (DGObjectDef item in ObjectNameLB.SelectedItems)
+            //{
+            //    objList.Add(item);
+            //}
 
-            DomainDef selectedDomain = (DomainDef)DomainNameLB.SelectedItem ?? (DomainDef)DomainNameLB.Items[0];
-            DomainDef domain = new DomainDef
-            {
-                Code = selectedDomain.Code,
-                LangStr = selectedDomain.LangStr,
-                Desciption = selectedDomain.Desciption,
-                DGObjectContainer = objList
-            };
-            //export exl templete for data input
-            IDSExporter dsExporter = new TempleteExporter_Excel();
-            dsExporter.Export(domain);
+            //DomainDef selectedDomain = (DomainDef)DomainNameLB.SelectedItem ?? (DomainDef)DomainNameLB.Items[0];
+            //DomainDef domain = new DomainDef
+            //{
+            //    Code = selectedDomain.Code,
+            //    LangStr = selectedDomain.LangStr,
+            //    Desciption = selectedDomain.Desciption,
+            //    DGObjectContainer = objList
+            //};
+            ////export exl templete for data input
+            //IDSExporter dsExporter = new TempleteExporter_Excel();
+            //dsExporter.Export(domain);
         }
 
         /// <summary>
@@ -139,33 +160,36 @@ namespace iS3_DataManager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DomainName_Click(object sender, RoutedEventArgs e)
-        {
-            if (DomainNameLB.SelectedItem != null)
-            {
-                ObjectNameLB.ItemsSource = ((DomainDef)DomainNameLB.SelectedItem).DGObjectContainer;
-            }
-        }
+        //private void DomainName_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (DomainNameLB.SelectedItem != null)
+        //    {
+        //        ObjectNameLB.ItemsSource = ((DomainDef)DomainNameLB.SelectedItem).DGObjectContainer;
+        //    }
+        //}
 
-        private void ObjectNameLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DGObjectDef dGObject = (DGObjectDef)ObjectNameLB.SelectedItems[ObjectNameLB.SelectedItems.Count - 1];
-            DescriptionLB.ItemsSource = dGObject.PropertyContainer;
-            PropertyLV.ItemsSource = dGObject.PropertyContainer;
-        }
+        //private void ObjectNameLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (ObjectNameLB.SelectedItems.Count > 0)
+        //    {
+        //        DGObjectDef dGObject = (DGObjectDef)ObjectNameLB.SelectedItems[ObjectNameLB.SelectedItems.Count - 1];
+        //        PropertyLV.ItemsSource = dGObject.PropertyContainer;
+        //    }
 
-        private void DataLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedTable = DataLB.SelectedItem.ToString().Replace("数据", string.Empty);
-            int index = 0;
-            foreach (DataTable dataTable in dataSet.Tables)
-            {
-                if (dataTable.TableName == selectedTable) break;
-                else index++;
-            }
-            DataTable table = dataSet.Tables[index];
-            DataDG.ItemsSource = table.DefaultView;
-        }
+        //}
+
+        //private void DataLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    string selectedTable = DataLB.SelectedItem.ToString().Replace("数据", string.Empty);
+        //    int index = 0;
+        //    foreach (DataTable dataTable in dataSet.Tables)
+        //    {
+        //        if (dataTable.TableName == selectedTable) break;
+        //        else index++;
+        //    }
+        //    DataTable table = dataSet.Tables[index];
+        //    DataDG.ItemsSource = table.DefaultView;
+        //}
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -173,20 +197,47 @@ namespace iS3_DataManager
             if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
         }
 
-        private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        //private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        //{
+        //    DataTable tmpDT = ((DataView)DataDG.ItemsSource).Table;
+        //    int index = 0;
+        //    foreach (DataTable table in dataSet.Tables)
+        //    {
+        //        if (table.TableName == tmpDT.TableName) break;
+        //        else
+        //        {
+        //            index++;
+        //        }                
+        //    }
+        //    dataSet.Tables.RemoveAt(index);
+        //    dataSet.Tables.Add(tmpDT);
+        //}
+        
+        public void ShowTreeView(StandardFilter filter)
         {
-            DataTable tmpDT = ((DataView)DataDG.ItemsSource).Table;
-            int index = 0;
-            foreach (DataTable table in dataSet.Tables)
+            
+            foreach(var tunnel in filter.Tunnels)
             {
-                if (table.TableName == tmpDT.TableName) break;
-                else
+                TreeViewItem tunnelTreeView = new TreeViewItem();
+                tunnelTreeView.Header=tunnel.TunnelType;
+                foreach (var stage in tunnel.Stages)
                 {
-                    index++;
-                }                
+                    TreeViewItem stageTreeView = new TreeViewItem();
+                    stageTreeView.Header = stage.StageName;
+                    foreach(var category in stage.Categories)
+                    {
+                        TreeViewItem categoryTreeView = new TreeViewItem ();
+                        categoryTreeView.Header = category.CategoryName;
+                        stageTreeView.Items.Add(categoryTreeView);
+                    }   
+                    tunnelTreeView.Items.Add(stageTreeView);
+                }
+                DataTemplateTreeview.Items.Add(tunnelTreeView);
             }
-            dataSet.Tables.RemoveAt(index);
-            dataSet.Tables.Add(tmpDT);
+            
         }
+        
+
+        
     }
 }

@@ -79,8 +79,8 @@ namespace iS3_DataManager.StandardManager
                 bool Nullable = row.GetCell(9)?.ToString() == null ? true : row.GetCell(9).ToString() != "FALSE";
                 string unit = row.GetCell(10)?.ToString();
                 string regularExp = row.GetCell(11)?.ToString();
-                string proDes = row.GetCell(12)?.ToString();
-                string proLanStr = row.GetCell(13)?.ToString();
+                string proLanStr = row.GetCell(12)?.ToString();
+                string  proDes = row.GetCell(13)?.ToString();
 
                 
                 DomainDef domain = null;
