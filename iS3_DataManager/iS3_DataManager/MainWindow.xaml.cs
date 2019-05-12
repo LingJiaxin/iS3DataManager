@@ -18,6 +18,8 @@ namespace iS3_DataManager
         private DataStandardDef Standard { get; set; }
         private DataStandardDef NewDataStandard { get; set; }
         DataSet dataSet { get; set; }
+        StandardFilter filter { get; set; }
+        DataStandardDef filteredStandard { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -29,33 +31,14 @@ namespace iS3_DataManager
         {
             //IDSImporter importer = new StandardImport_Exl();
             //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
-                        
-           // StandardFilter filter = new StandardFilter();
+
+            // StandardFilter filter = new StandardFilter();
             //new Exporter_For_JSON().Export(filter);
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
 
-            StandardFilter filter = standardLoader.CreateFilter();
-            ////TunnelTypeCB.ItemsSource = filter.Tunnels;
-            ShowTreeView(filter);
-            //NewDataStandard=filter.Filter(Standard, "longTunnel", "Exploration");
-            //new Exporter_For_JSON().Export(filter);
-            //if (Standard != null)
-            //{
-            //    DomainNameLB.ItemsSource = Standard.DomainContainer;
-            //    if (Standard.DomainContainer.Count <= 1)
-            //    {
-            //        ObjectNameLB.ItemsSource = Standard.DomainContainer[0].DGObjectContainer;
-            //    }
-            //}
-            //if(NewDataStandard!=null)
-            //{
-            //    DomainNameLB.ItemsSource = NewDataStandard.DomainContainer;
-            //    if (NewDataStandard.DomainContainer.Count <= 1)
-            //    {
-            //        ObjectNameLB.ItemsSource = NewDataStandard.DomainContainer[0].DGObjectContainer;
-            //    }
-            //}
+            filter= standardLoader.CreateFilter();
+            ShowTreeView(filter);          
 
         }
 
@@ -212,32 +195,85 @@ namespace iS3_DataManager
         //    dataSet.Tables.RemoveAt(index);
         //    dataSet.Tables.Add(tmpDT);
         //}
-        
+
         public void ShowTreeView(StandardFilter filter)
         {
-            
-            foreach(var tunnel in filter.Tunnels)
+
+            foreach (var tunnel in filter.Tunnels)
             {
                 TreeViewItem tunnelTreeView = new TreeViewItem();
-                tunnelTreeView.Header=tunnel.LangStr;
-                foreach (var stage in tunnel.Stages)
+                tunnelTreeView.Header = tunnel.LangStr;
+                tunnelTreeView.ExpandSubtree();
+                foreach (Stage stage in tunnel.Stages)
                 {
                     TreeViewItem stageTreeView = new TreeViewItem();
                     stageTreeView.Header = stage.LangStr;
-                    foreach(var category in stage.Categories)
+                    stageTreeView.ExpandSubtree();
+                    foreach (Category category in stage.Categories)
                     {
-                        TreeViewItem categoryTreeView = new TreeViewItem ();
+                        TreeViewItem categoryTreeView = new TreeViewItem();
                         categoryTreeView.Header = category.LangStr;
+                        categoryTreeView.ExpandSubtree();                        
                         stageTreeView.Items.Add(categoryTreeView);
-                    }   
+                    }
                     tunnelTreeView.Items.Add(stageTreeView);
                 }
                 DataTemplateTreeview.Items.Add(tunnelTreeView);
             }
+
+        }
+
+        private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (DataTemplateTreeview.SelectedItem != null)
+            {
+                TreeViewItem selectedTreeView = (TreeViewItem)DataTemplateTreeview.SelectedItem;
+                if (selectedTreeView.Items.Count < 1)
+                {
+                    string categoryName = selectedTreeView.Header.ToString();
+                    TreeViewItem stageTreeView =(TreeViewItem)selectedTreeView.Parent;
+                    string stageName = stageTreeView.Header.ToString();
+                    TreeViewItem tunnelTreeView = (TreeViewItem)stageTreeView.Parent;
+                    string tunnelType = tunnelTreeView.Header.ToString();
+                    //filter standard by select condition
+                    filteredStandard= filter.Filter(Standard, tunnelType, stageName,categoryName);//Post loading technique
+
+                    TreeViewItem objTreeView = new TreeViewItem();
+                    foreach(DGObjectDef dGObject in filteredStandard.DomainContainer[0].DGObjectContainer)
+                    {
+                        objTreeView.Items.Add(dGObject.LangStr);
+                    }
+                    
+                    
+                }
+                else
+                {
+                    if (IsStageTreeView(selectedTreeView))
+                    {
+                        string stageName = selectedTreeView.Header.ToString();
+                        TreeViewItem tunnelTreeView = (TreeViewItem)selectedTreeView.Parent;
+                        string tunnelType = tunnelTreeView.Header.ToString();
+                        filteredStandard = filter.Filter(Standard, tunnelType, stageName);
+                    }
+                }
+                List<DGObjectDef> dGObjects = new List<DGObjectDef>();
+                foreach(DomainDef domain in filteredStandard.DomainContainer)
+                {
+                    foreach (DGObjectDef item in domain.DGObjectContainer)
+                    {
+                        dGObjects.Add(item);
+                    }
+                }
+                //PropertyLV.ItemsSource = dGObjects;
+            }
             
         }
-        
-
-        
+        bool IsStageTreeView(TreeViewItem treeView)
+        {
+            string stage1 = "勘察阶段";
+            string stage2 = "施工阶段";
+            string name = treeView.Header.ToString();
+            return name==stage1|name==stage2;
+        }
     }
 }

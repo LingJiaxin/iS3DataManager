@@ -12,13 +12,23 @@ namespace iS3_DataManager.StandardManager
         {
             Tunnels = new List<Tunnel>();
         }
-        public DataStandardDef Filter(DataStandardDef dataStandard,string tunnelType=null,string constructionStage=null)
+
+
+        /// <summary>
+        /// generate New DateStandard by filter conditon
+        /// </summary>
+        /// <param name="dataStandard">Common DataStand with all items in it </param>
+        /// <param name="tunnelType">tunnel type in Chinese </param>
+        /// <param name="constructionStage"></param>
+        /// <param name="categoryName"></param>
+        /// <returns></returns>
+        public DataStandardDef Filter(DataStandardDef dataStandard,string tunnelType=null,string constructionStage=null,string categoryName=null)
         {
             try
             {
                 if (tunnelType != null)
                 {
-                    Tunnel tunnel = Tunnels.Find(x => x.TunnelType == tunnelType);
+                    Tunnel tunnel = Tunnels.Find(x => x.LangStr == tunnelType);
                     DataStandardDef newStandard = new DataStandardDef()
                     {
                         Code = tunnel.TunnelType,
@@ -27,15 +37,27 @@ namespace iS3_DataManager.StandardManager
 
                     if (constructionStage != null)
                     {
-                        Stage stage = tunnel.Stages.Find(x => x.StageName == constructionStage);
-                        Filter2Standard(stage, ref newStandard,dataStandard);
+                        Stage stage = tunnel.Stages.Find(x => x.LangStr == constructionStage);
+                        if (categoryName != null)
+                        {
+                            Category category = stage.Categories.Find(x => x.LangStr == categoryName);
+                            Filter2Standard(category, ref newStandard, dataStandard);
+                        }
+                        else
+                        {
+                            foreach (var item in stage.Categories)
+                            {
+                                Filter2Standard(item, ref newStandard, dataStandard);
+                            }
+                        }
                         return newStandard;
                     }
                     else
                     {                        
                         foreach (Stage stage in tunnel.Stages)
                         {
-                            Filter2Standard(stage, ref newStandard,dataStandard);
+                            foreach(Category category in stage.Categories)
+                            Filter2Standard(category, ref newStandard,dataStandard);
                         }
                         return newStandard;
                     }
@@ -47,7 +69,11 @@ namespace iS3_DataManager.StandardManager
                     {
                         foreach(Stage stage in tunnel.Stages)
                         {
-                            Filter2Standard(stage, ref newStandard,dataStandard);
+                            foreach (Category category in stage.Categories)
+                            {
+                                Filter2Standard(category, ref newStandard, dataStandard);
+                            }
+                           
                         }
                     }
                     return newStandard;
@@ -58,10 +84,9 @@ namespace iS3_DataManager.StandardManager
                 throw e;
             }
         }
-        public void Filter2Standard(Stage stage,ref DataStandardDef standardDef,DataStandardDef dataStandard)
-        {
-            foreach (var category in stage.Categories)
-            {
+
+        private void Filter2Standard(Category category,ref DataStandardDef standardDef,DataStandardDef dataStandard)
+        {            
                 DomainDef domain = new DomainDef()
                 {
                     Code = category.CategoryName,
@@ -73,7 +98,19 @@ namespace iS3_DataManager.StandardManager
                     domain.DGObjectContainer.Add(objectDef);
                 }
                 standardDef.DomainContainer.Add(domain);
+            
+        }
+
+        public Category GetCategoryByName(string categoryName)
+        {
+            foreach (Tunnel tunnel in Tunnels)
+            {
+                foreach (Stage stage in tunnel.Stages)
+                {
+                    return stage.Categories.Find(x => x.LangStr == categoryName);
+                }
             }
+            return null;
         }
     }
     

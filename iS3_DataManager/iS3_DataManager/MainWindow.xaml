@@ -102,20 +102,23 @@
                     <ListView.View>
                         <GridView>
                             <!--Property-->
-                            <GridViewColumn Header="Property" Width="60" DisplayMemberBinding="{Binding LangStr}"/>
-                            <!--PropertyName-->
-                            <GridViewColumn Header="PropertyName" Width="80" DisplayMemberBinding="{Binding PropertyName}"/>
-                            <!--DataType-->
-                            <GridViewColumn Header="DataType"  Width="80" DisplayMemberBinding="{Binding DataType}"/>
-                            <!--Unit-->
-                            <GridViewColumn Header="Unit" Width="50" DisplayMemberBinding="{Binding Unit}"/>
-                            <!--Description-->
-                            <GridViewColumn Header="Description" Width="80" DisplayMemberBinding="{Binding Description}"/>
+                                 <GridViewColumn Header="Property" Width="60" DisplayMemberBinding="{Binding LangStr}"/>
+                                 <!--PropertyName-->
+                                 <GridViewColumn Header="PropertyName" Width="80" DisplayMemberBinding="{Binding PropertyName}"/>
+                                 <!--DataType-->
+                                 <GridViewColumn Header="DataType"  Width="80" DisplayMemberBinding="{Binding DataType}"/>
+                                 <!--Unit-->
+                                 <GridViewColumn Header="Unit" Width="50" DisplayMemberBinding="{Binding Unit}"/>
+                                 <!--Description-->
+                                 <GridViewColumn Header="Description" Width="80" DisplayMemberBinding="{Binding Description}"/>
+                            
                         </GridView>
                     </ListView.View>
                     <System:String>Export Data Template</System:String>
                 </ListView>
-                <TreeView Grid.Column="0" x:Name="DataTemplateTreeview" Margin="10,0,14,0"/>
+                <TreeView Grid.Column="0" x:Name="DataTemplateTreeview" Margin="10,0,14,0" SelectedItemChanged="DataTemplateTreeview_SelectedItemChanged">
+
+                </TreeView>
             </Grid>
             <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
         </Grid>
