@@ -219,15 +219,15 @@ namespace iS3_DataManager
             foreach(var tunnel in filter.Tunnels)
             {
                 TreeViewItem tunnelTreeView = new TreeViewItem();
-                tunnelTreeView.Header=tunnel.TunnelType;
+                tunnelTreeView.Header=tunnel.LangStr;
                 foreach (var stage in tunnel.Stages)
                 {
                     TreeViewItem stageTreeView = new TreeViewItem();
-                    stageTreeView.Header = stage.StageName;
+                    stageTreeView.Header = stage.LangStr;
                     foreach(var category in stage.Categories)
                     {
                         TreeViewItem categoryTreeView = new TreeViewItem ();
-                        categoryTreeView.Header = category.CategoryName;
+                        categoryTreeView.Header = category.LangStr;
                         stageTreeView.Items.Add(categoryTreeView);
                     }   
                     tunnelTreeView.Items.Add(stageTreeView);

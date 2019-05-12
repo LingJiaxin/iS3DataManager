@@ -5,10 +5,10 @@
 		[
 			{
 				"StageName":"Exploration",
-				"Catagories":
+				"Categories":
 				[
 					{
-						"CatagoryName":"BasicInformation",
+						"CategoryName":"BasicInformation",
 						"objList":
 						[
 							"PROJ",
@@ -21,7 +21,7 @@
 						"LangStr":"基础数据表"
 					},
 					{
-					 	"CatagoryName":"GeologicalMapping",
+					 	"CategoryName":"GeologicalMapping",
 						"objList":
 						[
 							"HYDR",
@@ -47,7 +47,7 @@
 			 			"LangStr":"地质调绘"
 					},
 					{
-					 	"CatagoryName":"GeologicalExploration",
+					 	"CategoryName":"GeologicalExploration",
 						"objList":
 						[
 							"HDPH",
@@ -62,7 +62,7 @@
 			 			"LangStr":"地质勘探"
 					},
 					{
-					 	"CatagoryName":"InSituTest",
+					 	"CategoryName":"InSituTest",
 						"objList":
 						[
 							"PLTG",
@@ -78,7 +78,7 @@
 			 			"LangStr":"原位试验"
 					},
 					{
-					 	"CatagoryName":"InDoorTest",
+					 	"CategoryName":"InDoorTest",
 						"objList":
 						[
 							"RMDT",
@@ -104,16 +104,16 @@
 			},
 			{
 				"StageName":"Construction",
-				"Catagories":
+				"Categories":
 				[
 					{
-						"CatagoryName":"SupplementaryInvestigation",
+						"CategoryName":"SupplementaryInvestigation",
 						"objList":
 						["SUSS",],
 						"LangStr":"补充调查",
 					},
 					{
-						"CatagoryName":"AdvancedGeologicalExploration",
+						"CategoryName":"AdvancedGeologicalExploration",
 						"objList":
 						[							
 							"GFBI",
@@ -126,7 +126,7 @@
 						"LangStr":"超前地质勘探"
 					},
 					{
-						"CatagoryName":
+						"CategoryName":
 						"TunnelFaceInformation",
 						"objList":
 						[							
@@ -137,7 +137,7 @@
 						"LangStr":"掌子面信息"
 					},
 					{
-						"CatagoryName":
+						"CategoryName":
 						"OutFlow",
 						"objList":
 						[							

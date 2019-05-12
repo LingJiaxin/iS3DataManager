@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:iS3_DataManager"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="iS3_DataManager.MainWindow"
         mc:Ignorable="d"
-        Title="iS3团标工具" Height="400" Width="600">
+        Title="iS3团标工具" Height="400" Width="665">
     <Window.Resources>
         <Style TargetType="{x:Type ListBoxItem}" x:Key="ListBoxItemStyle">
             <Setter Property="Foreground" Value="White"/>
@@ -98,21 +98,26 @@
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="350"/>
                 </Grid.ColumnDefinitions>
-                <ListView x:Name="PropertyLV" Margin="28,0,29.5,0" >
+                <ListView x:Name="PropertyLV" Margin="10,0,-13,0" Width="353" Grid.Column="1" HorizontalAlignment="Left" >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Property" DisplayMemberBinding="{Binding LangStr}"/>
-                            <GridViewColumn Header="PropertyName" DisplayMemberBinding="{Binding PropertyName}"/>
-                            <GridViewColumn Header="DataType" DisplayMemberBinding="{Binding DataType}"/>
-                            <GridViewColumn Header="Unit" DisplayMemberBinding="{Binding Unit}"/>
-                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            <!--Property-->
+                            <GridViewColumn Header="Property" Width="60" DisplayMemberBinding="{Binding LangStr}"/>
+                            <!--PropertyName-->
+                            <GridViewColumn Header="PropertyName" Width="80" DisplayMemberBinding="{Binding PropertyName}"/>
+                            <!--DataType-->
+                            <GridViewColumn Header="DataType"  Width="80" DisplayMemberBinding="{Binding DataType}"/>
+                            <!--Unit-->
+                            <GridViewColumn Header="Unit" Width="50" DisplayMemberBinding="{Binding Unit}"/>
+                            <!--Description-->
+                            <GridViewColumn Header="Description" Width="80" DisplayMemberBinding="{Binding Description}"/>
                         </GridView>
                     </ListView.View>
                     <System:String>Export Data Template</System:String>
                 </ListView>
-                <TreeView Grid.Column="0" x:Name="DataTemplateTreeview"/>
+                <TreeView Grid.Column="0" x:Name="DataTemplateTreeview" Margin="10,0,14,0"/>
             </Grid>
-            <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right"/>
+            <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
         </Grid>
         <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Visible">
             <Grid.ColumnDefinitions>
