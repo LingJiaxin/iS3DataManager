@@ -131,7 +131,7 @@ namespace iS3_DataManager
             {
                 tableNames.Add(table.TableName + "数据");
             }
-            //DataLB.ItemsSource = tableNames;
+            DataHeaderLB.ItemsSource = tableNames;
 
         }
 
@@ -212,8 +212,11 @@ namespace iS3_DataManager
             DGObjectDef dGObjectDef = Standard.GetDGObjectDefByName(objName);
             PropertyLV.ItemsSource = null;
             PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
+        }       
+
+        private void DataHeaderLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
-
-
     }
 }
