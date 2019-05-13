@@ -7,7 +7,7 @@
         xmlns:viewManager="clr-namespace:iS3_DataManager.ViewManager"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="iS3_DataManager.MainWindow"
         mc:Ignorable="d"
-        Title="iS3团标工具" Height="400" Width="763.333">
+        Title="iS3团标工具" Height="400" Width="665">
     <Window.Resources>
         <Style TargetType="{x:Type ListBoxItem}" x:Key="ListBoxItemStyle">
             <Setter Property="Foreground" Value="White"/>
@@ -36,19 +36,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <ToolTip x:Key="InforTip">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Name：" />
-                <TextBlock Text="{Binding Path=Name}"/>
-                <TextBlock Text="Type：" />
-                <TextBlock Text="{Binding Path=ClassDisplayText}"/>
-            </StackPanel>
-        </ToolTip>
     </Window.Resources>
     <Window.Background>
         <ImageBrush ImageSource="image/background.jpg"/>
     </Window.Background>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -94,8 +85,8 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
                 <TextBlock Text="Domain:" Margin="20,0,0,0"/>
-                <TextBlock Text="Description:" Margin="230,0,40,0"/>
                 <!--<TextBlock Text="Object:" Margin="20,0,40,0"/>-->
+                <TextBlock Text="Description:" Margin="140,0,40,0"/>
             </StackPanel>
             <!--<StackPanel Orientation="Horizontal" Grid.Row="1">-->
             <!--<TreeView x:Name="DataTemplateTreeView" Margin="5,0,5,0"/>-->
@@ -106,22 +97,28 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="350"/>
                 </Grid.ColumnDefinitions>
-                <ListView x:Name="PropertyLV" Margin="40,0,-32,0" Grid.Column="1" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Width="auto"
-                          >
+                <ListView x:Name="PropertyLV" MinWidth="100" Margin="40.333,0,0,0" Grid.Column="1" >
+                    <!--<ListView.ItemTemplate>
+                        <DataTemplate>
+                            <GridView>
+                                <GridViewColumn Header="Property" DisplayMemberBinding="{Binding LangStr}"/>
+                                <GridViewColumn Header="PropertyName" DisplayMemberBinding="{Binding PropertyName}"/>
+                                <GridViewColumn Header="DataType" DisplayMemberBinding="{Binding DataType}"/>
+                                <GridViewColumn Header="Unit" DisplayMemberBinding="{Binding Unit}"/>
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>-->
+
                     <ListView.View>
                         <GridView>
-                            <!--Property-->
-                            <GridViewColumn Header="Property"  Width="auto" DisplayMemberBinding="{Binding LangStr}"/>
-                            <!--PropertyName-->
-                            <GridViewColumn Header="PropertyName" Width="auto" DisplayMemberBinding="{Binding PropertyName}"/>
-                            <!--DataType-->
-                            <GridViewColumn Header="DataType"  Width="auto" DisplayMemberBinding="{Binding DataType}"/>
-                            <!--Unit-->
-                            <GridViewColumn Header="Unit" Width="auto" DisplayMemberBinding="{Binding Unit}"/>
-                            <!--Description-->
-                            <GridViewColumn Header="Description" Width="auto" DisplayMemberBinding="{Binding Description}"/>
+                            <GridViewColumn Header="Property" DisplayMemberBinding="{Binding LangStr}"/>
+                            <GridViewColumn Header="PropertyName" DisplayMemberBinding="{Binding PropertyName}"/>
+                            <GridViewColumn Header="DataType" DisplayMemberBinding="{Binding DataType}"/>
+                            <GridViewColumn Header="Unit" DisplayMemberBinding="{Binding Unit}"/>
+                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
                         </GridView>
                     </ListView.View>
                     <System:String>Export Data Template</System:String>
@@ -136,14 +133,14 @@
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
                             <Setter Property="IsExpanded" Value="{Binding isExpanded, Mode=TwoWay}" />
-                            <Setter Property="FontWeight" Value="Normal" />
+                            <Setter Property="FontWeight" Value="Normal" />                            
                         </Style>
                     </TreeView.ItemContainerStyle>
                 </TreeView>
             </Grid>
             <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
         </Grid>
-        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed">
+        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Visible">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="232*"/>
                 <ColumnDefinition Width="363*"/>

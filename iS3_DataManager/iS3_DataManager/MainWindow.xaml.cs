@@ -199,12 +199,14 @@ namespace iS3_DataManager
             }
             
         }
-        void ShowProperty(string objName)
+        bool IsStageTreeView(TreeViewItem treeView)
         {
-            DGObjectDef dGObjectDef = Standard.GetDGObjectDefByName(selectedNode.Context);
-            PropertyLV.ItemsSource = null;
-            PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
+            string stage1 = "勘察阶段";
+            string stage2 = "施工阶段";
+            string name = treeView.Header.ToString();
+            return name==stage1|name==stage2;
         }
+        
         
         
     }
