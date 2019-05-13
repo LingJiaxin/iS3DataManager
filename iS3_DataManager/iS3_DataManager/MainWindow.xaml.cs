@@ -5,8 +5,10 @@ using iS3_DataManager.Models;
 using iS3_DataManager.Interface;
 using iS3_DataManager.DataManager;
 using iS3_DataManager.StandardManager;
+using iS3_DataManager.ViewManager;
 using System.Data;
 using System.Linq;
+using System;
 
 namespace iS3_DataManager
 {
@@ -20,6 +22,7 @@ namespace iS3_DataManager
         DataSet dataSet { get; set; }
         StandardFilter filter { get; set; }
         DataStandardDef filteredStandard { get; set; }
+        TreeViewData ViewData { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -29,19 +32,33 @@ namespace iS3_DataManager
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            var Loads = this.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Load();
+            }));
             //IDSImporter importer = new StandardImport_Exl();
             //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
 
             // StandardFilter filter = new StandardFilter();
             //new Exporter_For_JSON().Export(filter);
-            StandardLoader standardLoader = new StandardLoader();
-            Standard = standardLoader.GetStandard();
-
-            filter= standardLoader.CreateFilter();
-            ShowTreeView(filter);          
+            Loads.Completed += new EventHandler(Loads_Completed);
 
         }
-
+        void Loads_Completed(object sender, EventArgs e)
+        {
+            ViewData = new TreeViewData(filter,Standard);
+            DataTemplateTreeview.DataContext = ViewData;            
+        }
+        /// <summary>
+        /// load Data
+        /// </summary>
+        public void Load()
+        {
+            StandardLoader standardLoader = new StandardLoader();
+            Standard = standardLoader.GetStandard();
+            filter = standardLoader.CreateFilter();
+           
+        }
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
@@ -119,60 +136,10 @@ namespace iS3_DataManager
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
         {
-            //List<DGObjectDef> objList = new List<DGObjectDef>();
-            //foreach (DGObjectDef item in ObjectNameLB.SelectedItems)
-            //{
-            //    objList.Add(item);
-            //}
-
-            //DomainDef selectedDomain = (DomainDef)DomainNameLB.SelectedItem ?? (DomainDef)DomainNameLB.Items[0];
-            //DomainDef domain = new DomainDef
-            //{
-            //    Code = selectedDomain.Code,
-            //    LangStr = selectedDomain.LangStr,
-            //    Desciption = selectedDomain.Desciption,
-            //    DGObjectContainer = objList
-            //};
-            ////export exl templete for data input
-            //IDSExporter dsExporter = new TempleteExporter_Excel();
-            //dsExporter.Export(domain);
+            
         }
 
-        /// <summary>
-        /// while user select one domain,program will show the object it contains.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void DomainName_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (DomainNameLB.SelectedItem != null)
-        //    {
-        //        ObjectNameLB.ItemsSource = ((DomainDef)DomainNameLB.SelectedItem).DGObjectContainer;
-        //    }
-        //}
-
-        //private void ObjectNameLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (ObjectNameLB.SelectedItems.Count > 0)
-        //    {
-        //        DGObjectDef dGObject = (DGObjectDef)ObjectNameLB.SelectedItems[ObjectNameLB.SelectedItems.Count - 1];
-        //        PropertyLV.ItemsSource = dGObject.PropertyContainer;
-        //    }
-
-        //}
-
-        //private void DataLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    string selectedTable = DataLB.SelectedItem.ToString().Replace("数据", string.Empty);
-        //    int index = 0;
-        //    foreach (DataTable dataTable in dataSet.Tables)
-        //    {
-        //        if (dataTable.TableName == selectedTable) break;
-        //        else index++;
-        //    }
-        //    DataTable table = dataSet.Tables[index];
-        //    DataDG.ItemsSource = table.DefaultView;
-        //}
+        
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -180,22 +147,7 @@ namespace iS3_DataManager
             if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
         }
 
-        //private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        //{
-        //    DataTable tmpDT = ((DataView)DataDG.ItemsSource).Table;
-        //    int index = 0;
-        //    foreach (DataTable table in dataSet.Tables)
-        //    {
-        //        if (table.TableName == tmpDT.TableName) break;
-        //        else
-        //        {
-        //            index++;
-        //        }                
-        //    }
-        //    dataSet.Tables.RemoveAt(index);
-        //    dataSet.Tables.Add(tmpDT);
-        //}
-
+       
         public void ShowTreeView(StandardFilter filter)
         {
 
@@ -225,46 +177,23 @@ namespace iS3_DataManager
 
         private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (DataTemplateTreeview.SelectedItem != null)
+            TreeNode selectedNode = (TreeNode)DataTemplateTreeview.SelectedItem;
+            if (selectedNode != null)
             {
-                TreeViewItem selectedTreeView = (TreeViewItem)DataTemplateTreeview.SelectedItem;
-                if (selectedTreeView.Items.Count < 1)
+                switch (selectedNode.Level)
                 {
-                    string categoryName = selectedTreeView.Header.ToString();
-                    TreeViewItem stageTreeView =(TreeViewItem)selectedTreeView.Parent;
-                    string stageName = stageTreeView.Header.ToString();
-                    TreeViewItem tunnelTreeView = (TreeViewItem)stageTreeView.Parent;
-                    string tunnelType = tunnelTreeView.Header.ToString();
-                    //filter standard by select condition
-                    filteredStandard= filter.Filter(Standard, tunnelType, stageName,categoryName);//Post loading technique
-
-                    TreeViewItem objTreeView = new TreeViewItem();
-                    foreach(DGObjectDef dGObject in filteredStandard.DomainContainer[0].DGObjectContainer)
-                    {
-                        objTreeView.Items.Add(dGObject.LangStr);
-                    }
-                    
-                    
+                    case 1:
+                        return;
+                    case 2:
+                        return;
+                    case 3:
+                        return;
+                    case 4:
+                        PropertyLV.ItemsSource= Standard.GetDGObjectDefByName(selectedNode.Context).PropertyContainer;
+                        return;
+                    default:
+                        return;
                 }
-                else
-                {
-                    if (IsStageTreeView(selectedTreeView))
-                    {
-                        string stageName = selectedTreeView.Header.ToString();
-                        TreeViewItem tunnelTreeView = (TreeViewItem)selectedTreeView.Parent;
-                        string tunnelType = tunnelTreeView.Header.ToString();
-                        filteredStandard = filter.Filter(Standard, tunnelType, stageName);
-                    }
-                }
-                List<DGObjectDef> dGObjects = new List<DGObjectDef>();
-                foreach(DomainDef domain in filteredStandard.DomainContainer)
-                {
-                    foreach (DGObjectDef item in domain.DGObjectContainer)
-                    {
-                        dGObjects.Add(item);
-                    }
-                }
-                //PropertyLV.ItemsSource = dGObjects;
             }
             
         }
@@ -275,5 +204,8 @@ namespace iS3_DataManager
             string name = treeView.Header.ToString();
             return name==stage1|name==stage2;
         }
+        
+        
+        
     }
 }
