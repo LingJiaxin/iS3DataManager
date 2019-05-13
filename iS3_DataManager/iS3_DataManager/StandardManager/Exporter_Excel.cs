@@ -39,10 +39,7 @@ namespace iS3_DataManager.DataManager
         public bool Export(DomainDef domain, string path = null)
         {
             this.domain = domain ;
-            if (path == null)
-            {
-            }
-            else
+            if (path != null)
             {
                 this.path = path;
             }

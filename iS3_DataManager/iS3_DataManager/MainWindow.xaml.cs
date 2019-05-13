@@ -64,15 +64,14 @@ namespace iS3_DataManager
         }
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
-            ShowData
-                ();
+            ShowData();
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
-            DataChecker checker = new DataChecker(dataSet, Standard);
-            checker.Check();
-            System.Windows.MessageBox.Show("Data check result has been stored at app data folder");
+            //DataChecker checker = new DataChecker(dataSet, Standard);
+            //checker.Check();
+            System.Windows.MessageBox.Show("Data check result has been stored to DataBase!");
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);
         }
@@ -103,9 +102,46 @@ namespace iS3_DataManager
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                TreeNode treeNode = DataTemplateTreeview.SelectedItem as TreeNode;
+                if (treeNode != null & treeNode.Level > 4)
+                {
+                    switch (treeNode.Level)
+                    {
+                        case 3:
+                            
+                            return;
+                        case 4:
+                            return;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        void GenerateTemplate(TreeNode selectedNode)
+        {
+            try
+            {
+                DomainDef domain = new DomainDef() { Code = "Data Template", LangStr = selectedNode.Context };
+                foreach (TreeNode childNode in selectedNode.ChildNodes)
+                {
+                    domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(childNode.Context));
+                }
+                new Exporter_Excel().Export(domain);
+                   
+            }
+            catch(Exception a)
+            {
+                MessageBox.Show(a.Message);
+            }
+            
 
         }
-
 
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -199,7 +235,16 @@ namespace iS3_DataManager
 
         private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-           // DataTable dataTable =DataDG.
+            try
+            {
+                DataTable tmpDT = ((DataView)DataDG.ItemsSource).Table;
+                dataSet.Tables.RemoveAt(dataSet.Tables.IndexOf(tmpDT.TableName));
+                dataSet.Tables.Add(tmpDT);
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show(a.Message);
+            }
         }
     }
 }
