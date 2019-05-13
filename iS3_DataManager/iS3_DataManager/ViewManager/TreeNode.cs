@@ -11,11 +11,11 @@ namespace iS3_DataManager.ViewManager
         public int NodeID { get; set; }
         public int Level { get; set; }
         public string Context { get; set; }
-        public bool isExpended { get; set; }
+        public bool isExpanded { get; set; }
         public List<TreeNode> ChildNodes { get; set; }
         public TreeNode()
         {
-            isExpended = false;
+            isExpanded = false;
             ChildNodes = new List<TreeNode>();
         }
     }

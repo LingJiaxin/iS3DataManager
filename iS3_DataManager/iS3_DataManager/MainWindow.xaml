@@ -99,7 +99,19 @@
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="350"/>
                 </Grid.ColumnDefinitions>
-                <ListView x:Name="PropertyLV" MinWidth="100" Margin="25,0" >
+                <ListView x:Name="PropertyLV" MinWidth="100" Margin="40.333,0,0,0" Grid.Column="1" >
+                    <!--<ListView.ItemTemplate>
+                        <DataTemplate>
+                            <GridView>
+                                <GridViewColumn Header="Property" DisplayMemberBinding="{Binding LangStr}"/>
+                                <GridViewColumn Header="PropertyName" DisplayMemberBinding="{Binding PropertyName}"/>
+                                <GridViewColumn Header="DataType" DisplayMemberBinding="{Binding DataType}"/>
+                                <GridViewColumn Header="Unit" DisplayMemberBinding="{Binding Unit}"/>
+                                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>-->
+
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Property" DisplayMemberBinding="{Binding LangStr}"/>
@@ -120,7 +132,7 @@
                     </TreeView.ItemTemplate>
                     <TreeView.ItemContainerStyle>
                         <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="{Binding isExpended, Mode=TwoWay}" />
+                            <Setter Property="IsExpanded" Value="{Binding isExpanded, Mode=TwoWay}" />
                             <Setter Property="FontWeight" Value="Normal" />                            
                         </Style>
                     </TreeView.ItemContainerStyle>

@@ -189,7 +189,9 @@ namespace iS3_DataManager
                     case 3:
                         return;
                     case 4:
-                        PropertyLV.ItemsSource= Standard.GetDGObjectDefByName(selectedNode.Context).PropertyContainer;
+                       DGObjectDef dGObjectDef= Standard.GetDGObjectDefByName(selectedNode.Context);
+                        PropertyLV.ItemsSource = null;
+                        PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
                         return;
                     default:
                         return;

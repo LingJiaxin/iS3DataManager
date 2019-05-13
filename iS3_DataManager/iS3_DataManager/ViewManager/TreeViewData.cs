@@ -38,13 +38,13 @@ namespace iS3_DataManager.ViewManager
             List<TreeNode> nodes = new List<TreeNode>();
             foreach (Tunnel tunnel in filter.Tunnels)
             {
-                TreeNode tunnelTreeNode = new TreeNode() { NodeID = index++, Level = 1, Context = tunnel.LangStr };
+                TreeNode tunnelTreeNode = new TreeNode() { NodeID = index++, Level = 1, Context = tunnel.LangStr ,isExpanded=true};
                 foreach (Stage stage in tunnel.Stages)
                 {
-                    TreeNode stageTreeNode = new TreeNode() { NodeID = index++, Level = 2, Context = stage.LangStr };
+                    TreeNode stageTreeNode = new TreeNode() { NodeID = index++, Level = 2, Context = stage.LangStr,isExpanded=true };
                     foreach (Category category in stage.Categories)
                     {
-                        TreeNode categoryTreeNode = new TreeNode() { NodeID = index++, Level = 3, Context = category.LangStr };
+                        TreeNode categoryTreeNode = new TreeNode() { NodeID = index++, Level = 3, Context = category.LangStr,isExpanded=false };
                         foreach (string obj in category.objList)
                         {
                             DGObjectDef dGObject = Standard.GetDGObjectDefByCode(obj);
