@@ -108,7 +108,7 @@
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ListView x:Name="PropertyLV" Margin="40,0,-32,0" Grid.Column="1" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Width="auto"
+                <ListView x:Name="PropertyLV" Margin="40,0,-32,0" Grid.Column="1" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Width="Auto"
                           >
                     <ListView.View>
                         <GridView>

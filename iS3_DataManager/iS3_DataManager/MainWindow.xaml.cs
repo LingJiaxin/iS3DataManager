@@ -46,8 +46,9 @@ namespace iS3_DataManager
         }
         void Loads_Completed(object sender, EventArgs e)
         {
-            ViewData = new TreeViewData(filter,Standard);
-            DataTemplateTreeview.DataContext = ViewData;            
+            ViewData = new TreeViewData(filter, Standard);
+            DataTemplateTreeview.DataContext = ViewData;
+            PropertyLV.Items.RemoveAt(0);
         }
         /// <summary>
         /// load Data
@@ -57,7 +58,7 @@ namespace iS3_DataManager
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
             filter = standardLoader.CreateFilter();
-           
+
         }
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
@@ -136,10 +137,10 @@ namespace iS3_DataManager
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
-        
+
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -147,7 +148,7 @@ namespace iS3_DataManager
             if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
         }
 
-       
+
         public void ShowTreeView(StandardFilter filter)
         {
 
@@ -165,7 +166,7 @@ namespace iS3_DataManager
                     {
                         TreeViewItem categoryTreeView = new TreeViewItem();
                         categoryTreeView.Header = category.LangStr;
-                        categoryTreeView.ExpandSubtree();                        
+                        categoryTreeView.ExpandSubtree();
                         stageTreeView.Items.Add(categoryTreeView);
                     }
                     tunnelTreeView.Items.Add(stageTreeView);
@@ -189,23 +190,30 @@ namespace iS3_DataManager
                     case 3:
                         return;
                     case 4:
-                       DGObjectDef dGObjectDef= Standard.GetDGObjectDefByName(selectedNode.Context);
-                        PropertyLV.ItemsSource = null;
-                        PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
+                        ShowProperty(selectedNode.Context);
                         return;
                     default:
                         return;
                 }
             }
-            
+
         }
         void ShowProperty(string objName)
         {
-            DGObjectDef dGObjectDef = Standard.GetDGObjectDefByName(selectedNode.Context);
+            GridView gv = PropertyLV.View as GridView;
+            if (gv != null)
+            {
+                foreach (GridViewColumn gvc in gv.Columns)
+                {
+                    gvc.Width = gvc.ActualWidth;
+                    gvc.Width = Double.NaN;
+                }
+            }
+            DGObjectDef dGObjectDef = Standard.GetDGObjectDefByName(objName);
             PropertyLV.ItemsSource = null;
             PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
         }
-        
-        
+
+
     }
 }
