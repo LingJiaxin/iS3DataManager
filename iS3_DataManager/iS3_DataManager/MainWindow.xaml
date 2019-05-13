@@ -158,14 +158,10 @@
                       AutoGenerateColumns="True" DataContext="{Binding}" CellEditEnding="DataDG_CellEditEnding" MinHeight="250">
 
             </DataGrid>
-            <ListBox x:Name="DataHeaderLB" HorizontalAlignment="Left" Margin="43,10,0,0" Grid.Row="1"
-                     VerticalAlignment="Top" Width="100" MinHeight="250"
+            <ListBox x:Name="DataHeaderLB" Margin="25,10,22,29" Grid.Row="1" MinHeight="250"
                      SelectionMode="Single" 
                      SelectionChanged="DataHeaderLB_SelectionChanged"
-                     DisplayMemberPath="{Binding }">
-                
-
-            </ListBox>
+                     DisplayMemberPath="{Binding}" HorizontalAlignment="Left" MinWidth="100"/>
         </Grid>
 
     </Grid>

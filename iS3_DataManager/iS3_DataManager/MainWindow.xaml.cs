@@ -55,6 +55,8 @@ namespace iS3_DataManager
         /// </summary>
         public void Load()
         {
+            //IDSImporter importer = new StandardImport_Exl();
+            //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
             filter = standardLoader.CreateFilter();
@@ -62,26 +64,8 @@ namespace iS3_DataManager
         }
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
-            OpenExcelFile.Multiselect = true;
-            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            if (OpenExcelFile.ShowDialog() == true)
-            {
-                IDataImporter dataImporter = new DataImporter_Excel();
-
-                foreach (string path in OpenExcelFile.FileNames)
-                {
-                    dataSet = dataImporter.Import(path, Standard);
-                }
-                new DataChecker(dataSet, Standard).Check();
-
-                List<string> tableNames = new List<string>();
-                foreach (DataTable table in dataSet.Tables)
-                {
-                    tableNames.Add(table.TableName + "数据");
-                }
-                //DataLB.ItemsSource = tableNames;
-            }
+            ShowData
+                ();
         }
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
@@ -114,25 +98,7 @@ namespace iS3_DataManager
         /// <param name="e"></param>
         private void Open_click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
-            OpenExcelFile.Multiselect = true;
-            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            OpenExcelFile.ShowDialog();
-            string[] filenames = OpenExcelFile.FileNames;
-            IDataImporter dataImporter = new DataImporter_Excel();
-
-
-            foreach (string path in filenames)
-            {
-                dataSet = dataImporter.Import(path, Standard);
-            }
-            List<string> tableNames = new List<string>();
-            foreach (DataTable table in dataSet.Tables)
-            {
-                tableNames.Add(table.TableName + "数据");
-            }
-            DataHeaderLB.ItemsSource = tableNames;
-
+            ShowData();
         }
 
         private void ExportDataTemplate_Click(object sender, RoutedEventArgs e)
@@ -179,25 +145,13 @@ namespace iS3_DataManager
         private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             TreeNode selectedNode = (TreeNode)DataTemplateTreeview.SelectedItem;
-            if (selectedNode != null)
+            if (selectedNode != null & selectedNode.Level == 4)
             {
-                switch (selectedNode.Level)
-                {
-                    case 1:
-                        return;
-                    case 2:
-                        return;
-                    case 3:
-                        return;
-                    case 4:
-                        ShowProperty(selectedNode.Context);
-                        return;
-                    default:
-                        return;
-                }
+                ShowProperty(selectedNode.Context);
             }
 
         }
+
         void ShowProperty(string objName)
         {
             GridView gv = PropertyLV.View as GridView;
@@ -212,11 +166,40 @@ namespace iS3_DataManager
             DGObjectDef dGObjectDef = Standard.GetDGObjectDefByName(objName);
             PropertyLV.ItemsSource = null;
             PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
-        }       
-
+        }
+        private void ShowData()
+        {
+            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
+            OpenExcelFile.Multiselect = true;
+            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
+            OpenExcelFile.ShowDialog();
+            string[] filenames = OpenExcelFile.FileNames;
+            IDataImporter dataImporter = new DataImporter_Excel();
+            foreach (string path in filenames)
+            {
+                dataSet = dataImporter.Import(path, Standard);
+            }
+            List<string> tableNames = new List<string>();
+            foreach (DataTable table in dataSet.Tables)
+            {
+                tableNames.Add(table.TableName);
+            }
+            if (tableNames.Count > 0)
+                DataHeaderLB.ItemsSource = tableNames;
+        }
         private void DataHeaderLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (DataHeaderLB.SelectedItem != null)
+            {
+                string tableName = DataHeaderLB.SelectedItem as string;
+                DataTable dataTable = dataSet.Tables[dataSet.Tables.IndexOf(tableName)];
+                DataDG.ItemsSource = dataTable.DefaultView;
+            }
+        }
 
+        private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+           // DataTable dataTable =DataDG.
         }
     }
 }

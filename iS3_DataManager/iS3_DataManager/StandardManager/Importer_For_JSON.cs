@@ -58,7 +58,7 @@ namespace iS3_DataManager.StandardManager
         public DataStandardDef ReadJson(string path)
         {
             
-            var fullPath = Directory.GetFiles(path, "RockTunnel.json");
+            var fullPath = Directory.GetFiles(path, "Geology.json");
 
             if ((fullPath[0] != null))
             {
