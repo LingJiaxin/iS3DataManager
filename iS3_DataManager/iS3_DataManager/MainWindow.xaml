@@ -7,7 +7,7 @@
         xmlns:viewManager="clr-namespace:iS3_DataManager.ViewManager"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="iS3_DataManager.MainWindow"
         mc:Ignorable="d"
-        Title="iS3团标工具" Height="400" Width="763.333">
+        Title="iS3 Data Manager" Height="400" Width="763.333">
     <Window.Resources>
         <Style TargetType="{x:Type ListBoxItem}" x:Key="ListBoxItemStyle">
             <Setter Property="Foreground" Value="White"/>
@@ -50,12 +50,16 @@
     </Window.Background>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="56*"/>
+            <ColumnDefinition Width="699*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="File" >
                 <MenuItem Header="Open" Click="Open_click"/>
                 <MenuItem Header="Save"/>
@@ -65,7 +69,7 @@
             <MenuItem Header="View"/>
             <MenuItem Header="About"/>
         </Menu>
-        <ListBox x:Name="ChoiceLB" HorizontalAlignment="Left" Grid.Row="1" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}" Background="#FF6EADD4" SelectionChanged="SelectionChanged">
+        <ListBox x:Name="ChoiceLB" HorizontalAlignment="Left" Grid.Row="1" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}" Background="#FF6EADD4" SelectionChanged="SelectionChanged" Grid.ColumnSpan="2">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -74,13 +78,13 @@
             <ListBoxItem Content="Data Template"/>
             <ListBoxItem Content="Data Entry"/>
         </ListBox>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,100,0" Width="120" Height="30"><Run Text=" "/><InlineUIContainer>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,100,0" Width="120" Height="30" Grid.Column="1"><Run Text=" "/><InlineUIContainer>
                 <TextBlock TextAlignment="Center"/>
             </InlineUIContainer><Run Text=" "/><InlineUIContainer>
                 <TextBlock FontSize="20"/>
             </InlineUIContainer></TextBlock>
 
-        <Grid x:Name="DataTemplateGrid" Grid.Row="2" Visibility="Visible">
+        <Grid x:Name="DataTemplateGrid" Grid.Row="2" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
@@ -137,7 +141,7 @@
             </Grid>
             <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
         </Grid>
-        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed">
+        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120*"/>
                 <ColumnDefinition Width="363*"/>

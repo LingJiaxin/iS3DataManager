@@ -71,7 +71,7 @@ namespace iS3_DataManager
         {
             //DataChecker checker = new DataChecker(dataSet, Standard);
             //checker.Check();
-            System.Windows.MessageBox.Show("Data check result has been stored to DataBase!");
+            System.Windows.MessageBox.Show("Data  has been stored to DataBase!");
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);
         }
@@ -105,14 +105,21 @@ namespace iS3_DataManager
             try
             {
                 TreeNode treeNode = DataTemplateTreeview.SelectedItem as TreeNode;
-                if (treeNode != null & treeNode.Level > 4)
+                if (treeNode != null)
                 {
                     switch (treeNode.Level)
                     {
+                        case 1:
+                            MessageBox.Show("Please select Stage/Category/DGobject to generate template!");
+                            return;
+                        case 2:
+                            GenerateStageTemplate(treeNode);
+                            return;
                         case 3:
-                            
+                            GenerateCategoryTemplate(treeNode);
                             return;
                         case 4:
+                            GenerateSingleTemplate(treeNode);
                             return;
                     }
                 }
@@ -123,7 +130,32 @@ namespace iS3_DataManager
                 throw;
             }
         }
-        void GenerateTemplate(TreeNode selectedNode)
+        void GenerateStageTemplate(TreeNode treeNode)
+        {
+            try
+            {
+                DomainDef domain = new DomainDef() { Code = "DataTemplate_Category", LangStr = treeNode.Context };
+                foreach (var item in treeNode.ChildNodes)
+                {
+                    foreach (var obj in item.ChildNodes)
+                    {
+                        domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(obj.Context));
+                    }
+                }
+                new Exporter_Excel().Export(domain);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// generate template for one category
+        /// </summary>
+        /// <param name="selectedNode"></param>
+        void GenerateCategoryTemplate(TreeNode selectedNode)
         {
             try
             {
@@ -133,16 +165,30 @@ namespace iS3_DataManager
                     domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(childNode.Context));
                 }
                 new Exporter_Excel().Export(domain);
-                   
+
             }
-            catch(Exception a)
+            catch (Exception a)
             {
                 MessageBox.Show(a.Message);
             }
-            
-
         }
 
+        /// <summary>
+        /// generate template for only one DGobject
+        /// </summary>
+        void GenerateSingleTemplate(TreeNode  treeNode)
+        {
+            try
+            {
+                DomainDef domain = new DomainDef() { Code = "Default", LangStr = treeNode.Context };
+                domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(treeNode.Context));
+                new Exporter_Excel().Export(domain);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -208,20 +254,23 @@ namespace iS3_DataManager
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
             OpenExcelFile.Multiselect = true;
             OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            OpenExcelFile.ShowDialog();
-            string[] filenames = OpenExcelFile.FileNames;
-            IDataImporter dataImporter = new DataImporter_Excel();
-            foreach (string path in filenames)
+            if (OpenExcelFile.ShowDialog() ==true)
             {
-                dataSet = dataImporter.Import(path, Standard);
+                string[] filenames = OpenExcelFile.FileNames;
+                IDataImporter dataImporter = new DataImporter_Excel();
+                foreach (string path in filenames)
+                {
+                    dataSet = dataImporter.Import(path, Standard);
+                }
+                List<string> tableNames = new List<string>();
+                foreach (DataTable table in dataSet.Tables)
+                {
+                    tableNames.Add(table.TableName);
+                }
+                if (tableNames.Count > 0)
+                    DataHeaderLB.ItemsSource = tableNames;
             }
-            List<string> tableNames = new List<string>();
-            foreach (DataTable table in dataSet.Tables)
-            {
-                tableNames.Add(table.TableName);
-            }
-            if (tableNames.Count > 0)
-                DataHeaderLB.ItemsSource = tableNames;
+            
         }
         private void DataHeaderLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
