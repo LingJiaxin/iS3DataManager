@@ -27,11 +27,10 @@ namespace iS3_DataManager.StandardManager
         {
             try
             {
-
+                Dictionary<string, string> Types = new DataType().Gettype;
                 foreach (DGObjectDef dGObject in domain.DGObjectContainer)
                 {
 
-                    Dictionary<string, string> Types = new DataType().Gettype;
                     string newClass = "using System; \n namespace iS3_DataManager.ObjectModels\n { \n \tpublic class " + dGObject.Code + "\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
@@ -56,14 +55,13 @@ namespace iS3_DataManager.StandardManager
                             {
                                 newClass += "\t\tpublic " + Types[meta.DataType] + " " + meta.PropertyName + " {get;set;}\n";
                             }
-                        }
-                        
+                        }                      
 
                     }
 
                     newClass += "\t}\n}";
                     string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\ObjectModels\" + dGObject.Code + ".cs";
-                    FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                    FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                     StreamWriter sw = new StreamWriter(fs);
                     sw.Write(newClass);
                     sw.Flush();

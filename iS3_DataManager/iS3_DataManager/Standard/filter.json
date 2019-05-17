@@ -94,7 +94,7 @@
 							"RSHT",
 							"RTST",
 							"RPLT",
-							"WAVE-S",
+							"WAVE_S",
 							"CHEM"
 						],
 			 			"LangStr":"室内试验"
@@ -246,7 +246,7 @@
 							"RSHT",
 							"RTST",
 							"RPLT",
-							"WAVE-S",
+							"WAVE_S",
 							"CHEM"
 						],
 			 			"LangStr":"室内试验"
@@ -398,7 +398,7 @@
 							"RSHT",
 							"RTST",
 							"RPLT",
-							"WAVE-S",
+							"WAVE_S",
 							"CHEM"
 						],
 			 			"LangStr":"室内试验"

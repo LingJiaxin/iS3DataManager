@@ -25,11 +25,15 @@ namespace iS3_DataManager
         TreeViewData ViewData { get; set; }
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
             ChoiceLB.SelectedIndex = -1;
             Loaded += MainWindow_Loaded;
         }
-
+        private void Test()
+        {
+            DataSet2Entity transporter = new DataSet2Entity();
+            transporter.Data2DataBase(dataSet ,Standard);
+        }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var Loads = this.Dispatcher.BeginInvoke(new Action(() =>
@@ -54,12 +58,13 @@ namespace iS3_DataManager
         public void Load()
         {
             //IDSImporter importer = new StandardImport_Exl();
-            //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
+            //if (importer.Import("Geology") != null) System.Windows.MessageBox.Show("Standard import succeeded");
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
             filter = standardLoader.CreateFilter();
-            ClassGenerator generator = new ClassGenerator();
-            generator.GenerateClass(Standard);
+            //ClassGenerator generator = new ClassGenerator();
+            //generator.GenerateClass(Standard);
+            
         }
 
         private void ImportData_Click(object sender, RoutedEventArgs e)
@@ -69,8 +74,9 @@ namespace iS3_DataManager
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
-            //DataChecker checker = new DataChecker(dataSet, Standard);
-            //checker.Check();
+            Test();
+            DataChecker checker = new DataChecker(dataSet, Standard);
+            checker.Check();
             System.Windows.MessageBox.Show("Data  has been stored to DataBase!");
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);

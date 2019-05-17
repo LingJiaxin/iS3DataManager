@@ -1,9 +1,6 @@
 ﻿using iS3_DataManager.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using iS3_DataManager.Models;
 using Newtonsoft.Json;
 using System.IO;
@@ -23,7 +20,7 @@ namespace iS3_DataManager.StandardManager
                     DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                     path = localPath.Parent.Parent.FullName + "\\Standard\\" + dataStandard.Code + ".json";
                 }
-                FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
                 sw.Write(json);
                 sw.Flush();

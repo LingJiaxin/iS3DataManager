@@ -71,7 +71,7 @@ namespace iS3_DataManager.StandardManager
                 string objLangStr = row.GetCell(5)?.ToString();
                 string propertyName = row.GetCell(6).ToString();
                 bool IsKey = row.GetCell(7)?.ToString() == null ? false : row.GetCell(7).ToString() == "TRUE";
-                string dataType = row.GetCell(8)?.ToString();
+                string dataType = row.GetCell(8)?.ToString().Replace(" ","");
                 bool Nullable = row.GetCell(9)?.ToString() == null ? true : row.GetCell(9).ToString() != "FALSE";
                 string unit = row.GetCell(10)?.ToString();
                 string regularExp = row.GetCell(11)?.ToString();

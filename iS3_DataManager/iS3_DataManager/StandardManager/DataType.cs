@@ -16,7 +16,7 @@ namespace iS3_DataManager.StandardManager
             GetType.Add("0DP","int");
             GetType.Add("2DP","double");
             GetType.Add("PA","string");
-            GetType.Add("DMS","string");
+            GetType.Add("DMS","double");
             GetType.Add("1DP","double");
             GetType.Add("2SF","double");
             GetType.Add("3DP","double");
@@ -26,7 +26,7 @@ namespace iS3_DataManager.StandardManager
             GetType.Add("MC","double");
             GetType.Add("T","string");
             GetType.Add("Y/N","bool");
-            GetType.Add("无","");
+            GetType.Add("无","string");
             GetType.Add("string","string");
             this.Gettype=GetType;            
         }
