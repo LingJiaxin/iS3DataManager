@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Web.Http;
-using iS3.Core;
-
+using iS3.MiniServer;
 /*
  * This file defines iS3 Territory WebAPI, which can be visited through
  *   api/Territories/[api name]
@@ -79,7 +78,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
         [Route("SupportedTerritories")]
         public ICollection<string> SupportedTerritories()
         {
-            ICollection<string> result = Core.MiniServer.GetSubClasses<iS3Territory>();
+            ICollection<string> result = MiniServer.GetSubClasses<iS3Territory>();
             return result;
         }
 
@@ -87,7 +86,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
         [Route("SupportedDomains")]
         public ICollection<string> SupportedDomains()
         {
-            ICollection<string> result = Core.MiniServer.GetSubClasses<iS3Domain>();
+            ICollection<string> result = MiniServer.GetSubClasses<iS3Domain>();
             return result;
         }
 
@@ -95,7 +94,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
         [Route("SupportedProjects")]
         public ICollection<string> SupportedProjects()
         {
-            ICollection<string> result = Core.MiniServer.GetSubClasses<iS3Project>();
+            ICollection<string> result = MiniServer.GetSubClasses<iS3Project>();
             return result;
         }
 
@@ -104,7 +103,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
         public async Task<IHttpActionResult> GetAllTerritoryHandles()
         {
             ICollection<iS3TerritoryHandle> result = null;
-            result = await Core.MiniServer.GetAllTerritoryHandles();
+            result = await MiniServer.GetAllTerritoryHandles();
             return Ok(result);
         }
 
@@ -118,7 +117,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
             }
 
             iS3TerritoryHandle result = null;
-            result = await Core.MiniServer.getTerritoryHandle(nameOrID);
+            result = await MiniServer.getTerritoryHandle(nameOrID);
             return Ok(result);
         }
 
@@ -132,7 +131,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
             }
 
             iS3DomainHandle result = null;
-            result = await Core.MiniServer.GetDomainHandle(nameOrID, parentNameOrID);
+            result = await MiniServer.GetDomainHandle(nameOrID, parentNameOrID);
             return Ok(result);
         }
 
@@ -146,7 +145,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
                 return BadRequest("Argument Null");
             }
 
-            iS3TerritoryHandle newHandle = await Core.MiniServer.AddTerritory(handle);
+            iS3TerritoryHandle newHandle = await MiniServer.AddTerritory(handle);
 
             return Ok(newHandle);
         }
@@ -160,7 +159,7 @@ curl -H "Authorization:Bearer $token1" http://localhost:$port/api/Territories/Ge
                 return BadRequest("Argument Null");
             }
 
-            iS3DomainHandle newHandle = await Core.MiniServer.AddDomain(handle);       
+            iS3DomainHandle newHandle = await MiniServer.AddDomain(handle);       
 
             return Ok(newHandle);
         }

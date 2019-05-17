@@ -13,7 +13,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 using System.Security.Claims;
-using iS3.Core;
 
 /*
  * This file defines iS3 user account authentication and authorization classes.
@@ -212,7 +211,7 @@ namespace iS3.MiniServer
         // The default database is specified here.
         //
         public iS3OAuthDbContext()
-            : base(iS3.Core.MiniServer.DefaultDatabase)
+            : base(MiniServer.DefaultDatabase)
         {
             // this.Configuration.LazyLoadingEnabled = false ;
         }

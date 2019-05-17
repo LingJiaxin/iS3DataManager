@@ -67,6 +67,10 @@
             </MenuItem>
             <MenuItem Header="Edit"/>
             <MenuItem Header="View"/>
+            <MenuItem Header="Config">
+                <MenuItem Header="Initial Geology Standard" Click="ConfigGeology_Click"/>
+                <MenuItem Header="Initial Structure Standard" Click="ConfigStruct_Click"/>
+            </MenuItem>
             <MenuItem Header="About"/>
         </Menu>
         <ListBox x:Name="ChoiceLB" HorizontalAlignment="Left" Grid.Row="1" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}" Background="#FF6EADD4" SelectionChanged="SelectionChanged" Grid.ColumnSpan="2">

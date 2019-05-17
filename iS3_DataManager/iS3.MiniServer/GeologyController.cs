@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Web.Http;
-using iS3.Geology.Model;
 using iS3.Core;
 namespace iS3.MiniServer
 {

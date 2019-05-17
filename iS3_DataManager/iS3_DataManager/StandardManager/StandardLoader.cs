@@ -18,13 +18,13 @@ namespace iS3_DataManager.StandardManager
         public DataStandardDef GetStandard()
         {
             IDSImporter importer = new Importer_For_Json();
-            return importer.Import(path);
+            return importer.Import(path+"Geology.json");
         }
 
-        public DataStandardDef GetStandard(string path)
+        public DataStandardDef GetStandard(string StandardName)
         {            
             IDSImporter importer = new Importer_For_Json();
-            return importer.Import(path);
+            return importer.Import(path+StandardName+".json");
         }
         public StandardFilter CreateFilter()
         {

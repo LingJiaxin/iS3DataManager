@@ -12,7 +12,7 @@ namespace iS3_DataManager.StandardManager
     {
         public DataStandardDef Import(string path)
         {
-            path = path ?? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\");
+            path = path ?? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\Geology.json");
             return ReadJson(path);
             //return GetSample();
         }
@@ -44,8 +44,8 @@ namespace iS3_DataManager.StandardManager
             ddDef.DGObjectContainer.Add(dgDef);
 
             //定义钻孔中的属性内容
-            dgDef.PropertyContainer.Add(new PropertyMeta("ID", "Int", null, "这是编号字段", "['zh':'编号','en':'ID']",IsKey: true,regularExpression:@"\d"));
-            dgDef.PropertyContainer.Add(new PropertyMeta("BoreholeID", "string", null, "这是钻孔编号", "['zh':'钻孔编号','en':'BoreholeID']", true,regularExpression:@""));
+            dgDef.PropertyContainer.Add(new PropertyMeta("ID", "Int", null, "这是编号字段", "['zh':'编号','en':'ID']", IsKey: true, regularExpression: @"\d"));
+            dgDef.PropertyContainer.Add(new PropertyMeta("BoreholeID", "string", null, "这是钻孔编号", "['zh':'钻孔编号','en':'BoreholeID']", true, regularExpression: @""));
             dgDef.PropertyContainer.Add(new PropertyMeta("BoreholeTime", "dateTime", null, "这是钻孔时间", "['zh':'钻孔时间','en':'BoreholeTime']", true));
             dgDef.PropertyContainer.Add(new PropertyMeta("BoreholeDepth", "double", "m", "这是钻孔深度", "['zh':'钻孔深度','en':'BoreholeDepth']", true));
             return dsDef;
@@ -57,12 +57,9 @@ namespace iS3_DataManager.StandardManager
         /// <returns></returns>
         public DataStandardDef ReadJson(string path)
         {
-            
-            var fullPath = Directory.GetFiles(path, "Geology.json");
-
-            if ((fullPath[0] != null))
+            if (path != null)
             {
-                FileStream fs = new FileStream(fullPath[0], FileMode.Open, FileAccess.Read);
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 StreamReader streamReader = new StreamReader(fs, Encoding.UTF8);
                 string json = streamReader.ReadToEnd();
                 fs.Close();
@@ -75,6 +72,6 @@ namespace iS3_DataManager.StandardManager
                 return null;
             }
         }
-       
+
     }
 }

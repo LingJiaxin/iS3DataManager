@@ -46,9 +46,7 @@ namespace iS3_DataManager
         }
         void Loads_Completed(object sender, EventArgs e)
         {
-            ViewData = new TreeViewData(filter, Standard);
-            DataTemplateTreeview.DataContext = ViewData;
-            PropertyLV.Items.RemoveAt(0);
+            ReloadWindow();
         }
         /// <summary>
         /// load Data
@@ -60,8 +58,10 @@ namespace iS3_DataManager
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
             filter = standardLoader.CreateFilter();
-
+            ClassGenerator generator = new ClassGenerator();
+            generator.GenerateClass(Standard);
         }
+
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
             ShowData();
@@ -176,7 +176,7 @@ namespace iS3_DataManager
         /// <summary>
         /// generate template for only one DGobject
         /// </summary>
-        void GenerateSingleTemplate(TreeNode  treeNode)
+        void GenerateSingleTemplate(TreeNode treeNode)
         {
             try
             {
@@ -254,7 +254,7 @@ namespace iS3_DataManager
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
             OpenExcelFile.Multiselect = true;
             OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            if (OpenExcelFile.ShowDialog() ==true)
+            if (OpenExcelFile.ShowDialog() == true)
             {
                 string[] filenames = OpenExcelFile.FileNames;
                 IDataImporter dataImporter = new DataImporter_Excel();
@@ -270,8 +270,11 @@ namespace iS3_DataManager
                 if (tableNames.Count > 0)
                     DataHeaderLB.ItemsSource = tableNames;
             }
-            
+
         }
+        /// <summary>
+        /// show table names of Data import result
+        /// </summary>
         private void DataHeaderLB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DataHeaderLB.SelectedItem != null)
@@ -281,7 +284,9 @@ namespace iS3_DataManager
                 DataDG.ItemsSource = dataTable.DefaultView;
             }
         }
-
+        /// <summary>
+        /// save user changes in gridview
+        /// </summary>
         private void DataDG_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             try
@@ -294,6 +299,41 @@ namespace iS3_DataManager
             {
                 MessageBox.Show(a.Message);
             }
+        }
+        /// <summary>
+        /// initial Sturcture Standard
+        /// </summary>
+        private void ConfigStruct_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStandard("Structure");
+        }
+
+        /// <summary>
+        /// initial Geology Standard
+        /// </summary>
+        private void ConfigGeology_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStandard("Geology");
+        }
+        private void LoadStandard(string StandardName)
+        {
+            StandardName = StandardName ?? "Geology";
+            IDSImporter importer = new StandardImport_Exl();
+            if (importer.Import(StandardName) != null)
+            {
+                StandardLoader standardLoader = new StandardLoader();
+                Standard = standardLoader.GetStandard(StandardName);
+                System.Windows.MessageBox.Show(StandardName+" Standard imported succeessfully");
+                filter = standardLoader.CreateFilter();
+                ReloadWindow();
+            }
+        }
+        private void ReloadWindow()
+        {
+            ViewData = new TreeViewData(filter, Standard);
+            DataTemplateTreeview.DataContext = ViewData;
+            if(PropertyLV.Items.Count>0)
+            PropertyLV.Items.RemoveAt(0);
         }
     }
 }

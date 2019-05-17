@@ -18,35 +18,51 @@ namespace iS3_DataManager.StandardManager
                     GenerateClass(domain);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Windows.MessageBox.Show(e.ToString());
             }
         }
         public void GenerateClass(DomainDef domain)
-        {try
+        {
+            try
             {
-                
+
                 foreach (DGObjectDef dGObject in domain.DGObjectContainer)
                 {
-                    
+
+                    Dictionary<string, string> Types = new DataType().Gettype;
                     string newClass = "using System; \n namespace iS3_DataManager.ObjectModels\n { \n \tpublic class " + dGObject.Code + "\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
-
-                        if (meta.DataType != "string")
+                        if (meta.Nullable == false)
                         {
-                            newClass += "\t\tpublic Nullable<" + meta.DataType + "> " + meta.PropertyName + " {get;set;}\n";
+                            if (Types[meta.DataType] != "string")
+                            {
+                                newClass += "\t\tpublic " + Types[meta.DataType] + "  " + meta.PropertyName + " {get;set;}\n";
+                            }
+                            else
+                            {
+                                newClass += "\t\tpublic " + Types[meta.DataType] + " " + meta.PropertyName + " {get;set;}\n";
+                            }
                         }
                         else
                         {
-                            newClass+= "\t\tpublic " + meta.DataType + " " + meta.PropertyName + " {get;set;}\n";
+                            if (Types[meta.DataType] != "string")
+                            {
+                                newClass += "\t\tpublic Nullable<" + Types[meta.DataType] + "> " + meta.PropertyName + " {get;set;}\n";
+                            }
+                            else
+                            {
+                                newClass += "\t\tpublic " + Types[meta.DataType] + " " + meta.PropertyName + " {get;set;}\n";
+                            }
                         }
                         
+
                     }
-                      
+
                     newClass += "\t}\n}";
-                    string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\ObjectModels\"+dGObject.Code + ".cs";
+                    string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\ObjectModels\" + dGObject.Code + ".cs";
                     FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                     StreamWriter sw = new StreamWriter(fs);
                     sw.Write(newClass);
@@ -54,13 +70,13 @@ namespace iS3_DataManager.StandardManager
                     sw.Close();
                     fs.Close();
                 }
-                
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.ToString());                
+                System.Windows.MessageBox.Show(e.ToString());
             }
         }
-        
+
     }
 }

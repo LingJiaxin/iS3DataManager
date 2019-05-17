@@ -133,8 +133,8 @@
     <Compile Include="Models\LangBase.cs" />
     <Compile Include="Models\LangType.cs" />
     <Compile Include="Models\PropertyMeta.cs" />
-    <Compile Include="ObjectModels\Borehole.cs" />
     <Compile Include="StandardManager\ClassGenerator.cs" />
+    <Compile Include="StandardManager\DataType.cs" />
     <Compile Include="StandardManager\Exporter_Excel.cs" />
     <Compile Include="StandardManager\Exporter_For_JSON.cs" />
     <Compile Include="StandardManager\Importer_For_JSON.cs" />
@@ -198,6 +198,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ObjectModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

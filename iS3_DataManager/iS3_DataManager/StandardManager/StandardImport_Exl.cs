@@ -16,10 +16,10 @@ namespace iS3_DataManager.StandardManager
     {
         DataStandardDef standardDef { get; set; }
         
-        public DataStandardDef Import(string path)
+        public DataStandardDef Import(string StandardName)
         {
             DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            path = path ?? (localPath.Parent.Parent.FullName + "\\Standard\\");
+            string path = localPath.Parent.Parent.FullName + "\\Standard\\"+StandardName+".xlsx";            
             return ReadExl(ReadWorkbook(path));
         }
 
@@ -43,11 +43,7 @@ namespace iS3_DataManager.StandardManager
         IWorkbook ReadWorkbook(string path)
         {
             try
-            {
-                var fullPath = Directory.GetFiles(path, "*.xlsx");
-                if (fullPath.Equals(null))
-                    fullPath = Directory.GetFiles(path, "*.xls");
-                path = fullPath.Length == 0 ? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\RockTunnel.xlsx") : fullPath[0];
+            {                
                 this.standardDef = new DataStandardDef { Code = Path.GetFileNameWithoutExtension(path) };
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 if (path.IndexOf(".xlsx") > 0) // for excel version over 2007
