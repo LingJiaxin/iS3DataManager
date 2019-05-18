@@ -295,6 +295,7 @@ namespace iS3_DataManager
                 DataDG.ItemsSource = dataTable.DefaultView;
             }
         }
+
         /// <summary>
         /// save user changes in gridview
         /// </summary>
