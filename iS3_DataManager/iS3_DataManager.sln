@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iS3_DataManager", "iS3_DataManager\iS3_DataManager.csproj", "{CE178382-3974-4BC5-8A4F-F7ECDF50EDCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iS3.MiniServer", "iS3.MiniServer\iS3.MiniServer.csproj", "{674E22D2-C3E9-4C22-9C43-6CA82EA33343}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,14 +21,6 @@ Global
 		{CE178382-3974-4BC5-8A4F-F7ECDF50EDCF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE178382-3974-4BC5-8A4F-F7ECDF50EDCF}.Release|x64.ActiveCfg = Release|x64
 		{CE178382-3974-4BC5-8A4F-F7ECDF50EDCF}.Release|x64.Build.0 = Release|x64
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Debug|x64.Build.0 = Debug|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|Any CPU.Build.0 = Release|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|x64.ActiveCfg = Release|Any CPU
-		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
