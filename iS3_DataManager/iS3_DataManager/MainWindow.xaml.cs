@@ -271,7 +271,12 @@ namespace iS3_DataManager
                 List<string> tableNames = new List<string>();
                 foreach (DataTable table in dataSet.Tables)
                 {
+                    if(table.Rows.Count>0)
                     tableNames.Add(table.TableName);
+                }
+                foreach(DataTable table in dataSet.Tables)
+                {
+                    if (table.Rows.Count == 0) tableNames.Add(table.TableName);
                 }
                 if (tableNames.Count > 0)
                     DataHeaderLB.ItemsSource = tableNames;

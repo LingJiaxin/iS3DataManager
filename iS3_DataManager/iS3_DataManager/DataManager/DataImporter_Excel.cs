@@ -123,9 +123,9 @@ namespace iS3_DataManager.DataManager
                 return null;
             }
             else
-            {
-                if (sheet.PhysicalNumberOfRows < 4) return null;
+            {                
                 DataTable dt = new DataTable(objectDef.LangStr);
+                if (sheet.PhysicalNumberOfRows < 4) return dt;
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
                     dt.Columns.Add(meta.LangStr);
@@ -143,6 +143,7 @@ namespace iS3_DataManager.DataManager
                         }
                         else
                         {
+                            i++;
                             dr[meta.LangStr] = null;
                         }
                     }
