@@ -21,7 +21,7 @@ namespace iS3_DataManager
         private DataStandardDef NewDataStandard { get; set; }
         DataSet dataSet { get; set; }
         StandardFilter filter { get; set; }
-        DataStandardDef filteredStandard { get; set; }
+        Tunnel tunnel { get; set; }
         TreeViewData ViewData { get; set; }
         public MainWindow()
         {
@@ -40,18 +40,16 @@ namespace iS3_DataManager
             {
                 Load();
             }));
-            //IDSImporter importer = new StandardImport_Exl();
-            //if (importer.Import(null) != null) System.Windows.MessageBox.Show("Standard import succeeded");
-
-            // StandardFilter filter = new StandardFilter();
-            //new Exporter_For_JSON().Export(filter);
+            SetFullScreen();
             Loads.Completed += new EventHandler(Loads_Completed);
 
         }
+
         void Loads_Completed(object sender, EventArgs e)
         {
             ReloadWindow();
         }
+
         /// <summary>
         /// load Data
         /// </summary>
@@ -62,11 +60,20 @@ namespace iS3_DataManager
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
             filter = standardLoader.CreateFilter();
+            TunnelTypeCB.ItemsSource = filter.Tunnels;
+            TunnelTypeCB.SelectedIndex = 0;
             //ClassGenerator generator = new ClassGenerator();
             //generator.GenerateClass(Standard);
             
         }
-
+        void SetFullScreen()
+        {
+            Rect rc = SystemParameters.WorkArea;//get the workArea
+            this.Left = 0;//set window position
+            this.Top = 0;
+            this.Width = rc.Width/2;
+            this.Height = rc.Height;           
+        }
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
             ShowData();
@@ -116,23 +123,19 @@ namespace iS3_DataManager
                     switch (treeNode.Level)
                     {
                         case 1:
-                            MessageBox.Show("Please select Stage/Category/DGobject to generate template!");
-                            return;
-                        case 2:
                             GenerateStageTemplate(treeNode);
                             return;
-                        case 3:
+                        case 2:
                             GenerateCategoryTemplate(treeNode);
                             return;
-                        case 4:
+                        case 3:
                             GenerateSingleTemplate(treeNode);
-                            return;
+                            return;                            
                     }
                 }
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -152,7 +155,6 @@ namespace iS3_DataManager
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -233,7 +235,7 @@ namespace iS3_DataManager
         private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             TreeNode selectedNode = (TreeNode)DataTemplateTreeview.SelectedItem;
-            if (selectedNode != null & selectedNode.Level == 4)
+            if (selectedNode != null & selectedNode.Level == 3)
             {
                 ShowProperty(selectedNode.Context);
             }
@@ -342,10 +344,16 @@ namespace iS3_DataManager
         }
         private void ReloadWindow()
         {
-            ViewData = new TreeViewData(filter, Standard);
+            ViewData = new TreeViewData(tunnel, Standard);
             DataTemplateTreeview.DataContext = ViewData;
             if(PropertyLV.Items.Count>0)
             PropertyLV.Items.RemoveAt(0);
+        }
+
+        private void TunnelTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {           
+           tunnel= TunnelTypeCB.SelectedItem as Tunnel;
+            ReloadWindow();
         }
     }
 }

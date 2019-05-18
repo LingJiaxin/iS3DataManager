@@ -7,7 +7,7 @@
         xmlns:viewManager="clr-namespace:iS3_DataManager.ViewManager"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="iS3_DataManager.MainWindow"
         mc:Ignorable="d"
-        Title="iS3 Data Manager" Height="400" Width="763.333">
+        Title="iS3 Data Manager" Height="400" Width="688">
     <Window.Resources>
         <Style TargetType="{x:Type ListBoxItem}" x:Key="ListBoxItemStyle">
             <Setter Property="Foreground" Value="White"/>
@@ -82,11 +82,7 @@
             <ListBoxItem Content="Data Template"/>
             <ListBoxItem Content="Data Entry"/>
         </ListBox>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,100,0" Width="120" Height="30" Grid.Column="1"><Run Text=" "/><InlineUIContainer>
-                <TextBlock TextAlignment="Center"/>
-            </InlineUIContainer><Run Text=" "/><InlineUIContainer>
-                <TextBlock FontSize="20"/>
-            </InlineUIContainer></TextBlock>
+        <TextBlock Grid.Row="1" Margin="302.641,7.38,177.856,5" Grid.Column="1" Text="Tunnel Type：" TextAlignment="Center" MinWidth="75" HorizontalAlignment="Left"/>
 
         <Grid x:Name="DataTemplateGrid" Grid.Row="2" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
@@ -110,7 +106,7 @@
                     <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ListView x:Name="PropertyLV" Margin="40,0,-32,0" Grid.Column="1" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Width="Auto"
+                <ListView x:Name="PropertyLV" Margin="40,0,-32,0" Grid.Column="1" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Width="Auto" MinWidth="350"
                           >
                     <ListView.View>
                         <GridView>
@@ -145,7 +141,7 @@
             </Grid>
             <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
         </Grid>
-        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed" Grid.ColumnSpan="2">
+        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed" Grid.ColumnSpan="2" d:IsHidden="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120*"/>
                 <ColumnDefinition Width="363*"/>
@@ -165,6 +161,9 @@
                      SelectionChanged="DataHeaderLB_SelectionChanged"
                      DisplayMemberPath="{Binding}" HorizontalAlignment="Left" MinWidth="100"/>
         </Grid>
+        <ComboBox x:Name="TunnelTypeCB" Grid.Column="1" HorizontalAlignment="Left" Margin="389.958,0,0,5" Grid.Row="1" 
+                  d:LayoutOverrides="Height" MinWidth="100"
+                  DisplayMemberPath="TunnelType" SelectionChanged="TunnelTypeCB_SelectionChanged"  MinHeight="18" />
 
     </Grid>
 </Window>
