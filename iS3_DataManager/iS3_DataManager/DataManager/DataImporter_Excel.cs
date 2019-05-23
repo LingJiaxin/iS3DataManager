@@ -125,7 +125,6 @@ namespace iS3_DataManager.DataManager
             else
             {                
                 DataTable dt = new DataTable(objectDef.LangStr);
-                if (sheet.PhysicalNumberOfRows < 4) return dt;
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
                     dt.Columns.Add(meta.LangStr);
