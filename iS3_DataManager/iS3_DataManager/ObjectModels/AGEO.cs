@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class AGEO
+ 	[Table("Geology_AGEO")]
+	public class AGEO
  	{ 
 		public string LOCA_ID {get;set;}
 		public string AGEO_ID {get;set;}

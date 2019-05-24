@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class MOIS
+ 	[Table("Geology_MOIS")]
+	public class MOIS
  	{ 
 		public string PROJ_ID {get;set;}
 		public string MOIS_LOCA {get;set;}

@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class GRMI
+ 	[Table("Geology_GRMI")]
+	public class GRMI
  	{ 
 		public string GRMI_ID {get;set;}
 		public Nullable<double> GRMI_GMPA {get;set;}

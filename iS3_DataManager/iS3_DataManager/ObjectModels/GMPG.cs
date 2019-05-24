@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class GMPG
+ 	[Table("Geology_GMPG")]
+	public class GMPG
  	{ 
 		public string PROJ_ID {get;set;}
 		public string GMPG_ID {get;set;}

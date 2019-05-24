@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class HYDW
+ 	[Table("Geology_HYDW")]
+	public class HYDW
  	{ 
 		public string LOCA_ID {get;set;}
 		public string HYDW_ID {get;set;}

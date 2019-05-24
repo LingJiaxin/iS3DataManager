@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class DSTG
+ 	[Table("Geology_DSTG")]
+	public class DSTG
  	{ 
 		public string PROJ_ID {get;set;}
 		public string DSTG_LOCA {get;set;}

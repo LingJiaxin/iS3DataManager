@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class GETD
+ 	[Table("Geology_GETD")]
+	public class GETD
  	{ 
 		public string LOCA_ID {get;set;}
 		public Nullable<double> GETD_DEPH {get;set;}

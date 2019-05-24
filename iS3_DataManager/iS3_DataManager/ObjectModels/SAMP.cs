@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class SAMP
+ 	[Table("Geology_SAMP")]
+	public class SAMP
  	{ 
 		public string LOCA_ID {get;set;}
 		public string SAMP_ID {get;set;}

@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class FDST
+ 	[Table("Geology_FDST")]
+	public class FDST
  	{ 
 		public string PROJ_ID {get;set;}
 		public string LOCA_ID {get;set;}

@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class DYNP
+ 	[Table("Geology_DYNP")]
+	public class DYNP
  	{ 
 		public string PROJ_ID {get;set;}
 		public string LOCA_ID {get;set;}

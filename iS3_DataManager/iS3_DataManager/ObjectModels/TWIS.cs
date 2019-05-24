@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class TWIS
+ 	[Table("Geology_TWIS")]
+	public class TWIS
  	{ 
 		public string TWIS_ID {get;set;}
 		public string PEOP_ID {get;set;}

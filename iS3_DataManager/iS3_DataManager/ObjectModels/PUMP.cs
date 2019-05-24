@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class PUMP
+ 	[Table("Geology_PUMP")]
+	public class PUMP
  	{ 
 		public string PROJ_ID {get;set;}
 		public string LOCA_ID {get;set;}

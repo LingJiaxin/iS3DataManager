@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class FRAC
+ 	[Table("Geology_FRAC")]
+	public class FRAC
  	{ 
 		public string FRAC_SET {get;set;}
 		public Nullable<int> FRAC_IMAX {get;set;}

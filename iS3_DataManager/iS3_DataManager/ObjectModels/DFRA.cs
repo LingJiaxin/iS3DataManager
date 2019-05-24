@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class DFRA
+ 	[Table("Geology_DFRA")]
+	public class DFRA
  	{ 
 		public string DFBI_MILE {get;set;}
 		public Nullable<double> DFBI_TUFM {get;set;}

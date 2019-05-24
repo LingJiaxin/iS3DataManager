@@ -62,8 +62,8 @@ namespace iS3_DataManager
             filter = standardLoader.CreateFilter();
             TunnelTypeCB.ItemsSource = filter.Tunnels;
             TunnelTypeCB.SelectedIndex = 0;
-            //ClassGenerator generator = new ClassGenerator();
-            //generator.GenerateClass(Standard);
+            ClassGenerator generator = new ClassGenerator();
+            generator.GenerateClass(Standard);
             
         }
         void SetFullScreen()

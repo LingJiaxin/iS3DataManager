@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class RMDT
+ 	[Table("Geology_RMDT")]
+	public class RMDT
  	{ 
 		public string PROJ_ID {get;set;}
 		public string RMDT_LOCA {get;set;}

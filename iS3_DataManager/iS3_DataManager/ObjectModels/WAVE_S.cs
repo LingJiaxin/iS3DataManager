@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class WAVE_S
+ 	[Table("Geology_WAVE_S")]
+	public class WAVE_S
  	{ 
 		public string PROJ_ID {get;set;}
 		public string WAVE_LOCA {get;set;}

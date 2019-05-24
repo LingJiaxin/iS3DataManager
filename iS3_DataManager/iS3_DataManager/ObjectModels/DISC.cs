@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class DISC
+ 	[Table("Geology_DISC")]
+	public class DISC
  	{ 
 		public string FRAC_SET {get;set;}
 		public string DISC_NUMB {get;set;}

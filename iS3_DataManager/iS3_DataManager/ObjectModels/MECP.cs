@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class MECP
+ 	[Table("Geology_MECP")]
+	public class MECP
  	{ 
 		public Nullable<double> MECP_COF {get;set;}
 		public Nullable<double> MECP_AGF {get;set;}

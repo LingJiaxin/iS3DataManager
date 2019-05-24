@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class COTR
+ 	[Table("Geology_COTR")]
+	public class COTR
  	{ 
 		public string PROJ_ID {get;set;}
 		public string GMPG_ID {get;set;}

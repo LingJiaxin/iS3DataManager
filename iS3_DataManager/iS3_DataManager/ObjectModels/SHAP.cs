@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class SHAP
+ 	[Table("Geology_SHAP")]
+	public class SHAP
  	{ 
 		public string SHAP_ID {get;set;}
 		public string SHAP_TYPE {get;set;}

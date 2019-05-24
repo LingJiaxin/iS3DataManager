@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class TTES
+ 	[Table("Geology_TTES")]
+	public class TTES
  	{ 
 		public string PROJ_ID {get;set;}
 		public string TTES_LOCA {get;set;}

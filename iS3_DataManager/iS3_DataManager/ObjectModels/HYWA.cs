@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class HYWA
+ 	[Table("Geology_HYWA")]
+	public class HYWA
  	{ 
 		public string HYDW_ID {get;set;}
 		public string HYWA_CODE {get;set;}

@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class GEPR
+ 	[Table("Geology_GEPR")]
+	public class GEPR
  	{ 
 		public string GEPR_ID {get;set;}
 		public string GEPR_DEVN {get;set;}

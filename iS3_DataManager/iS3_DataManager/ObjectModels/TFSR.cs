@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class TFSR
+ 	[Table("Geology_TFSR")]
+	public class TFSR
  	{ 
 		public string TFSR_ID {get;set;}
 		public string TFSR_ROCN {get;set;}

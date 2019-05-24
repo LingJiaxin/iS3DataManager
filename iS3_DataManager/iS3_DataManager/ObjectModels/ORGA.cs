@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class ORGA
+ 	[Table("Geology_ORGA")]
+	public class ORGA
  	{ 
 		public string ORGA_ID {get;set;}
 		public string ORGA_NAME {get;set;}

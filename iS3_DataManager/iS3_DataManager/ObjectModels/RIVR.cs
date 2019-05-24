@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class RIVR
+ 	[Table("Geology_RIVR")]
+	public class RIVR
  	{ 
 		public string RIVR_ID {get;set;}
 		public string RIVR_NAME {get;set;}

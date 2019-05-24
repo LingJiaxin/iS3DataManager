@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class PHYP
+ 	[Table("Geology_PHYP")]
+	public class PHYP
  	{ 
 		public string PHYP_ROCC {get;set;}
 		public Nullable<double> PHYP_PARD {get;set;}

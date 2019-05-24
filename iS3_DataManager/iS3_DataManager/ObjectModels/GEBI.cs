@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class GEBI
+ 	[Table("Geology_GEBI")]
+	public class GEBI
  	{ 
 		public string GEBI_ID {get;set;}
 		public string GEBI_MILE {get;set;}

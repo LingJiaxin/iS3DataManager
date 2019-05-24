@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class FILE
+ 	[Table("Geology_FILE")]
+	public class FILE
  	{ 
 		public string FILE_FSET {get;set;}
 		public string FILE_NAME {get;set;}

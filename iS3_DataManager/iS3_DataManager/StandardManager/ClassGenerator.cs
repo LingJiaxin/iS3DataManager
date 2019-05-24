@@ -31,7 +31,9 @@ namespace iS3_DataManager.StandardManager
                 foreach (DGObjectDef dGObject in domain.DGObjectContainer)
                 {
 
-                    string newClass = "using System; \n namespace iS3_DataManager.ObjectModels\n { \n \tpublic class " + dGObject.Code + "\n \t{ \n";
+                    string newClass = "using System; \nusing System.ComponentModel.DataAnnotations.Schema;\nnamespace iS3_DataManager.ObjectModels\n { \n \t";
+                    newClass += "[Table(\"Geology_" + dGObject.Code + "\")]\n";
+                    newClass += "\tpublic class " + dGObject.Code + "\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
                         if (meta.Nullable == false)

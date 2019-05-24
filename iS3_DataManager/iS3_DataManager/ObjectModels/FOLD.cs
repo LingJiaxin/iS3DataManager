@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class FOLD
+ 	[Table("Geology_FOLD")]
+	public class FOLD
  	{ 
 		public string FOLD_ID {get;set;}
 		public string FOLD_NAME {get;set;}

@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class FAUL
+ 	[Table("Geology_FAUL")]
+	public class FAUL
  	{ 
 		public string FAUL_ID {get;set;}
 		public string FAUL_NAME {get;set;}

@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class EPRO
+ 	[Table("Geology_EPRO")]
+	public class EPRO
  	{ 
 		public string LOCA_ID {get;set;}
 		public string EPRO_ID {get;set;}

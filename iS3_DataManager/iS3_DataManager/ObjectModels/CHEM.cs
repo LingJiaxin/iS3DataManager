@@ -1,7 +1,9 @@
 using System; 
- namespace iS3_DataManager.ObjectModels
+using System.ComponentModel.DataAnnotations.Schema;
+namespace iS3_DataManager.ObjectModels
  { 
- 	public class CHEM
+ 	[Table("Geology_CHEM")]
+	public class CHEM
  	{ 
 		public string PROJ_ID {get;set;}
 		public string CHEM_LOCA {get;set;}
