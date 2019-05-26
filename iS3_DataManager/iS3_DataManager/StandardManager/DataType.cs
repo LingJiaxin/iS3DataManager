@@ -28,6 +28,8 @@ namespace iS3_DataManager.StandardManager
             GetType.Add("Y/N","bool");
             GetType.Add("无","string");
             GetType.Add("string","string");
+            GetType.Add("DateTime", "string");
+            GetType.Add("decimal", "double");
             this.Gettype=GetType;            
         }
     }

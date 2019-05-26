@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_RSVR")]
-	public class RSVR
+	public class RSVR:DGObject
  	{ 
 		public string RSVR_ID {get;set;}
 		public string RSVR_NAME {get;set;}

@@ -55,8 +55,8 @@ namespace iS3_DataManager
         /// </summary>
         public void Load()
         {
-            //IDSImporter importer = new StandardImport_Exl();
-            //if (importer.Import("Geology") != null) System.Windows.MessageBox.Show("Standard import succeeded");
+            IDSImporter importer = new StandardImport_Exl();
+            if (importer.Import("Geology") != null) System.Windows.MessageBox.Show("Standard import succeeded");
             StandardLoader standardLoader = new StandardLoader();
             Standard = standardLoader.GetStandard();
             filter = standardLoader.CreateFilter();
@@ -81,9 +81,12 @@ namespace iS3_DataManager
 
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
-            Test();
+            //Test();
             DataChecker checker = new DataChecker(dataSet, Standard);
             checker.Check();
+            Data2Localfile transfer = new Data2Localfile("");
+            //transfer.Data2Local();
+            DataSet newDataset= transfer.LoadLocalData("Geology");
             System.Windows.MessageBox.Show("Data  has been stored to DataBase!");
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);
@@ -235,9 +238,12 @@ namespace iS3_DataManager
         private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             TreeNode selectedNode = (TreeNode)DataTemplateTreeview.SelectedItem;
-            if (selectedNode != null & selectedNode.Level == 3)
+            if (selectedNode != null )
             {
+                if(selectedNode.Level == 3 & Standard.Code == "Geology")
                 ShowProperty(selectedNode.Context);
+                if (selectedNode.Level == 2 & (Standard.Code == "Structure"|Standard.Code=="Construction"))
+                    ShowProperty(selectedNode.Context);
             }
 
         }
@@ -257,6 +263,7 @@ namespace iS3_DataManager
             PropertyLV.ItemsSource = null;
             PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
         }
+
         private void ShowData()
         {
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
@@ -329,6 +336,11 @@ namespace iS3_DataManager
         {
             LoadStandard("Geology");
         }
+        private void ConfigConstructin_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStandard("Construction");
+        }
+        
         private void LoadStandard(string StandardName)
         {
             StandardName = StandardName ?? "Geology";
@@ -346,7 +358,7 @@ namespace iS3_DataManager
         {
             ViewData = new TreeViewData(tunnel, Standard);
             DataTemplateTreeview.DataContext = ViewData;
-            if(PropertyLV.Items.Count>0)
+            if(PropertyLV.Items.Count==1)
             PropertyLV.Items.RemoveAt(0);
         }
 
@@ -354,6 +366,12 @@ namespace iS3_DataManager
         {           
            tunnel= TunnelTypeCB.SelectedItem as Tunnel;
             ReloadWindow();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            DataImporter_Word dataImporter = new DataImporter_Word();
+            dataImporter.OpenDoc();
         }
     }
 }

@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_IRSI")]
-	public class IRSI
+	public class IRSI:DGObject
  	{ 
 		public string AERP_ID {get;set;}
 		public string IRSI_ID {get;set;}

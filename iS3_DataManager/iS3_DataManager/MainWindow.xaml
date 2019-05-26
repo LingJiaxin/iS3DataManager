@@ -61,7 +61,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="File" >
-                <MenuItem Header="Open" Click="Open_click"/>
+                <MenuItem Header="OpenExcel" Click="Open_click"/>
+                <MenuItem Header="OpenDoc" Click="MenuItem_Click_1"/>
                 <MenuItem Header="Save"/>
                 <MenuItem Header="Delete"/>
             </MenuItem>
@@ -70,6 +71,7 @@
             <MenuItem Header="Config">
                 <MenuItem Header="Initial Geology Standard" Click="ConfigGeology_Click"/>
                 <MenuItem Header="Initial Structure Standard" Click="ConfigStruct_Click"/>
+                <MenuItem Header="Initial Construction Standard" Click="ConfigConstructin_Click"/>
             </MenuItem>
             <MenuItem Header="About"/>
         </Menu>
@@ -141,7 +143,7 @@
             </Grid>
             <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
         </Grid>
-        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed" Grid.ColumnSpan="2" d:IsHidden="True">
+        <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Collapsed" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120*"/>
                 <ColumnDefinition Width="363*"/>

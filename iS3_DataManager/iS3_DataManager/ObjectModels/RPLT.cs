@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_RPLT")]
-	public class RPLT
+	public class RPLT:DGObject
  	{ 
 		public string PROJ_ID {get;set;}
 		public string RPLT_LOCA {get;set;}

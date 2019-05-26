@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_GPSI")]
-	public class GPSI
+	public class GPSI:DGObject
  	{ 
 		public string GPSI_ID {get;set;}
 		public string GPSI_MILE {get;set;}

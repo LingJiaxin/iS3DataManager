@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_HDPH")]
-	public class HDPH
+	public class HDPH:DGObject
  	{ 
 		public string LOCA_ID {get;set;}
 		public string HDPH_ID {get;set;}

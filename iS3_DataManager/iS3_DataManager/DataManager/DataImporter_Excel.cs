@@ -39,8 +39,8 @@ namespace iS3_DataManager.DataManager
         public DataSet Import(string path, DataStandardDef standard)
         {
 
-            try
-            {
+            //try
+            //{
                 string domainName = Path.GetFileNameWithoutExtension(path);
                 DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName);
                 DataSet ds = new DataSet(domainName);
@@ -51,17 +51,18 @@ namespace iS3_DataManager.DataManager
                 //sheetNames equal to objectName
                 foreach (string sheetName in sheetNames)
                 {
-                    DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.LangStr == sheetName);
+                    DGObjectDef objectDef = standard.GetDGObjectDefByName(sheetName);
                     DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
                     if(dt!=null)ds.Tables.Add(dt);
                 }
+                
                 return ds;
-            }
+            //}
 
-            catch (Exception)
-            {
-                return null;
-            }
+            //catch (Exception)
+            //{
+            //    return null;
+            //}
 
         }
 

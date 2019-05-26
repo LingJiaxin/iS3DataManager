@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_FREZ")]
-	public class FREZ
+	public class FREZ:DGObject
  	{ 
 		public string PROJ_ID {get;set;}
 		public string FREZ_LOCA {get;set;}

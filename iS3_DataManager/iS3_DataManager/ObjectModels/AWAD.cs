@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_AWAD")]
-	public class AWAD
+	public class AWAD:DGObject
  	{ 
 		public string PROJ_ID {get;set;}
 		public string AWAD_LOCA {get;set;}

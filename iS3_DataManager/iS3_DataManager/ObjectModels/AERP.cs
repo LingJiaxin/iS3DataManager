@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_AERP")]
-	public class AERP
+	public class AERP:DGObject
  	{ 
 		public string AERP_ID {get;set;}
 		public string AERP_TYPE {get;set;}

@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_TFSR")]
-	public class TFSR
+	public class TFSR:DGObject
  	{ 
 		public string TFSR_ID {get;set;}
 		public string TFSR_ROCN {get;set;}

@@ -113,6 +113,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -131,9 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataManager\Data2Localfile.cs" />
     <Compile Include="DataManager\DataChecker.cs" />
+    <Compile Include="DataManager\DataImporter_Word.cs" />
     <Compile Include="DataManager\DataSet2Entity.cs" />
-    <Compile Include="DataManager\RepositoryForDataManager.cs" />
     <Compile Include="DataManager\TempleteExporter_Excel.cs" />
     <Compile Include="DataManager\DataImporter_Excel.cs" />
     <Compile Include="Interface\IDataExporter.cs" />

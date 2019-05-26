@@ -114,6 +114,34 @@
 						"LangStr":"补充调查",
 					},
 					{
+						"CategoryName":"ConstructionInformatica",
+						"objList":
+						[
+							"ACHE",
+"AD",
+"ARCQ",
+"ASP",
+"CHAG",
+"EPCD",
+"EPEM",
+"EPQM",
+"EPS",
+"EPY",
+"ES",
+"GCS",
+"GQ",
+"ILCQ",
+"ISP",
+"SCHE",
+"SLCQ",
+"SPZL",
+"SSP",
+"TPQ",
+"TPSI"
+						],
+						"LangStr":"施工信息",
+					},
+					{
 						"CategoryName":"AdvancedGeologicalExploration",
 						"objList":
 						[							

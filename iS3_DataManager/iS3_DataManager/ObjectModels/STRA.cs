@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_STRA")]
-	public class STRA
+	public class STRA:DGObject
  	{ 
 		public string STRA_ID {get;set;}
 		public Nullable<double> STRA_TOP {get;set;}

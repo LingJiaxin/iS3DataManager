@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_SHAP")]
-	public class SHAP
+	public class SHAP:DGObject
  	{ 
 		public string SHAP_ID {get;set;}
 		public string SHAP_TYPE {get;set;}

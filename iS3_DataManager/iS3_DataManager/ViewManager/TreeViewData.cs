@@ -24,7 +24,10 @@ namespace iS3_DataManager.ViewManager
         }
         public TreeViewData(Tunnel tunnel, DataStandardDef Standard)
         {
-            GenerateNodes(tunnel, Standard);
+            if (Standard.Code == "Geology")
+                GenerateNodes(tunnel, Standard);
+            else
+                GenerateNodes(Standard);
             treeNodes = TreeNodes;
         }
         public TreeViewData()
@@ -47,6 +50,7 @@ namespace iS3_DataManager.ViewManager
                     foreach (string obj in category.objList)
                     {
                         DGObjectDef dGObject = Standard.GetDGObjectDefByCode(obj);
+
                         TreeNode objTreeNode = new TreeNode() { NodeID = index++, Level = 3, Context = dGObject.LangStr };
                         categoryTreeNode.ChildNodes.Add(objTreeNode);
                     }
@@ -56,5 +60,22 @@ namespace iS3_DataManager.ViewManager
             }            
             TreeNodes = nodes;
         }
+        private void GenerateNodes(DataStandardDef standardDef)
+        {
+            List<TreeNode> nodes = new List<TreeNode>();
+            int index = 0;
+            foreach (DomainDef domain in standardDef.DomainContainer)
+            {
+                TreeNode stageTreeNode = new TreeNode() { NodeID = index++, Level = 1, Context = domain.LangStr, isExpanded = true };
+                foreach (DGObjectDef dG in domain.DGObjectContainer)
+                {
+                    TreeNode categoryTreeNode = new TreeNode() { NodeID = index++, Level = 2, Context = dG.LangStr, isExpanded = true };                    
+                    stageTreeNode.ChildNodes.Add(categoryTreeNode);
+                }
+                nodes.Add(stageTreeNode);
+            }
+            TreeNodes = nodes;
+        }
+        
     }
 }

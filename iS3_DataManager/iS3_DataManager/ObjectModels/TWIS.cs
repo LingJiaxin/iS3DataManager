@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_TWIS")]
-	public class TWIS
+	public class TWIS:DGObject
  	{ 
 		public string TWIS_ID {get;set;}
 		public string PEOP_ID {get;set;}
@@ -16,5 +18,6 @@ namespace iS3_DataManager.ObjectModels
 		public Nullable<double> TWIS_AWI {get;set;}
 		public string TWIS_ACME {get;set;}
 		public string TWIS_REM {get;set;}
+		public string FILE_FSET {get;set;}
 	}
 }

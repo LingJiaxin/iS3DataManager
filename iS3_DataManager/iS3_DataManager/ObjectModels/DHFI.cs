@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_DHFI")]
-	public class DHFI
+	public class DHFI:DGObject
  	{ 
 		public string DFBI_MILE {get;set;}
 		public Nullable<double> DFBI_TUFM {get;set;}

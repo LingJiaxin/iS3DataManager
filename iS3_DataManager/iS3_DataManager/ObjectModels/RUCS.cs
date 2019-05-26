@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_RUCS")]
-	public class RUCS
+	public class RUCS:DGObject
  	{ 
 		public string PROJ_ID {get;set;}
 		public string RUCS_LOCA {get;set;}

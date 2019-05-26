@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_DFBI")]
-	public class DFBI
+	public class DFBI:DGObject
  	{ 
 		public string PEOP_ID {get;set;}
 		public string DFBI_METH {get;set;}

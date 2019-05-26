@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_RTST")]
-	public class RTST
+	public class RTST:DGObject
  	{ 
 		public string PROJ_ID {get;set;}
 		public string RTST_LOCA {get;set;}

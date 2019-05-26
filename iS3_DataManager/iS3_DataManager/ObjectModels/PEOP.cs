@@ -1,9 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
-namespace iS3_DataManager.ObjectModels
+using iS3.Core.Model;
+
+namespace iS3.Geology.Model
  { 
  	[Table("Geology_PEOP")]
-	public class PEOP
+	public class PEOP:DGObject
  	{ 
 		public string PEOP_ID {get;set;}
 		public string PEOP_TPNA {get;set;}

@@ -53,16 +53,18 @@ namespace iS3_DataManager.StandardManager
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show(e.Message);
+                
+                //System.Windows.MessageBox.Show(e.Message);
                 return null;
+                throw e;
             }
             return null;
         }
         public void Row2Object(IRow row)
         {
             
-            try
-            {
+            //try
+            //{
                 string domainName = row.GetCell(0).ToString();
                 string domainDes = row.GetCell(1)?.ToString();
                 string domainlangStr = row.GetCell(2)?.ToString();
@@ -79,8 +81,8 @@ namespace iS3_DataManager.StandardManager
                 string  proDes = row.GetCell(13)?.ToString();
 
                 
-                DomainDef domain = null;
-                DGObjectDef objectDef = null;
+                DomainDef domain ;
+                DGObjectDef objectDef;
                 PropertyMeta property = new PropertyMeta
                 {
                     PropertyName = propertyName,
@@ -133,11 +135,12 @@ namespace iS3_DataManager.StandardManager
                     domain.DGObjectContainer.Add(objectDef);
                     this.standardDef.DomainContainer.Add(domain);
                 }
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(e.Message);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    //throw e;
+            //    System.Windows.MessageBox.Show(e.Message);
+            //}
         }
     }
 }
