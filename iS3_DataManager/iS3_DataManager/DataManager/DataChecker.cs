@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using iS3_DataManager.Models;
 using System.IO;
+using System.Windows;
+
 
 namespace iS3_DataManager.DataManager
 {
@@ -14,6 +16,7 @@ namespace iS3_DataManager.DataManager
         public DataSet dataSet { get; set; }
         public DataTable dataTable { get; set; }
         public DataStandardDef standardDef { get; set; }
+        
         public DataChecker(DataTable table, DataStandardDef standard)
         {
             dataTable = table;
@@ -23,7 +26,6 @@ namespace iS3_DataManager.DataManager
         {
             dataSet = set;
             standardDef = standard;
-
         }
         public bool Check()
         {
@@ -71,6 +73,7 @@ namespace iS3_DataManager.DataManager
                     {
                         if (row[meta.LangStr] != null & !Regex.IsMatch(row[meta.LangStr].ToString(), meta.RegularExp))
                         {
+
                             string message = "Data Format Error At sheet:" + objectDef.Code;
                             message += ",line:" + line++.ToString();
                             message += ",column:" + column++.ToString();
@@ -80,6 +83,7 @@ namespace iS3_DataManager.DataManager
                     }
                     else
                     {
+                        
                         //string message = "Lack of data check regulations at: " + objectDef.Code+"."+meta.PropertyName;
                         //message += time;
                         //streamWriter.WriteLine(message);
@@ -89,6 +93,7 @@ namespace iS3_DataManager.DataManager
             streamWriter.Flush();
             streamWriter.Close();
             return true;
-        }
+        } 
+        
     }
 }

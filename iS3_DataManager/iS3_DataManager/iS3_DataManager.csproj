@@ -158,6 +158,7 @@
     <Compile Include="StandardManager\StandardImport_Exl.cs" />
     <Compile Include="StandardManager\StandardLoader.cs" />
     <Compile Include="StandardManager\StandardWriter.cs" />
+    <Compile Include="ViewManager\ChangeStyle.cs" />
     <Compile Include="ViewManager\TreeNode.cs" />
     <Compile Include="ViewManager\TreeViewData.cs" />
     <Page Include="MainWindow.xaml">

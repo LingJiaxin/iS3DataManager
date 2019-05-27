@@ -9,6 +9,8 @@ using iS3_DataManager.ViewManager;
 using System.Data;
 using System.Linq;
 using System;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace iS3_DataManager
 {
@@ -82,12 +84,8 @@ namespace iS3_DataManager
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
             //Test();
-            DataChecker checker = new DataChecker(dataSet, Standard);
-            checker.Check();
-            Data2Localfile transfer = new Data2Localfile("");
-            //transfer.Data2Local();
-            DataSet newDataset= transfer.LoadLocalData("Geology");
-            System.Windows.MessageBox.Show("Data  has been stored to DataBase!");
+            
+            
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);
         }
@@ -142,6 +140,7 @@ namespace iS3_DataManager
                 throw;
             }
         }
+
         void GenerateStageTemplate(TreeNode treeNode)
         {
             try
@@ -292,6 +291,7 @@ namespace iS3_DataManager
             }
 
         }
+
         /// <summary>
         /// show table names of Data import result
         /// </summary>
@@ -302,7 +302,11 @@ namespace iS3_DataManager
                 string tableName = DataHeaderLB.SelectedItem as string;
                 DataTable dataTable = dataSet.Tables[dataSet.Tables.IndexOf(tableName)];
                 DataDG.ItemsSource = dataTable.DefaultView;
+                ChangeStyle style = new ChangeStyle(dataTable,ref DataDG, Standard);
+                style.RefreshStyle();
+                DataDG.UpdateLayout();
             }
+            
         }
 
         /// <summary>
@@ -321,12 +325,13 @@ namespace iS3_DataManager
                 MessageBox.Show(a.Message);
             }
         }
+
         /// <summary>
         /// initial Sturcture Standard
         /// </summary>
         private void ConfigStruct_Click(object sender, RoutedEventArgs e)
         {
-            LoadStandard("Structure");
+            LoadStandard("Structure");           
         }
 
         /// <summary>
@@ -372,6 +377,22 @@ namespace iS3_DataManager
         {
             DataImporter_Word dataImporter = new DataImporter_Word();
             dataImporter.OpenDoc();
+        }    
+
+        private void SaveChangeBT_Click(object sender, RoutedEventArgs e)
+        {
+            Data2Localfile transfer = new Data2Localfile(dataSet);
+            transfer.Data2Local();
+            DataSet newDataset = transfer.LoadLocalData(Standard.Code);
+            System.Windows.MessageBox.Show("Data  has been stored to DataBase!");
+        }
+
+        private void CheckDataBT_Click(object sender, RoutedEventArgs e)
+        {
+            DataChecker checker = new DataChecker(dataSet, Standard);
+            checker.Check();
+
+            System.Windows.MessageBox.Show(@"Check result has been store at Data\CheckResult.txt");
         }
     }
 }
