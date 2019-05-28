@@ -9,10 +9,12 @@ namespace iS3_DataManager.StandardManager
 {
     public class ClassGenerator
     {
+        public DataStandardDef standard;
         public void GenerateClass(DataStandardDef standardDef)
         {
             try
             {
+                this.standard = standardDef;
                 foreach (DomainDef domain in standardDef.DomainContainer)
                 {
                     GenerateClass(domain);
@@ -23,6 +25,8 @@ namespace iS3_DataManager.StandardManager
                 System.Windows.MessageBox.Show(e.ToString());
             }
         }
+        
+        /// <param name="domain"></param>
         public void GenerateClass(DomainDef domain)
         {
             try
@@ -33,11 +37,12 @@ namespace iS3_DataManager.StandardManager
 
                     string newClass = "using System; \nusing System.ComponentModel.DataAnnotations.Schema;\n";
                     newClass += "using iS3.Core.Model;\n";
-                    newClass += "\nnamespace iS3.Geology.Model\n { \n \t";
-                    newClass += "[Table(\"Geology_" + dGObject.Code + "\")]\n";
+                    newClass += "\nnamespace "+"iS3."+standard.Code+".Model\n { \n \t";
+                    newClass += "[Table(\""+standard.Code+"_" + dGObject.Code + "\")]\n";
                     newClass += "\tpublic class " + dGObject.Code + ":DGObject\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
+                        newClass += "/// <summary>\n///\n///"+meta.LangStr+" </summary>\n";
                         if (meta.Nullable == false)
                         {
                             if (Types[meta.DataType] != "string")

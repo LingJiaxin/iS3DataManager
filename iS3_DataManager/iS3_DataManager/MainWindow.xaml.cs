@@ -119,7 +119,7 @@ namespace iS3_DataManager
             try
             {
                 TreeNode treeNode = DataTemplateTreeview.SelectedItem as TreeNode;
-                if (treeNode != null)
+                if (treeNode != null&Standard.Code=="Geology")
                 {
                     switch (treeNode.Level)
                     {
@@ -134,6 +134,19 @@ namespace iS3_DataManager
                             return;                            
                     }
                 }
+                if (treeNode != null & Standard.Code != "Geology")
+                {
+                    switch (treeNode.Level)
+                    {
+                        case 1:
+                            GenerateTempleteForOther(treeNode);
+                            return;
+                        case 2:
+                            GenerateSingleTemplate(treeNode);
+                            return;
+                            
+                    }
+                }
             }
             catch (Exception)
             {
@@ -145,12 +158,13 @@ namespace iS3_DataManager
         {
             try
             {
-                DomainDef domain = new DomainDef() { Code = "DataTemplate_Category", LangStr = treeNode.Context };
+                DomainDef domain = new DomainDef() { Code = Standard.DomainContainer.Find(x => x.LangStr == treeNode.Context).Code, LangStr = treeNode.Context };
                 foreach (var item in treeNode.ChildNodes)
                 {
                     foreach (var obj in item.ChildNodes)
                     {
-                        domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(obj.Context));
+                        DGObjectDef dG = Standard.GetDGObjectDefByName(obj.Context);
+                        domain.DGObjectContainer.Add(dG);
                     }
                 }
                 new Exporter_Excel().Export(domain);
@@ -160,7 +174,24 @@ namespace iS3_DataManager
                 throw;
             }
         }
-
+        void GenerateTempleteForOther(TreeNode treeNode)
+        {
+            try
+            {
+                DomainDef domain = new DomainDef() { Code = Standard.DomainContainer.Find(x => x.LangStr == treeNode.Context).Code, LangStr = treeNode.Context };
+                foreach (var item in treeNode.ChildNodes)
+                {
+                        DGObjectDef dG = Standard.GetDGObjectDefByName(item.Context);
+                        domain.DGObjectContainer.Add(dG);
+                    
+                }
+                new Exporter_Excel().Export(domain);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         /// <summary>
         /// generate template for one category
         /// </summary>
@@ -169,10 +200,11 @@ namespace iS3_DataManager
         {
             try
             {
-                DomainDef domain = new DomainDef() { Code = "Data Template", LangStr = selectedNode.Context };
+                DomainDef domain = new DomainDef() { Code =Standard.Code, LangStr = selectedNode.Context };
                 foreach (TreeNode childNode in selectedNode.ChildNodes)
                 {
-                    domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(childNode.Context));
+                    DGObjectDef dG = Standard.GetDGObjectDefByName(childNode.Context);
+                    domain.DGObjectContainer.Add(dG);
                 }
                 new Exporter_Excel().Export(domain);
 
@@ -190,8 +222,9 @@ namespace iS3_DataManager
         {
             try
             {
-                DomainDef domain = new DomainDef() { Code = "Default", LangStr = treeNode.Context };
-                domain.DGObjectContainer.Add(Standard.GetDGObjectDefByName(treeNode.Context));
+                DomainDef domain = new DomainDef() { Code = treeNode.Context, LangStr = treeNode.Context };
+                DGObjectDef dG = Standard.GetDGObjectDefByName(treeNode.Context);
+                domain.DGObjectContainer.Add(dG);
                 new Exporter_Excel().Export(domain);
             }
             catch (Exception)
@@ -241,7 +274,7 @@ namespace iS3_DataManager
             {
                 if(selectedNode.Level == 3 & Standard.Code == "Geology")
                 ShowProperty(selectedNode.Context);
-                if (selectedNode.Level == 2 & (Standard.Code == "Structure"|Standard.Code=="Construction"))
+                if (selectedNode.Level == 2 & (Standard.Code != "Geology"))
                     ShowProperty(selectedNode.Context);
             }
 
@@ -393,6 +426,16 @@ namespace iS3_DataManager
             checker.Check();
 
             System.Windows.MessageBox.Show(@"Check result has been store at Data\CheckResult.txt");
+        }
+
+        private void Monitor_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStandard("Monitoring");
+        }
+
+        private void Environment_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStandard("Environment");
         }
     }
 }

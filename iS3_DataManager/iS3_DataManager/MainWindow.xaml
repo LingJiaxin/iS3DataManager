@@ -72,6 +72,8 @@
                 <MenuItem Header="Initial Geology Standard" Click="ConfigGeology_Click"/>
                 <MenuItem Header="Initial Structure Standard" Click="ConfigStruct_Click"/>
                 <MenuItem Header="Initial Construction Standard" Click="ConfigConstructin_Click"/>
+                <MenuItem Header="Initial Monitoring Standard" Click="Monitor_Click"/>
+                <MenuItem Header="Initial Environment Standard" Click="Environment_Click"/>
             </MenuItem>
             <MenuItem Header="About"/>
         </Menu>
@@ -162,7 +164,8 @@
                      SelectionMode="Single" 
                      SelectionChanged="DataHeaderLB_SelectionChanged"
                      DisplayMemberPath="{Binding}" HorizontalAlignment="Left" MinWidth="100"/>
-            <Button x:Name="SaveChangeBT" Content="SaveChange" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,133,0" VerticalAlignment="Top" Width="90" Click="SaveChangeBT_Click"/>
+            <Button x:Name="SaveChangeBT" Content="SaveChange" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,133,0" VerticalAlignment="Top" 
+                    Width="90" Click="SaveChangeBT_Click"/>
             <Button x:Name="CheckDataBT" Content="CheckData" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,259,0" VerticalAlignment="Top" Width="90" 
                     Click="CheckDataBT_Click"/>
         </Grid>

@@ -63,7 +63,7 @@ namespace iS3_DataManager.DataManager
             {
                 if (standard == null)
                 {
-                    fileName = path + "\\default.xls";
+                    fileName = path + "\\"+domain.Code+".xls";
                     write2Exl(this.domain, workbook);
                 }
                 else
@@ -89,7 +89,7 @@ namespace iS3_DataManager.DataManager
         {
             foreach (DGObjectDef item in domain.DGObjectContainer)
             {
-                ISheet sheet = workbook.CreateSheet(item.Code);
+                ISheet sheet = workbook.CreateSheet(item.LangStr??item.Code);
                 writeDescription(sheet, item);
                 wrtieTitle(sheet, item);
             }
@@ -99,9 +99,9 @@ namespace iS3_DataManager.DataManager
         void writeDescription(ISheet sheet, DGObjectDef item)
         {
             IRow row0 = sheet.CreateRow(0);
-            row0.CreateCell(0).SetCellValue(item.Code + "表");
+            row0.CreateCell(0).SetCellValue(item.LangStr + "表");
             row0.CreateCell(1).SetCellValue(item.Desctiption);
-            row0.CreateCell(3).SetCellValue("请勿修改sheet名");
+            row0.CreateCell(4).SetCellValue("请勿修改sheet名");
 
             for (int i = 0; i < 20; i++)
             {
@@ -112,11 +112,12 @@ namespace iS3_DataManager.DataManager
         void wrtieTitle(ISheet sheet, DGObjectDef item)
         {
             IRow row1 = sheet.CreateRow(1);
+            IRow row2 = sheet.CreateRow(2);
             int i = 0;
             foreach (PropertyMeta property in item.PropertyContainer)
             {
-
-                row1.CreateCell(i++).SetCellValue(property.LangStr + property.DataType);
+                row1.CreateCell(i).SetCellValue(property.LangStr);
+                row2.CreateCell(i++).SetCellValue(property.DataType);
             }
 
         }

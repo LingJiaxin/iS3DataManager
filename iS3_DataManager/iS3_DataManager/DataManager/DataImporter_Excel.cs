@@ -42,7 +42,7 @@ namespace iS3_DataManager.DataManager
             //try
             //{
                 string domainName = Path.GetFileNameWithoutExtension(path);
-                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName);
+                DomainDef domain = (standard.DomainContainer.Find(x => x.Code == domainName))??(standard.DomainContainer.Find(x => x.LangStr == domainName));
                 DataSet ds = new DataSet(domainName);
 
                 IWorkbook wb = ReadWorkbook(path);
