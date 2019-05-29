@@ -428,10 +428,14 @@ namespace iS3_DataManager
 
         private void CheckDataBT_Click(object sender, RoutedEventArgs e)
         {
-            DataChecker checker = new DataChecker(dataSet, Standard);
-            checker.Check();
-
-            System.Windows.MessageBox.Show(@"Check result has been store at Data\CheckResult.txt");
+            DataCleaner dataCleaner = new DataCleaner(dataSet, Standard);
+            MessageBox.Show("Program is cleaning the Data, please wait a few seconds...");
+            Console.ReadLine();
+            dataCleaner.Clean();
+            dataSet = dataCleaner.dataSet;
+            DataDG.DataContext = dataSet;
+            DataDG.UpdateLayout();
+            System.Windows.MessageBox.Show(@"Data has been cleaned");
         }
 
         private void Monitor_Click(object sender, RoutedEventArgs e)

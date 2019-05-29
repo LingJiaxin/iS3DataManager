@@ -27,31 +27,39 @@ namespace iS3_DataManager.ViewManager
         }
         public DataGrid RefreshStyle()
         {
-            Models.DGObjectDef dGObject = standard.GetDGObjectDefByName(dataTable.TableName);
-            int rowNum = 0;
-            foreach (DataRow row in dataTable.Rows)
+            try
             {
-                if (rowNum == 0) {rowNum=1; continue;}
-                int columnNum = 0;
-                foreach (Models.PropertyMeta meta in dGObject.PropertyContainer)
+                Models.DGObjectDef dGObject = standard.GetDGObjectDefByName(dataTable.TableName);
+                int rowNum = 0;
+                foreach (DataRow row in dataTable.Rows)
                 {
-                    if (meta.RegularExp != null)
+                    if (rowNum == 0) { rowNum = 1; continue; }
+                    int columnNum = 0;
+                    foreach (Models.PropertyMeta meta in dGObject.PropertyContainer)
                     {
-                        var data = row[meta.LangStr].ToString();
-                        bool reult1 = (data != "" & data != null);
-                        bool result=Regex.IsMatch(row[meta.LangStr].ToString(), meta.RegularExp);
-                        if (reult1 & !result)
+                        if (meta.RegularExp != null)
                         {
-                            Check(rowNum, columnNum);
+                            var data = row[meta.LangStr].ToString();
+                            bool reult1 = (data != "" & data != null);
+                            bool result = Regex.IsMatch(row[meta.LangStr].ToString(), meta.RegularExp);
+                            if (reult1 & !result)
+                            {
+                                Check(rowNum, columnNum);
+                            }
+                            if ((meta.IsKey == true | meta.Nullable == false) & (row[meta.LangStr].ToString() == null|row[meta.LangStr].ToString()=="")) CheckIfEmpty(rowNum, columnNum);
                         }
-                        if ((meta.IsKey == true | meta.Nullable == false) & row[meta.LangStr] == null) Check(rowNum, columnNum);
+                        else if ((meta.IsKey == true | meta.Nullable == false) & (row[meta.LangStr].ToString() == null | row[meta.LangStr].ToString() == "")) CheckIfEmpty(rowNum, columnNum);
+                        columnNum++;
                     }
-                    else if ((meta.IsKey == true | meta.Nullable == false) & row[meta.LangStr] == null) Check(rowNum, columnNum);
-                    columnNum++;
+                    rowNum++;
                 }
-                rowNum++;
+                return DataDG;
             }
-            return DataDG;
+            catch(Exception e)
+            {
+                System.Windows.MessageBox.Show(e.Message);
+                return null;
+            }
         }
 
         private void Check(int i, int j)
@@ -63,6 +71,17 @@ namespace iS3_DataManager.ViewManager
                 DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(row);
                 DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(j);
                 cell.Background = new SolidColorBrush(Colors.Red);
+            }
+        }
+        private void CheckIfEmpty(int i, int j)
+        {
+            if (i < this.DataDG.Items.Count)
+            {
+                DataRowView drv = DataDG.Items[i] as DataRowView;
+                DataGridRow row = GetRow(DataDG, i);
+                DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(row);
+                DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(j);
+                cell.Background = new SolidColorBrush(Colors.Yellow);
             }
         }
         public static T GetVisualChild<T>(Visual parent) where T : Visual

@@ -166,7 +166,7 @@
                      DisplayMemberPath="{Binding}" HorizontalAlignment="Left" MinWidth="100"/>
             <Button x:Name="SaveChangeBT" Content="SaveChange" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,133,0" VerticalAlignment="Top" 
                     Width="90" Click="SaveChangeBT_Click"/>
-            <Button x:Name="CheckDataBT" Content="CheckData" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,259,0" VerticalAlignment="Top" Width="90" 
+            <Button x:Name="CheckDataBT" Content="CleanData" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,259,0" VerticalAlignment="Top" Width="90" 
                     Click="CheckDataBT_Click"/>
         </Grid>
         <ComboBox x:Name="TunnelTypeCB" Grid.Column="1" HorizontalAlignment="Left" Margin="389.958,0,0,5" Grid.Row="1" 
