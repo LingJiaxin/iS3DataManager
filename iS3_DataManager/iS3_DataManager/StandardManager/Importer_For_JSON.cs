@@ -59,6 +59,9 @@ namespace iS3_DataManager.StandardManager
         {
             if (path != null)
             {
+                FileInfo fInfo = new FileInfo(path);
+                // Set the IsReadOnly property.
+                fInfo.IsReadOnly = false;
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 StreamReader streamReader = new StreamReader(fs, Encoding.UTF8);
                 string json = streamReader.ReadToEnd();

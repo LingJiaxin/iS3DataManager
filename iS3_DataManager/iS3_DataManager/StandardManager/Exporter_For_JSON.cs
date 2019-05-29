@@ -4,6 +4,7 @@ using System.Text;
 using iS3_DataManager.Models;
 using Newtonsoft.Json;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace iS3_DataManager.StandardManager
 {
@@ -20,13 +21,24 @@ namespace iS3_DataManager.StandardManager
                     DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                     path = localPath.Parent.Parent.FullName + "\\Standard\\" + dataStandard.Code + ".json";
                 }
+                
                 FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+
+                FileInfo fInfo = new FileInfo(path);
+                fInfo.Attributes = FileAttributes.Normal;
+
                 StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
                 sw.Write(json);
+                
+                // Set the IsReadOnly property.
+                fInfo.Attributes = fInfo.Attributes | FileAttributes.ReadOnly| FileAttributes.Hidden;
+
                 sw.Flush();
                 sw.Close();
                 fs.Close();
+                
                 return true;
+               
             }
             catch (Exception)
             {
@@ -44,5 +56,6 @@ namespace iS3_DataManager.StandardManager
         {
             throw new NotImplementedException();
         }
+
     }
 }

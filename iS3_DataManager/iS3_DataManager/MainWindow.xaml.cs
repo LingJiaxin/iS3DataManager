@@ -352,6 +352,12 @@ namespace iS3_DataManager
                 DataTable tmpDT = ((DataView)DataDG.ItemsSource).Table;
                 dataSet.Tables.RemoveAt(dataSet.Tables.IndexOf(tmpDT.TableName));
                 dataSet.Tables.Add(tmpDT);
+                //string tableName = DataHeaderLB.SelectedItem as string;
+                //DataTable dataTable = dataSet.Tables[dataSet.Tables.IndexOf(tableName)];
+                //DataDG.ItemsSource = dataTable.DefaultView;
+                //ChangeStyle style = new ChangeStyle(dataTable, ref DataDG, Standard);
+                //style.RefreshStyle();
+                //DataDG.UpdateLayout();
             }
             catch (Exception a)
             {
