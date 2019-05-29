@@ -134,6 +134,7 @@
     </ApplicationDefinition>
     <Compile Include="DataManager\Data2Localfile.cs" />
     <Compile Include="DataManager\DataChecker.cs" />
+    <Compile Include="DataManager\DataCleaner.cs" />
     <Compile Include="DataManager\DataImporter_Word.cs" />
     <Compile Include="DataManager\DataSet2Entity.cs" />
     <Compile Include="DataManager\TempleteExporter_Excel.cs" />
