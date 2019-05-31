@@ -18,9 +18,17 @@ namespace iS3_DataManager.StandardManager
         
         public DataStandardDef Import(string StandardName)
         {
-            DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            string path = localPath.Parent.Parent.FullName + "\\Standard\\"+StandardName+".xlsx";            
-            return ReadExl(ReadWorkbook(path));
+            try
+            {
+                DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                string path = localPath.Parent.Parent.FullName + "\\Standard\\" + StandardName + ".xlsx";
+                return ReadExl(ReadWorkbook(path));
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please close the excel");
+                return null;
+            }
         }
 
         public DataStandardDef ReadExl(IWorkbook workbook)
@@ -28,16 +36,17 @@ namespace iS3_DataManager.StandardManager
             //string path = AppDomain.CurrentDomain.BaseDirectory + @"Standard\";
             //DataStandardDef standardDef = new StandardLoader().getStandard(path);
             
-            ISheet sheet = workbook.GetSheetAt(0);
-            for (int i = 1; i < sheet.LastRowNum; i++)
-            {
-                IRow row = sheet.GetRow(i);
-                Row2Object( row);
-            }
-            IDSExporter exporter = new Exporter_For_JSON();
-            exporter.Export(this.standardDef);
-            workbook.Close();
-            return this.standardDef;
+                ISheet sheet = workbook.GetSheetAt(0);
+                for (int i = 1; i < sheet.LastRowNum; i++)
+                {
+                    IRow row = sheet.GetRow(i);
+                    Row2Object(row);
+                }
+                IDSExporter exporter = new Exporter_For_JSON();
+                exporter.Export(this.standardDef);
+                workbook.Close();
+                return this.standardDef;
+            
         }
 
         IWorkbook ReadWorkbook(string path)

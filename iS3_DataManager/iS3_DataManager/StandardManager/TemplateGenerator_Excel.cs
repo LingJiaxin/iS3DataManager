@@ -9,7 +9,7 @@ using System.IO;
 namespace iS3_DataManager.DataManager
 {
 
-    public class Exporter_Excel :IDataExporter
+    public class TemplateGenerator_Excel :IDataExporter
     {
 
         string path=Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -63,18 +63,18 @@ namespace iS3_DataManager.DataManager
             {
                 if (standard == null)
                 {
-                    fileName = path + "\\"+domain.Code+".xls";
+                    fileName = path + "\\"+(domain.Code??domain.LangStr)+".xls";
                     write2Exl(this.domain, workbook);
                 }
                 else
                 {
-                    fileName = path + "\\" + standard.Code + ".xls";
+                    fileName = path + "\\" + (standard.Code??standard.LangStr) + ".xls";
                     foreach (DomainDef domain in standard.DomainContainer)
                     {
                         write2Exl(domain, workbook);
                     }
                 }
-            }
+        }
             catch (Exception)
             {
                 return false;
@@ -100,8 +100,9 @@ namespace iS3_DataManager.DataManager
         {
             IRow row0 = sheet.CreateRow(0);
             row0.CreateCell(0).SetCellValue(item.LangStr + "表");
-            row0.CreateCell(1).SetCellValue(item.Desctiption);
-            row0.CreateCell(4).SetCellValue("请勿修改sheet名");
+            row0.CreateCell(1).SetCellValue(item.Code);
+            row0.CreateCell(2).SetCellValue("请勿修改sheet名");
+            row0.CreateCell(4).SetCellValue(item.Desctiption);
 
             for (int i = 0; i < 20; i++)
             {

@@ -35,14 +35,14 @@ namespace iS3_DataManager.DataManager
 
             return domainContainer;
         }
-
+        
         public DataSet Import(string path, DataStandardDef standard)
         {
 
             //try
             //{
                 string domainName = Path.GetFileNameWithoutExtension(path);
-                DomainDef domain = (standard.DomainContainer.Find(x => x.Code == domainName))??(standard.DomainContainer.Find(x => x.LangStr == domainName));
+                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName| x.LangStr == domainName);
                 DataSet ds = new DataSet(domainName);
 
                 IWorkbook wb = ReadWorkbook(path);

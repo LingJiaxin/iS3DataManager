@@ -152,7 +152,7 @@
     <Compile Include="Models\PropertyMeta.cs" />
     <Compile Include="StandardManager\ClassGenerator.cs" />
     <Compile Include="StandardManager\DataType.cs" />
-    <Compile Include="StandardManager\Exporter_Excel.cs" />
+    <Compile Include="StandardManager\TemplateGenerator_Excel.cs" />
     <Compile Include="StandardManager\Exporter_For_JSON.cs" />
     <Compile Include="StandardManager\Importer_For_JSON.cs" />
     <Compile Include="StandardManager\StandardFilter.cs" />

@@ -16,6 +16,8 @@ namespace iS3_DataManager.DataManager
         public DataSet dataSet { get; set; }
         public DataTable dataTable { get; set; }
         public DataStandardDef standardDef { get; set; }
+        private DataSet _dataSet;
+        private DataTable _dataTable;
 
         public DataCleaner(DataTable table, DataStandardDef standard)
         {
@@ -29,35 +31,37 @@ namespace iS3_DataManager.DataManager
         }
         public bool Clean()
         {
-            //try
-            //{
-            ThreadStart start = new ThreadStart(Save2Local);//async save data to local
-            Thread t = new Thread(start);
-            t.Start();
+            try
+            {
+                _dataSet = dataSet;
+                _dataTable = dataTable;
+                ThreadStart start = new ThreadStart(Save2Local);//async save data to local
+                Thread t = new Thread(start);
+                t.Start();
 
-            if (dataSet != null)
-            {
-                DataSet tmpDS = new DataSet(dataSet.DataSetName);
-                foreach (DataTable table in dataSet.Tables)
+                if (dataSet != null)
                 {
-                    DGObjectDef objectDef = standardDef.GetDGObjectDefByName(table.TableName);
-                    DataTable dt = CleanTable(table, objectDef);
-                    tmpDS.Tables.Add(dt);
+                    DataSet tmpDS = new DataSet(dataSet.DataSetName);
+                    foreach (DataTable table in dataSet.Tables)
+                    {
+                        DGObjectDef objectDef = standardDef.GetDGObjectDefByName(table.TableName);
+                        DataTable dt = CleanTable(table, objectDef);
+                        tmpDS.Tables.Add(dt);
+                    }
+                    this.dataSet = tmpDS;
                 }
-                this.dataSet = tmpDS;
+                else if (dataTable != null)
+                {
+                    DGObjectDef objectDef = standardDef.GetDGObjectDefByName(dataTable.TableName);
+                    dataTable = CleanTable(dataTable, objectDef);
+                }
+                return true;
             }
-            else if (dataTable != null)
+            catch (Exception e)
             {
-                DGObjectDef objectDef = standardDef.GetDGObjectDefByName(dataTable.TableName);
-                dataTable = CleanTable(dataTable, objectDef);
+                System.Windows.MessageBox.Show(e.Message);
+                return false;
             }
-            return true;
-            //}
-            //catch (Exception e)
-            //{
-            //    System.Windows.MessageBox.Show(e.Message);
-            //    return false;
-            //}
 
         }
 
@@ -106,19 +110,21 @@ namespace iS3_DataManager.DataManager
             try
             {
 
-                if (dataSet != null)
+                if (_dataSet != null)
                 {
                     dataSet.DataSetName = dataSet.DataSetName + DateTime.Now.ToLocalTime().ToString();
                     Data2Localfile data2Localfile = new Data2Localfile(dataSet);
                     data2Localfile.Data2Local();
                 }
-                else if (dataTable != null)
+                else if (_dataTable != null)
                 {
                     DataSet dataSet = new DataSet(dataTable.TableName + DateTime.Now.ToLocalTime().ToString());
                     dataSet.Tables.Add(dataTable);
                     Data2Localfile data2Localfile = new Data2Localfile(dataSet);
                     data2Localfile.Data2Local();
                 }
+                _dataSet = null;
+                _dataTable = null;
             }
             catch (Exception)
             {
@@ -150,7 +156,6 @@ namespace iS3_DataManager.DataManager
                             tmpTable.Rows.RemoveAt(j);//delete error imformation
                         }
                     }
-
                 }
                 dataTable = tmpTable;
             }

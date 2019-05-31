@@ -64,8 +64,8 @@ namespace iS3_DataManager
             filter = standardLoader.CreateFilter();
             TunnelTypeCB.ItemsSource = filter.Tunnels;
             TunnelTypeCB.SelectedIndex = 0;
-            ClassGenerator generator = new ClassGenerator();
-            generator.GenerateClass(Standard);
+            //ClassGenerator generator = new ClassGenerator();
+            //generator.GenerateClass(Standard);
             
         }
         void SetFullScreen()
@@ -124,7 +124,7 @@ namespace iS3_DataManager
                     switch (treeNode.Level)
                     {
                         case 1:
-                            GenerateStageTemplate(treeNode);
+                            System.Windows.MessageBox.Show("Can not generate template for a stage conmtains duplicate forms");
                             return;
                         case 2:
                             GenerateCategoryTemplate(treeNode);
@@ -158,7 +158,7 @@ namespace iS3_DataManager
         {
             try
             {
-                DomainDef domain = new DomainDef() { Code = Standard.DomainContainer.Find(x => x.LangStr == treeNode.Context).Code, LangStr = treeNode.Context };
+                DomainDef domain = new DomainDef() { Code ="Geology" , LangStr = treeNode.Context };
                 foreach (var item in treeNode.ChildNodes)
                 {
                     foreach (var obj in item.ChildNodes)
@@ -167,7 +167,7 @@ namespace iS3_DataManager
                         domain.DGObjectContainer.Add(dG);
                     }
                 }
-                new Exporter_Excel().Export(domain);
+                new TemplateGenerator_Excel().Export(domain);
             }
             catch (Exception)
             {
@@ -185,7 +185,7 @@ namespace iS3_DataManager
                         domain.DGObjectContainer.Add(dG);
                     
                 }
-                new Exporter_Excel().Export(domain);
+                new TemplateGenerator_Excel().Export(domain);
             }
             catch (Exception)
             {
@@ -206,7 +206,7 @@ namespace iS3_DataManager
                     DGObjectDef dG = Standard.GetDGObjectDefByName(childNode.Context);
                     domain.DGObjectContainer.Add(dG);
                 }
-                new Exporter_Excel().Export(domain);
+                new TemplateGenerator_Excel().Export(domain);
 
             }
             catch (Exception a)
@@ -225,7 +225,7 @@ namespace iS3_DataManager
                 DomainDef domain = new DomainDef() { Code = treeNode.Context, LangStr = treeNode.Context };
                 DGObjectDef dG = Standard.GetDGObjectDefByName(treeNode.Context);
                 domain.DGObjectContainer.Add(dG);
-                new Exporter_Excel().Export(domain);
+                new TemplateGenerator_Excel().Export(domain);
             }
             catch (Exception)
             {
