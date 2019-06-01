@@ -10,7 +10,7 @@ namespace iS3_DataManager.StandardManager
 {
     public class Importer_For_Json : IDSImporter
     {
-        public DataStandardDef Import(string path)
+        public StandardDef Import(string path)
         {
             path = path ?? (AppDomain.CurrentDomain.BaseDirectory + @"Standard\Geology.json");
             return ReadJson(path);
@@ -20,10 +20,10 @@ namespace iS3_DataManager.StandardManager
         /// just for test
         /// </summary>
         /// <returns></returns>
-        public DataStandardDef GetSample()
+        public StandardDef GetSample()
         {
             //定义隧道数据标准和地质域
-            DataStandardDef dsDef = new DataStandardDef()
+            StandardDef dsDef = new StandardDef()
             {
                 Code = "TunnelStandard",
                 Description = "This a Tunnel DataStandard",
@@ -55,7 +55,7 @@ namespace iS3_DataManager.StandardManager
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public DataStandardDef ReadJson(string path)
+        public StandardDef ReadJson(string path)
         {
             if (path != null)
             {
@@ -67,7 +67,7 @@ namespace iS3_DataManager.StandardManager
                 string json = streamReader.ReadToEnd();
                 fs.Close();
                 streamReader.Close();
-                DataStandardDef standard = JsonConvert.DeserializeObject<DataStandardDef>(json);
+                StandardDef standard = JsonConvert.DeserializeObject<StandardDef>(json);
                 return standard;
             }
             else

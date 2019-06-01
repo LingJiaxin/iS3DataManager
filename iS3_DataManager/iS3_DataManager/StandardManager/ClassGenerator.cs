@@ -9,8 +9,8 @@ namespace iS3_DataManager.StandardManager
 {
     public class ClassGenerator
     {
-        public DataStandardDef standard;
-        public void GenerateClass(DataStandardDef standardDef)
+        public StandardDef standard;
+        public void GenerateClass(StandardDef standardDef)
         {
             try
             {

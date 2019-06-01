@@ -22,7 +22,7 @@ namespace iS3_DataManager.ViewManager
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TreeNodes"));
             }
         }
-        public TreeViewData(Tunnel tunnel, DataStandardDef Standard)
+        public TreeViewData(Tunnel tunnel, StandardDef Standard)
         {
             if (Standard.Code == "Geology")
                 GenerateNodes(tunnel, Standard);
@@ -36,7 +36,7 @@ namespace iS3_DataManager.ViewManager
             TreeNodes = new List<TreeNode>();
         }
         
-        private void GenerateNodes(Tunnel tunnel,DataStandardDef Standard)
+        private void GenerateNodes(Tunnel tunnel,StandardDef Standard)
         {
 
             List<TreeNode> nodes = new List<TreeNode>();
@@ -60,7 +60,7 @@ namespace iS3_DataManager.ViewManager
             }            
             TreeNodes = nodes;
         }
-        private void GenerateNodes(DataStandardDef standardDef)
+        private void GenerateNodes(StandardDef standardDef)
         {
             List<TreeNode> nodes = new List<TreeNode>();
             int index = 0;

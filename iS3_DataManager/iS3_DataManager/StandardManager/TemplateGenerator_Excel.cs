@@ -15,12 +15,12 @@ namespace iS3_DataManager.DataManager
         string path=Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         string fileName;
 
-        DataStandardDef standard;
+        StandardDef standard;
         DomainDef domain;
 
 
 
-        public bool Export(DataStandardDef standard, string path = null)
+        public bool Export(StandardDef standard, string path = null)
         {
             this.standard = standard;
             if (path == null)

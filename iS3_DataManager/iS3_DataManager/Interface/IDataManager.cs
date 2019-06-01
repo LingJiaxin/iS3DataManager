@@ -8,7 +8,7 @@ namespace iS3_DataManager.Interface
 {
     public interface IDataBaseManager
     {
-        void Data2DB(System.Data.DataSet dataSet,DataStandardDef standardDef);
+        void Data2DB(System.Data.DataSet dataSet,StandardDef standardDef);
        
     }
 }

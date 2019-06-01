@@ -15,16 +15,16 @@ namespace iS3_DataManager.DataManager
     {
         public DataSet dataSet { get; set; }
         public DataTable dataTable { get; set; }
-        public DataStandardDef standardDef { get; set; }
+        public StandardDef standardDef { get; set; }
         private DataSet _dataSet;
         private DataTable _dataTable;
 
-        public DataCleaner(DataTable table, DataStandardDef standard)
+        public DataCleaner(DataTable table, StandardDef standard)
         {
             dataTable = table;
             standardDef = standard;
         }
-        public DataCleaner(DataSet set, DataStandardDef standard)
+        public DataCleaner(DataSet set, StandardDef standard)
         {
             dataSet = set;
             standardDef = standard;

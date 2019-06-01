@@ -18,7 +18,7 @@ namespace iS3_DataManager.DataManager
     {
 
 
-        public List<DataSet> Import(DataStandardDef standard)
+        public List<DataSet> Import(StandardDef standard)
         {
             List<DataSet> domainContainer = null;
             OpenFileDialog ofd = new OpenFileDialog
@@ -36,7 +36,7 @@ namespace iS3_DataManager.DataManager
             return domainContainer;
         }
         
-        public DataSet Import(string path, DataStandardDef standard)
+        public DataSet Import(string path, StandardDef standard)
         {
 
             //try

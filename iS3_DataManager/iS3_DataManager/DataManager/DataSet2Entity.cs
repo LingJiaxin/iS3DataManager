@@ -33,7 +33,7 @@ namespace iS3_DataManager.DataManager
             }
             return entity;
         }
-        public void Data2DataBase(DataSet dataSet,DataStandardDef standard)
+        public void Data2DataBase(DataSet dataSet,StandardDef standard)
         {
             try
             {

@@ -15,13 +15,13 @@ namespace iS3_DataManager.StandardManager
             DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
             path = localPath.Parent.Parent.FullName + "\\Standard\\";
         }
-        public DataStandardDef GetStandard()
+        public StandardDef GetStandard()
         {
             IDSImporter importer = new Importer_For_Json();
             return importer.Import(path+"Geology.json");
         }
 
-        public DataStandardDef GetStandard(string StandardName)
+        public StandardDef GetStandard(string StandardName)
         {            
             IDSImporter importer = new Importer_For_Json();
             return importer.Import(path+StandardName+".json");

@@ -144,7 +144,7 @@
     <Compile Include="Interface\IDataManager.cs" />
     <Compile Include="Interface\IDSExporter.cs" />
     <Compile Include="Interface\IDSImporter.cs" />
-    <Compile Include="Models\DataStandardDef.cs" />
+    <Compile Include="Models\StandardDef.cs" />
     <Compile Include="Models\DGObjectDef.cs" />
     <Compile Include="Models\DomainDef.cs" />
     <Compile Include="Models\LangBase.cs" />

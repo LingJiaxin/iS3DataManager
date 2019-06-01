@@ -18,8 +18,8 @@ namespace iS3_DataManager.ViewManager
     {
         DataGrid DataDG;
         DataTable dataTable;
-        Models.DataStandardDef standard;
-        public ChangeStyle(DataTable dataTable,ref DataGrid dataGrid, Models.DataStandardDef standardDef)
+        Models.StandardDef standard;
+        public ChangeStyle(DataTable dataTable, ref DataGrid dataGrid, Models.StandardDef standardDef)
         {
             DataDG = dataGrid;
             this.dataTable = dataTable;
@@ -46,7 +46,7 @@ namespace iS3_DataManager.ViewManager
                             {
                                 Check(rowNum, columnNum);
                             }
-                            if ((meta.IsKey == true | meta.Nullable == false) & (row[meta.LangStr].ToString() == null|row[meta.LangStr].ToString()=="")) CheckIfEmpty(rowNum, columnNum);
+                            if ((meta.IsKey == true | meta.Nullable == false) & (row[meta.LangStr].ToString() == null | row[meta.LangStr].ToString() == "")) CheckIfEmpty(rowNum, columnNum);
                         }
                         else if ((meta.IsKey == true | meta.Nullable == false) & (row[meta.LangStr].ToString() == null | row[meta.LangStr].ToString() == "")) CheckIfEmpty(rowNum, columnNum);
                         columnNum++;
@@ -55,9 +55,8 @@ namespace iS3_DataManager.ViewManager
                 }
                 return DataDG;
             }
-            catch(Exception e)
+            catch (Exception)
             {
-                System.Windows.MessageBox.Show(e.Message);
                 return null;
             }
         }
@@ -86,7 +85,7 @@ namespace iS3_DataManager.ViewManager
         }
         public static T GetVisualChild<T>(Visual parent) where T : Visual
         {
-            T childContent = default(T);
+            T childContent = default;
             int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < numVisuals; i++)
             {

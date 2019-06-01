@@ -22,14 +22,14 @@ namespace iS3_DataManager.StandardManager
         /// <param name="constructionStage"></param>
         /// <param name="categoryName"></param>
         /// <returns></returns>
-        public DataStandardDef Filter(DataStandardDef dataStandard,string tunnelType=null,string constructionStage=null,string categoryName=null)
+        public StandardDef Filter(StandardDef dataStandard,string tunnelType=null,string constructionStage=null,string categoryName=null)
         {
             try
             {
                 if (tunnelType != null)
                 {
                     Tunnel tunnel = Tunnels.Find(x => x.LangStr == tunnelType);
-                    DataStandardDef newStandard = new DataStandardDef()
+                    StandardDef newStandard = new StandardDef()
                     {
                         Code = tunnel.TunnelType,
                         LangStr = tunnel.LangStr
@@ -64,7 +64,7 @@ namespace iS3_DataManager.StandardManager
                 }
                 else
                 {
-                    DataStandardDef newStandard = new DataStandardDef() { Code = dataStandard.Code,LangStr=dataStandard.LangStr};
+                    StandardDef newStandard = new StandardDef() { Code = dataStandard.Code,LangStr=dataStandard.LangStr};
                     foreach(Tunnel tunnel in Tunnels)
                     {
                         foreach(Stage stage in tunnel.Stages)
@@ -85,7 +85,7 @@ namespace iS3_DataManager.StandardManager
             }
         }
 
-        private void Filter2Standard(Category category,ref DataStandardDef standardDef,DataStandardDef dataStandard)
+        private void Filter2Standard(Category category,ref StandardDef standardDef,StandardDef dataStandard)
         {            
                 DomainDef domain = new DomainDef()
                 {

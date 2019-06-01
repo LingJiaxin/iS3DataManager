@@ -11,6 +11,7 @@ using System.Linq;
 using System;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using System.IO;
 
 namespace iS3_DataManager
 {
@@ -19,8 +20,8 @@ namespace iS3_DataManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DataStandardDef Standard { get; set; }
-        private DataStandardDef NewDataStandard { get; set; }
+        private StandardDef Standard { get; set; }
+        private StandardDef NewDataStandard { get; set; }
         DataSet dataSet { get; set; }
         StandardFilter filter { get; set; }
         Tunnel tunnel { get; set; }
@@ -64,6 +65,7 @@ namespace iS3_DataManager
             filter = standardLoader.CreateFilter();
             TunnelTypeCB.ItemsSource = filter.Tunnels;
             TunnelTypeCB.SelectedIndex = 0;
+            ShowEmptyData();
             //ClassGenerator generator = new ClassGenerator();
             //generator.GenerateClass(Standard);
             
@@ -295,7 +297,24 @@ namespace iS3_DataManager
             PropertyLV.ItemsSource = null;
             PropertyLV.ItemsSource = dGObjectDef.PropertyContainer;
         }
-
+        private void ShowEmptyData()
+        {
+            DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            string path = localPath.Parent.Parent.FullName + "\\Data\\" + Standard.Code + "_Empty.xls";
+            
+                
+                IDataImporter dataImporter = new DataImporter_Excel();
+               
+                    dataSet = dataImporter.Import(path, Standard);
+                
+                List<string> tableNames = new List<string>();
+                foreach (DataTable table in dataSet.Tables)
+                {
+                        tableNames.Add(table.TableName);
+                }                
+                if (tableNames.Count > 0)
+                    DataHeaderLB.ItemsSource = tableNames;            
+        }
         private void ShowData()
         {
             Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();

@@ -18,7 +18,7 @@ namespace iS3_DataManager.DataManager
         string path=Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
         string fileName;
 
-        DataStandardDef standard;
+        StandardDef standard;
         DomainDef domain;
 
 
@@ -28,7 +28,7 @@ namespace iS3_DataManager.DataManager
         /// <param name="standard"></param>
         /// <param name="path">the path where excel will generate at</param>
         /// <returns></returns>
-        public bool Export(DataStandardDef standard, string path=null)
+        public bool Export(StandardDef standard, string path=null)
         {
             this.standard = standard;
             this.path = path ?? this.path;

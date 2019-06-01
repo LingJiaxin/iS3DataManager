@@ -17,7 +17,7 @@ namespace iS3_DataManager.Interface
         /// </summary>
         /// <param name="path"></param>
         /// <returns>return exprot result:Success of fail</returns>
-       bool Export(DataStandardDef standard, string path=null);
+       bool Export(StandardDef standard, string path=null);
        bool Export(DomainDef domain, string path=null);
     }
 }

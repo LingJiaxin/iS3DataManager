@@ -11,7 +11,7 @@ namespace iS3_DataManager.StandardManager
     public class Exporter_For_JSON : IDSExporter
     {
 
-        public bool Export(DataStandardDef dataStandard, string path = null)
+        public bool Export(StandardDef dataStandard, string path = null)
         {
             try
             {
@@ -22,21 +22,19 @@ namespace iS3_DataManager.StandardManager
                     path = localPath.Parent.Parent.FullName + "\\Standard\\" + dataStandard.Code + ".json";
                 }
                 
-                FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+                
 
                 FileInfo fInfo = new FileInfo(path);
                 fInfo.Attributes = FileAttributes.Normal;
 
+                FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-                sw.Write(json);
-                
-                // Set the IsReadOnly property.
-                fInfo.Attributes = fInfo.Attributes | FileAttributes.ReadOnly| FileAttributes.Hidden;
-
+                sw.Write(json);                
                 sw.Flush();
                 sw.Close();
                 fs.Close();
-                
+                // Set the IsReadOnly property.
+                fInfo.Attributes = fInfo.Attributes | FileAttributes.ReadOnly | FileAttributes.Hidden;
                 return true;
                
             }

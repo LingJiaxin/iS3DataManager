@@ -14,24 +14,24 @@ namespace iS3_DataManager.StandardManager
 {
     public class StandardImport_Exl : IDSImporter
     {
-        DataStandardDef standardDef { get; set; }
+        StandardDef standardDef { get; set; }
         
-        public DataStandardDef Import(string StandardName)
+        public StandardDef Import(string StandardName)
         {
-            try
-            {
+            //try
+            //{
                 DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                 string path = localPath.Parent.Parent.FullName + "\\Standard\\" + StandardName + ".xlsx";
                 return ReadExl(ReadWorkbook(path));
-            }
-            catch (Exception)
-            {
-                System.Windows.MessageBox.Show("Please close the excel");
-                return null;
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    System.Windows.MessageBox.Show("Please close the excel");
+            //    return null;
+            //}
         }
 
-        public DataStandardDef ReadExl(IWorkbook workbook)
+        private StandardDef ReadExl(IWorkbook workbook)
         {
             //string path = AppDomain.CurrentDomain.BaseDirectory + @"Standard\";
             //DataStandardDef standardDef = new StandardLoader().getStandard(path);
@@ -53,7 +53,7 @@ namespace iS3_DataManager.StandardManager
         {
             try
             {                
-                this.standardDef = new DataStandardDef { Code = Path.GetFileNameWithoutExtension(path) };
+                this.standardDef = new StandardDef { Code = Path.GetFileNameWithoutExtension(path) };
                 FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 if (path.IndexOf(".xlsx") > 0) // for excel version over 2007
                     return new XSSFWorkbook(fs);
@@ -69,7 +69,7 @@ namespace iS3_DataManager.StandardManager
             }
             return null;
         }
-        public void Row2Object(IRow row)
+        private void Row2Object(IRow row)
         {
             
             //try

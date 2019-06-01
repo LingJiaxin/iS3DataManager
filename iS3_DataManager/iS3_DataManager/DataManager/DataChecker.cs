@@ -15,14 +15,14 @@ namespace iS3_DataManager.DataManager
     {
         public DataSet dataSet { get; set; }
         public DataTable dataTable { get; set; }
-        public DataStandardDef standardDef { get; set; }
+        public StandardDef standardDef { get; set; }
         
-        public DataChecker(DataTable table, DataStandardDef standard)
+        public DataChecker(DataTable table, StandardDef standard)
         {
             dataTable = table;
             standardDef = standard;
         }
-        public DataChecker(DataSet set, DataStandardDef standard)
+        public DataChecker(DataSet set, StandardDef standard)
         {
             dataSet = set;
             standardDef = standard;

@@ -12,6 +12,6 @@ namespace iS3_DataManager.Interface
     //
     public interface IDSImporter
     {
-        DataStandardDef Import(string path);
+        StandardDef Import(string StandardName);
     }
 }
