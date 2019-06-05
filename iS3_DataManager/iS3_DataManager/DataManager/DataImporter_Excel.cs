@@ -35,14 +35,14 @@ namespace iS3_DataManager.DataManager
 
             return domainContainer;
         }
-        
+
         public DataSet Import(string path, StandardDef standard)
         {
 
-            //try
-            //{
+            try
+            {
                 string domainName = Path.GetFileNameWithoutExtension(path);
-                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName| x.LangStr == domainName);
+                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName | x.LangStr == domainName);
                 DataSet ds = new DataSet(domainName);
 
                 IWorkbook wb = ReadWorkbook(path);
@@ -53,16 +53,17 @@ namespace iS3_DataManager.DataManager
                 {
                     DGObjectDef objectDef = standard.GetDGObjectDefByName(sheetName);
                     DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
-                    if(dt!=null)ds.Tables.Add(dt);
+                    if (dt != null) ds.Tables.Add(dt);
                 }
-                
-                return ds;
-            //}
 
-            //catch (Exception)
-            //{
-            //    return null;
-            //}
+                return ds;
+            }
+
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Check if the Standard adapt to data");
+                return null;
+            }
 
         }
 
@@ -124,7 +125,7 @@ namespace iS3_DataManager.DataManager
                 return null;
             }
             else
-            {                
+            {
                 DataTable dt = new DataTable(objectDef.LangStr);
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
@@ -155,6 +156,8 @@ namespace iS3_DataManager.DataManager
                 }
                 return dt;
             }
+
+
         }
     }
 }

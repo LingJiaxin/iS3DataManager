@@ -18,17 +18,17 @@ namespace iS3_DataManager.StandardManager
         
         public StandardDef Import(string StandardName)
         {
-            //try
-            //{
+           try
+            {
                 DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                 string path = localPath.Parent.Parent.FullName + "\\Standard\\" + StandardName + ".xlsx";
                 return ReadExl(ReadWorkbook(path));
-            //}
-            //catch (Exception)
-            //{
-            //    System.Windows.MessageBox.Show("Please close the excel");
-            //    return null;
-            //}
+            }
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please close the excel");
+                return null;
+            }
         }
 
         private StandardDef ReadExl(IWorkbook workbook)

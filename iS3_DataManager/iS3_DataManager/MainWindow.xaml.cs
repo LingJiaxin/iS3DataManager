@@ -271,6 +271,7 @@ namespace iS3_DataManager
 
         private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            
             TreeNode selectedNode = (TreeNode)DataTemplateTreeview.SelectedItem;
             if (selectedNode != null )
             {
@@ -299,48 +300,56 @@ namespace iS3_DataManager
         }
         private void ShowEmptyData()
         {
-            DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            string path = localPath.Parent.Parent.FullName + "\\Data\\" + Standard.Code + "_Empty.xls";
-            
-                
-                IDataImporter dataImporter = new DataImporter_Excel();
-               
-                    dataSet = dataImporter.Import(path, Standard);
-                
-                List<string> tableNames = new List<string>();
-                foreach (DataTable table in dataSet.Tables)
-                {
-                        tableNames.Add(table.TableName);
-                }                
-                if (tableNames.Count > 0)
-                    DataHeaderLB.ItemsSource = tableNames;            
-        }
-        private void ShowData()
-        {
-            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
-            OpenExcelFile.Multiselect = true;
-            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            if (OpenExcelFile.ShowDialog() == true)
+            try
             {
-                string[] filenames = OpenExcelFile.FileNames;
+                DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                string path = localPath.Parent.Parent.FullName + "\\Data\\" + Standard.Code + "_Empty.xls";
+
+
                 IDataImporter dataImporter = new DataImporter_Excel();
-                foreach (string path in filenames)
-                {
-                    dataSet = dataImporter.Import(path, Standard);
-                }
+
+                dataSet = dataImporter.Import(path, Standard);
+
                 List<string> tableNames = new List<string>();
                 foreach (DataTable table in dataSet.Tables)
                 {
-                    if(table.Rows.Count>0)
                     tableNames.Add(table.TableName);
-                }
-                foreach(DataTable table in dataSet.Tables)
-                {
-                    if (table.Rows.Count == 0) tableNames.Add(table.TableName);
                 }
                 if (tableNames.Count > 0)
                     DataHeaderLB.ItemsSource = tableNames;
             }
+            catch (Exception) { }
+        }
+        private void ShowData()
+        {
+            try
+            {
+                Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
+                OpenExcelFile.Multiselect = true;
+                OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
+                if (OpenExcelFile.ShowDialog() == true)
+                {
+                    string[] filenames = OpenExcelFile.FileNames;
+                    IDataImporter dataImporter = new DataImporter_Excel();
+                    foreach (string path in filenames)
+                    {
+                        dataSet = dataImporter.Import(path, Standard);
+                    }
+                    List<string> tableNames = new List<string>();
+                    foreach (DataTable table in dataSet.Tables)
+                    {
+                        if (table.Rows.Count > 0)
+                            tableNames.Add(table.TableName);
+                    }
+                    foreach (DataTable table in dataSet.Tables)
+                    {
+                        if (table.Rows.Count == 0) tableNames.Add(table.TableName);
+                    }
+                    if (tableNames.Count > 0)
+                        DataHeaderLB.ItemsSource = tableNames;
+                }
+            }
+            catch (Exception) { }
 
         }
 
@@ -465,6 +474,11 @@ namespace iS3_DataManager
         private void Environment_Click(object sender, RoutedEventArgs e)
         {
             LoadStandard("Environment");
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
