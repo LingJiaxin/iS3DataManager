@@ -66,12 +66,13 @@
                 <MenuItem Header="Save"/>
                 <MenuItem Header="Delete"/>
             </MenuItem>
-            <MenuItem Header="View">
-                <MenuItem Header="Refresh" Click="MenuItem_Click_2" />
-            </MenuItem>
+            <MenuItem Header="Edit"/>
+            <MenuItem Header="View"/>
             <MenuItem Header="Config">
                 <MenuItem Header="Initial Geology Standard" Click="ConfigGeology_Click"/>
                 <MenuItem Header="Initial Structure Standard" Click="ConfigStruct_Click"/>
+                <MenuItem Header="Initial Construction Standard" Click="ConfigConstructin_Click"/>
+                <MenuItem Header="Initial Monitoring Standard" Click="Monitor_Click"/>
                 <MenuItem Header="Initial Environment Standard" Click="Environment_Click"/>
             </MenuItem>
             <MenuItem Header="About"/>

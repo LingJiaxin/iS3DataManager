@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iS3_DataManager", "iS3_Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iS3.MiniServer", "iS3.MiniServer\iS3.MiniServer.csproj", "{674E22D2-C3E9-4C22-9C43-6CA82EA33343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iS3.Core", "iS3.Core\iS3.Core.csproj", "{1506B010-BB25-44A0-839C-073F1069C841}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +31,6 @@ Global
 		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|Any CPU.Build.0 = Release|Any CPU
 		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|x64.ActiveCfg = Release|Any CPU
 		{674E22D2-C3E9-4C22-9C43-6CA82EA33343}.Release|x64.Build.0 = Release|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Debug|x64.Build.0 = Debug|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Release|x64.ActiveCfg = Release|Any CPU
-		{1506B010-BB25-44A0-839C-073F1069C841}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

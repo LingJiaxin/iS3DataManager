@@ -89,23 +89,9 @@ namespace iS3_DataManager.DataManager
         {
             foreach (DGObjectDef item in domain.DGObjectContainer)
             {
-                XSSFCellStyle cellStyle1 = (XSSFCellStyle)workbook.CreateCellStyle();
-                XSSFCellStyle cellStyle2= (XSSFCellStyle)workbook.CreateCellStyle();
-                XSSFColor color1 = new XSSFColor();
-                XSSFColor color2 = new XSSFColor();
-                //根据自己需要设置RGB
-                byte[] colorRgb1 = { (byte)214, (byte)220, (byte)228 };
-                byte[] colorRgb2 = { (byte)221, (byte)235, (byte)247 };
-                color1.SetRgb(colorRgb1);
-                color2.SetRgb(colorRgb2);
-                cellStyle1.FillForegroundColorColor = color1;
-                cellStyle1.FillPattern = FillPattern.SolidForeground;
-                cellStyle2.FillBackgroundColorColor = color2;
-                cellStyle2.FillPattern = FillPattern.SolidForeground;
-
                 ISheet sheet = workbook.CreateSheet(item.LangStr??item.Code);
                 writeDescription(sheet, item);
-                wrtieTitle(sheet, item,cellStyle1,cellStyle2);
+                wrtieTitle(sheet, item);
             }
             return true;
         }
@@ -124,7 +110,7 @@ namespace iS3_DataManager.DataManager
             }
         }
 
-        void wrtieTitle(ISheet sheet, DGObjectDef item,XSSFCellStyle s1,XSSFCellStyle s2)
+        void wrtieTitle(ISheet sheet, DGObjectDef item)
         {
             IRow row1 = sheet.CreateRow(1);
             IRow row2 = sheet.CreateRow(2);
@@ -132,9 +118,7 @@ namespace iS3_DataManager.DataManager
             foreach (PropertyMeta property in item.PropertyContainer)
             {
                 row1.CreateCell(i).SetCellValue(property.LangStr);
-                row1.Cells[i].CellStyle = s1;
-                row2.CreateCell(i).SetCellValue(property.DataType);
-                row2.Cells[i++].CellStyle = s2;
+                row2.CreateCell(i++).SetCellValue(property.DataType);
             }
 
         }
