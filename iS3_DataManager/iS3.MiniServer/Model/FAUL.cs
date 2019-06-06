@@ -1,10 +1,11 @@
 using System; 
 using System.ComponentModel.DataAnnotations.Schema;
+using iS3.MiniServer;
 
 namespace iS3.Geology.Model
  { 
  	[Table("Geology_FAUL")]
-	public class FAUL
+	public class FAUL:iS3AreaHandle
  	{ 
 /// <summary>
 ///

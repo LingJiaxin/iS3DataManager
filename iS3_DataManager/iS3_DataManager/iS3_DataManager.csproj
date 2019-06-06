@@ -150,6 +150,7 @@
     <Compile Include="Models\LangBase.cs" />
     <Compile Include="Models\LangType.cs" />
     <Compile Include="Models\PropertyMeta.cs" />
+    <Compile Include="ObjectModels\FAUL.cs" />
     <Compile Include="StandardManager\ClassGenerator.cs" />
     <Compile Include="StandardManager\DataType.cs" />
     <Compile Include="StandardManager\TemplateGenerator_Excel.cs" />
@@ -217,9 +218,7 @@
   <ItemGroup>
     <Resource Include="image\background.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ObjectModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
