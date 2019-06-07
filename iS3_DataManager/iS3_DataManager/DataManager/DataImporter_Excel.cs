@@ -39,8 +39,8 @@ namespace iS3_DataManager.DataManager
         public DataSet Import(string path, StandardDef standard)
         {
 
-            //try
-            //{
+            try
+            {
                 string domainName = Path.GetFileNameWithoutExtension(path);
                 DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName| x.LangStr == domainName);
                 DataSet ds = new DataSet(domainName);
@@ -57,14 +57,15 @@ namespace iS3_DataManager.DataManager
                 }
                 
                 return ds;
-            //}
-
-            //catch (Exception)
-            //{
-            //    return null;
-            //}
-
         }
+
+            catch (Exception)
+            {
+                System.Windows.MessageBox.Show("Please check if the standard suited to the data");
+                return null;
+            }
+
+}
 
 
         IWorkbook ReadWorkbook(string path)

@@ -316,32 +316,34 @@ namespace iS3_DataManager
                     DataHeaderLB.ItemsSource = tableNames;            
         }
         private void ShowData()
-        {
-            Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
-            OpenExcelFile.Multiselect = true;
-            OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
-            if (OpenExcelFile.ShowDialog() == true)
+        { try
             {
-                string[] filenames = OpenExcelFile.FileNames;
-                IDataImporter dataImporter = new DataImporter_Excel();
-                foreach (string path in filenames)
+                Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
+                OpenExcelFile.Multiselect = true;
+                OpenExcelFile.Filter = "Excel文件|*.xls;*.xlsx";
+                if (OpenExcelFile.ShowDialog() == true)
                 {
-                    dataSet = dataImporter.Import(path, Standard);
+                    string[] filenames = OpenExcelFile.FileNames;
+                    IDataImporter dataImporter = new DataImporter_Excel();
+                    foreach (string path in filenames)
+                    {
+                        dataSet = dataImporter.Import(path, Standard);
+                    }
+                    List<string> tableNames = new List<string>();
+                    foreach (DataTable table in dataSet.Tables)
+                    {
+                        if (table.Rows.Count > 0)
+                            tableNames.Add(table.TableName);
+                    }
+                    foreach (DataTable table in dataSet.Tables)
+                    {
+                        if (table.Rows.Count == 0) tableNames.Add(table.TableName);
+                    }
+                    if (tableNames.Count > 0)
+                        DataHeaderLB.ItemsSource = tableNames;
                 }
-                List<string> tableNames = new List<string>();
-                foreach (DataTable table in dataSet.Tables)
-                {
-                    if(table.Rows.Count>0)
-                    tableNames.Add(table.TableName);
-                }
-                foreach(DataTable table in dataSet.Tables)
-                {
-                    if (table.Rows.Count == 0) tableNames.Add(table.TableName);
-                }
-                if (tableNames.Count > 0)
-                    DataHeaderLB.ItemsSource = tableNames;
             }
-
+            catch (Exception) { }
         }
 
         /// <summary>
