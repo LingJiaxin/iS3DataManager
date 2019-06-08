@@ -16,7 +16,7 @@ namespace iS3_DataManager.DataManager
 {
     public class DataImporter_Excel : IDataImporter
     {
-
+        StandardDef standard;
 
         public List<DataSet> Import(StandardDef standard)
         {

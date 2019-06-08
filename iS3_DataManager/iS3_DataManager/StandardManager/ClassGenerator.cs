@@ -42,7 +42,7 @@ namespace iS3_DataManager.StandardManager
                     newClass += "\tpublic class " + dGObject.Code + ":DGObject\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
-                        newClass += "/// <summary>\n///\n///"+meta.LangStr+" </summary>\n";
+                        newClass += "/// <summary>\n///"+meta.LangStr+"\n/// </summary>\n";
                         if (meta.Nullable == false)
                         {
                             if (Types[meta.DataType] != "string")

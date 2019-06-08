@@ -26,8 +26,8 @@ namespace iS3_DataManager.DataManager
         }
         public DataCleaner(DataSet set, StandardDef standard)
         {
-            dataSet = set;
-            standardDef = standard;
+            this.dataSet = set;
+            this.standardDef = standard;
         }
         public bool Clean()
         {
