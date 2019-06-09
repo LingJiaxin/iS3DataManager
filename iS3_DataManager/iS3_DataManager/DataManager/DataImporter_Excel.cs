@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using iS3_DataManager.Models;
 using System.IO;
 using NPOI.XSSF.UserModel;
@@ -152,7 +149,8 @@ namespace iS3_DataManager.DataManager
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 linesS)
+                    //remove the decription line(first 3 lines)
+                    dt.Rows.RemoveAt(0);    
                 }
                 return dt;
             }

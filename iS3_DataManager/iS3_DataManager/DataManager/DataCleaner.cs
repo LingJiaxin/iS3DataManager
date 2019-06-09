@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Data;
 using iS3_DataManager.Models;
-using System.IO;
 using System.Windows;
 using System.Threading;
 
@@ -35,7 +31,8 @@ namespace iS3_DataManager.DataManager
             {
                 _dataSet = dataSet;
                 _dataTable = dataTable;
-                ThreadStart start = new ThreadStart(Save2Local);//async save data to local
+                //async save data to local
+                ThreadStart start = new ThreadStart(Save2Local);
                 Thread t = new Thread(start);
                 t.Start();
 
@@ -62,7 +59,6 @@ namespace iS3_DataManager.DataManager
                 System.Windows.MessageBox.Show(e.Message);
                 return false;
             }
-
         }
 
         private DataTable CleanTable(DataTable table, DGObjectDef objectDef)
@@ -71,6 +67,13 @@ namespace iS3_DataManager.DataManager
             tmpTable = RemoveError(tmpTable, objectDef);
             return tmpTable;
         }
+
+        /// <summary>
+        /// remove repeated lines in one table
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="objectDef"></param>
+        /// <returns></returns>
         private DataTable DeduplicateTable(DataTable table, DGObjectDef objectDef)
         {
             string[] distinctcols = new string[(table.Columns.Count)];
@@ -83,6 +86,13 @@ namespace iS3_DataManager.DataManager
             DeduplicatedTable = mydataview.ToTable(true, distinctcols);//去重复
             return DeduplicatedTable;
         }
+
+        /// <summary>
+        /// Remove Empty lines or lines with key value
+        /// </summary>
+        /// <param name="table">dataTable</param>
+        /// <param name="objectDef">meta for the dataTable</param>
+        /// <returns></returns>
         private DataTable RemoveEmpty(DataTable table, DGObjectDef objectDef)
         {
             try
@@ -105,6 +115,7 @@ namespace iS3_DataManager.DataManager
                 return null;
             }
         }
+
         private void Save2Local()
         {
             try
@@ -131,6 +142,7 @@ namespace iS3_DataManager.DataManager
 
             }
         }
+
         private DataTable RemoveError(DataTable dataTable, DGObjectDef objectDef)
         {
 
