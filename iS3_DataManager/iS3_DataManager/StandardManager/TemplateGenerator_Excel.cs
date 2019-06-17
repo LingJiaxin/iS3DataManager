@@ -4,6 +4,7 @@ using iS3_DataManager.Interface;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.HSSF.Util;
 using System.IO;
 
 namespace iS3_DataManager.DataManager
@@ -75,7 +76,7 @@ namespace iS3_DataManager.DataManager
                     }
                 }
         }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -89,9 +90,17 @@ namespace iS3_DataManager.DataManager
         {
             foreach (DGObjectDef item in domain.DGObjectContainer)
             {
+                HSSFCellStyle cellStyle1 = (HSSFCellStyle)workbook.CreateCellStyle();
+                HSSFCellStyle cellStyle2= (HSSFCellStyle)workbook.CreateCellStyle();
+                cellStyle1.FillForegroundColor = HSSFColor.SkyBlue.Index;
+                cellStyle1.FillPattern = FillPattern.SolidForeground;
+                cellStyle1.FillBackgroundColor = HSSFColor.Yellow.Index;
+                cellStyle1.FillPattern = FillPattern.SolidForeground;
+                cellStyle2 = cellStyle1;
+
                 ISheet sheet = workbook.CreateSheet(item.LangStr??item.Code);
                 writeDescription(sheet, item);
-                wrtieTitle(sheet, item);
+                wrtieTitle(sheet, item,cellStyle1,cellStyle2);
             }
             return true;
         }
@@ -110,7 +119,7 @@ namespace iS3_DataManager.DataManager
             }
         }
 
-        void wrtieTitle(ISheet sheet, DGObjectDef item)
+        void wrtieTitle(ISheet sheet, DGObjectDef item,HSSFCellStyle s1,HSSFCellStyle s2)
         {
             IRow row1 = sheet.CreateRow(1);
             IRow row2 = sheet.CreateRow(2);
@@ -118,7 +127,9 @@ namespace iS3_DataManager.DataManager
             foreach (PropertyMeta property in item.PropertyContainer)
             {
                 row1.CreateCell(i).SetCellValue(property.LangStr);
-                row2.CreateCell(i++).SetCellValue(property.DataType);
+                row1.Cells[i].CellStyle = s1;
+                row2.CreateCell(i).SetCellValue(property.DataType);
+                row2.Cells[i++].CellStyle = s2;
             }
 
         }

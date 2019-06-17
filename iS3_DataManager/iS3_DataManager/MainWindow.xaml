@@ -62,16 +62,17 @@
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="File" >
                 <MenuItem Header="OpenExcel" Click="Open_click"/>
-                <MenuItem Header="OpenDoc" Click="MenuItem_Click_1"/>
-                <MenuItem Header="Save"/>
+                <!--<MenuItem Header="OpenDoc" Click="MenuItem_Click_1"/>-->
+                <MenuItem Header="Save" Click="MenuItem_SaveClick"/>
                 <MenuItem Header="Delete"/>
             </MenuItem>
-            <MenuItem Header="Edit"/>
-            <MenuItem Header="View"/>
+            <MenuItem Header="View">
+                <!--<MenuItem Header="Refresh" Click="MenuItem_Click_2" />-->
+            </MenuItem>
             <MenuItem Header="Config">
                 <MenuItem Header="Initial Geology Standard" Click="ConfigGeology_Click"/>
                 <MenuItem Header="Initial Structure Standard" Click="ConfigStruct_Click"/>
-                <MenuItem Header="Initial Monitoring Standard" Click="Monitor_Click"/>
+                <MenuItem Header="Initial Environment Standard" Click="Environment_Click"/>
             </MenuItem>
             <MenuItem Header="About"/>
         </Menu>
@@ -145,26 +146,27 @@
         </Grid>
         <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120*"/>
-                <ColumnDefinition Width="363*"/>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="166*"/>
+                <ColumnDefinition Width="90*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Width="100" Height="20" Content="Import Data" Click="ImportData_Click" HorizontalAlignment="Left" Margin="0,5"/>
-            <Button Grid.Row="0" Width="100" Content="Save Data" Click="SaveData_Click" HorizontalAlignment="Right" Grid.Column="1" Margin="0,5,0,6"/>
-            <DataGrid x:Name="DataDG" Grid.Column="1" Margin="10,10,82,33" Grid.Row="1"
-                      AutoGenerateColumns="True" DataContext="{Binding}" CellEditEnding="DataDG_CellEditEnding" MinHeight="250">
+            <Button Grid.Row="0" Width="100" Height="20" Content="Import Data" Click="ImportData_Click" HorizontalAlignment="Left" Margin="0,5,0,5.4"/>
+            <!--<Button Grid.Row="0" Width="100" Content="Save Data" Click="SaveData_Click" HorizontalAlignment="Right" Grid.Column="2" Margin="0,5,-0.4,6.4"/>-->
+            <DataGrid x:Name="DataDG" Grid.Column="1" Margin="10.4,9.6,81.6,31.6" Grid.Row="1"
+                      AutoGenerateColumns="True" DataContext="{Binding}" CellEditEnding="DataDG_CellEditEnding" MinHeight="250" Grid.ColumnSpan="2">
 
             </DataGrid>
-            <ListBox x:Name="DataHeaderLB" Margin="25,10,22,29" Grid.Row="1" MinHeight="250"
+            <ListBox x:Name="DataHeaderLB" Margin="25,9.6,0,28.6" Grid.Row="1" MinHeight="250"
                      SelectionMode="Single" 
                      SelectionChanged="DataHeaderLB_SelectionChanged"
                      DisplayMemberPath="{Binding}" HorizontalAlignment="Left" MinWidth="100"/>
-            <Button x:Name="SaveChangeBT" Content="SaveChange" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,133,0" VerticalAlignment="Top" 
-                    Width="90" Click="SaveChangeBT_Click"/>
-            <Button x:Name="CheckDataBT" Content="CleanData" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,259,0" VerticalAlignment="Top" Width="90" 
+            <Button x:Name="SaveChangeBT" Content="SaveChange" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,132.6,0" VerticalAlignment="Top" 
+                    Width="90" Click="SaveChangeBT_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="CheckDataBT" Content="CleanData" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,79,0" VerticalAlignment="Top" Width="90" 
                     Click="CheckDataBT_Click"/>
         </Grid>
         <ComboBox x:Name="TunnelTypeCB" Grid.Column="1" HorizontalAlignment="Left" Margin="389.958,0,0,5" Grid.Row="1" 

@@ -68,12 +68,10 @@ namespace iS3_DataManager.DataManager
                 int column = 1;
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
-                    string time = "\t" + DateTime.Now.ToShortDateString().ToString() + " "
-                        + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
+                    string time = "\t" + DateTime.Now.ToShortDateString().ToString() + " " + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
                     if (meta.RegularExp != null)
                     {
-                        if (row[meta.LangStr] != null & 
-                            !Regex.IsMatch(row[meta.LangStr].ToString(), meta.RegularExp))
+                        if (row[meta.LangStr] != null & !Regex.IsMatch(row[meta.LangStr].ToString(), meta.RegularExp))
                         {
 
                             string message = "Data Format Error At sheet:" + objectDef.Code;

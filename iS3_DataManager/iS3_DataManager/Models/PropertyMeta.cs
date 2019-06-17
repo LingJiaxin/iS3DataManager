@@ -13,9 +13,9 @@ namespace iS3_DataManager.Models
    public class PropertyMeta:LangBase
     {
         public bool IsKey { get; set; }
-        [Required]
+       
         public string PropertyName { get; set; }
-        [Required]
+        
         public string DataType { get; set; }
         public string Unit { get; set; }
         public string Description { get; set; }

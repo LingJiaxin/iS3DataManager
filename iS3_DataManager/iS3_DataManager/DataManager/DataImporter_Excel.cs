@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using iS3_DataManager.Models;
 using System.IO;
 using NPOI.XSSF.UserModel;
@@ -13,7 +16,7 @@ namespace iS3_DataManager.DataManager
 {
     public class DataImporter_Excel : IDataImporter
     {
-        StandardDef standard;
+
 
         public List<DataSet> Import(StandardDef standard)
         {
@@ -32,14 +35,14 @@ namespace iS3_DataManager.DataManager
 
             return domainContainer;
         }
-        
+
         public DataSet Import(string path, StandardDef standard)
         {
 
             try
             {
                 string domainName = Path.GetFileNameWithoutExtension(path);
-                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName| x.LangStr == domainName);
+                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName | x.LangStr == domainName);
                 DataSet ds = new DataSet(domainName);
 
                 IWorkbook wb = ReadWorkbook(path);
@@ -50,19 +53,19 @@ namespace iS3_DataManager.DataManager
                 {
                     DGObjectDef objectDef = standard.GetDGObjectDefByName(sheetName);
                     DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
-                    if(dt!=null)ds.Tables.Add(dt);
+                    if (dt != null) ds.Tables.Add(dt);
                 }
-                
+
                 return ds;
-        }
+            }
 
             catch (Exception)
             {
-                System.Windows.MessageBox.Show("Please check if the standard suited to the data");
+                System.Windows.MessageBox.Show("Check if the Standard adapt to data");
                 return null;
             }
 
-}
+        }
 
 
         IWorkbook ReadWorkbook(string path)
@@ -122,7 +125,7 @@ namespace iS3_DataManager.DataManager
                 return null;
             }
             else
-            {                
+            {
                 DataTable dt = new DataTable(objectDef.LangStr);
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
@@ -149,11 +152,12 @@ namespace iS3_DataManager.DataManager
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    //remove the decription line(first 3 lines)
-                    dt.Rows.RemoveAt(0);    
+                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 linesS)
                 }
                 return dt;
             }
+
+
         }
     }
 }

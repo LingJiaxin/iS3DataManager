@@ -28,6 +28,9 @@ namespace iS3_DataManager.StandardManager
             GetType.Add("Y/N","bool");
             GetType.Add("无","string");
             GetType.Add("string","string");
+            GetType.Add("Deg", "double");
+            GetType.Add("deg", "double");
+            GetType.Add("X", "string");
             GetType.Add("DateTime", "string");
             GetType.Add("decimal", "double");
             this.Gettype=GetType;            

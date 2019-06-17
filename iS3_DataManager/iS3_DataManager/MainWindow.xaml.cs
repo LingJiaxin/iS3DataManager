@@ -28,14 +28,14 @@ namespace iS3_DataManager
         TreeViewData ViewData { get; set; }
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
             ChoiceLB.SelectedIndex = -1;
             Loaded += MainWindow_Loaded;
         }
         private void Test()
         {
-            DataSet2Entity transporter = new DataSet2Entity();
-            transporter.Data2DataBase(dataSet ,Standard);
+            //DataSet2Entity transporter = new DataSet2Entity();
+            //transporter.Data2DataBase(dataSet, Standard);
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -68,15 +68,15 @@ namespace iS3_DataManager
             ShowEmptyData();
             //ClassGenerator generator = new ClassGenerator();
             //generator.GenerateClass(Standard);
-            
+
         }
         void SetFullScreen()
         {
             Rect rc = SystemParameters.WorkArea;//get the workArea
             this.Left = 0;//set window position
             this.Top = 0;
-            this.Width = rc.Width/2;
-            this.Height = rc.Height;           
+            this.Width = rc.Width / 2;
+            this.Height = rc.Height;
         }
         private void ImportData_Click(object sender, RoutedEventArgs e)
         {
@@ -86,8 +86,8 @@ namespace iS3_DataManager
         private void SaveData_Click(object sender, RoutedEventArgs e)
         {
             //Test();
-            
-            
+
+
             //DataBaseManager_SQL manager_SQL = new DataBaseManager_SQL();
             //manager_SQL.Data2DB(dataSet,standard);
         }
@@ -121,7 +121,7 @@ namespace iS3_DataManager
             try
             {
                 TreeNode treeNode = DataTemplateTreeview.SelectedItem as TreeNode;
-                if (treeNode != null&Standard.Code=="Geology")
+                if (treeNode != null & Standard.Code == "Geology")
                 {
                     switch (treeNode.Level)
                     {
@@ -133,7 +133,7 @@ namespace iS3_DataManager
                             return;
                         case 3:
                             GenerateSingleTemplate(treeNode);
-                            return;                            
+                            return;
                     }
                 }
                 if (treeNode != null & Standard.Code != "Geology")
@@ -146,7 +146,7 @@ namespace iS3_DataManager
                         case 2:
                             GenerateSingleTemplate(treeNode);
                             return;
-                            
+
                     }
                 }
             }
@@ -160,7 +160,7 @@ namespace iS3_DataManager
         {
             try
             {
-                DomainDef domain = new DomainDef() { Code ="Geology" , LangStr = treeNode.Context };
+                DomainDef domain = new DomainDef() { Code = "Geology", LangStr = treeNode.Context };
                 foreach (var item in treeNode.ChildNodes)
                 {
                     foreach (var obj in item.ChildNodes)
@@ -183,9 +183,9 @@ namespace iS3_DataManager
                 DomainDef domain = new DomainDef() { Code = Standard.DomainContainer.Find(x => x.LangStr == treeNode.Context).Code, LangStr = treeNode.Context };
                 foreach (var item in treeNode.ChildNodes)
                 {
-                        DGObjectDef dG = Standard.GetDGObjectDefByName(item.Context);
-                        domain.DGObjectContainer.Add(dG);
-                    
+                    DGObjectDef dG = Standard.GetDGObjectDefByName(item.Context);
+                    domain.DGObjectContainer.Add(dG);
+
                 }
                 new TemplateGenerator_Excel().Export(domain);
             }
@@ -202,7 +202,7 @@ namespace iS3_DataManager
         {
             try
             {
-                DomainDef domain = new DomainDef() { Code =Standard.Code, LangStr = selectedNode.Context };
+                DomainDef domain = new DomainDef() { Code = Standard.Code, LangStr = selectedNode.Context };
                 foreach (TreeNode childNode in selectedNode.ChildNodes)
                 {
                     DGObjectDef dG = Standard.GetDGObjectDefByName(childNode.Context);
@@ -271,11 +271,12 @@ namespace iS3_DataManager
 
         private void DataTemplateTreeview_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+
             TreeNode selectedNode = (TreeNode)DataTemplateTreeview.SelectedItem;
-            if (selectedNode != null )
+            if (selectedNode != null)
             {
-                if(selectedNode.Level == 3 & Standard.Code == "Geology")
-                ShowProperty(selectedNode.Context);
+                if (selectedNode.Level == 3 & Standard.Code == "Geology")
+                    ShowProperty(selectedNode.Context);
                 if (selectedNode.Level == 2 & (Standard.Code != "Geology"))
                     ShowProperty(selectedNode.Context);
             }
@@ -299,24 +300,29 @@ namespace iS3_DataManager
         }
         private void ShowEmptyData()
         {
-            DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            string path = localPath.Parent.Parent.FullName + "\\Data\\" + Standard.Code + "_Empty.xls";
-            
-                
+            try
+            {
+                DirectoryInfo localPath = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                string path = localPath.Parent.Parent.FullName + "\\Data\\" + Standard.Code + "_Empty.xls";
+
+
                 IDataImporter dataImporter = new DataImporter_Excel();
-               
-                    dataSet = dataImporter.Import(path, Standard);
-                
+
+                dataSet = dataImporter.Import(path, Standard);
+
                 List<string> tableNames = new List<string>();
                 foreach (DataTable table in dataSet.Tables)
                 {
-                        tableNames.Add(table.TableName);
-                }                
+                    tableNames.Add(table.TableName);
+                }
                 if (tableNames.Count > 0)
-                    DataHeaderLB.ItemsSource = tableNames;            
+                    DataHeaderLB.ItemsSource = tableNames;
+            }
+            catch (Exception) { }
         }
         private void ShowData()
-        { try
+        {
+            try
             {
                 Microsoft.Win32.OpenFileDialog OpenExcelFile = new Microsoft.Win32.OpenFileDialog();
                 OpenExcelFile.Multiselect = true;
@@ -344,6 +350,7 @@ namespace iS3_DataManager
                 }
             }
             catch (Exception) { }
+
         }
 
         /// <summary>
@@ -355,12 +362,16 @@ namespace iS3_DataManager
             {
                 string tableName = DataHeaderLB.SelectedItem as string;
                 DataTable dataTable = dataSet.Tables[dataSet.Tables.IndexOf(tableName)];
-                DataDG.ItemsSource = dataTable.DefaultView;
-                ChangeStyle style = new ChangeStyle(dataTable,ref DataDG, Standard);
+                DataView dv = new DataView(dataTable);
+                DataDG.ItemsSource = dv;
+                //DataDG.EnableRowVirtualization = false;
+                ChangeStyle style = new ChangeStyle(dataTable, ref DataDG, Standard);
                 style.RefreshStyle();
+                DataDG.ScrollIntoView(DataDG.Items[0]);
                 DataDG.UpdateLayout();
+
             }
-            
+
         }
 
         /// <summary>
@@ -391,7 +402,7 @@ namespace iS3_DataManager
         /// </summary>
         private void ConfigStruct_Click(object sender, RoutedEventArgs e)
         {
-            LoadStandard("Structure");           
+            LoadStandard("Structure");
         }
 
         /// <summary>
@@ -405,7 +416,7 @@ namespace iS3_DataManager
         {
             LoadStandard("Construction");
         }
-        
+
         private void LoadStandard(string StandardName)
         {
             StandardName = StandardName ?? "Geology";
@@ -414,7 +425,7 @@ namespace iS3_DataManager
             {
                 StandardLoader standardLoader = new StandardLoader();
                 Standard = standardLoader.GetStandard(StandardName);
-                System.Windows.MessageBox.Show(StandardName+" Standard imported succeessfully");
+                System.Windows.MessageBox.Show(StandardName + " Standard imported succeessfully");
                 filter = standardLoader.CreateFilter();
                 ReloadWindow();
             }
@@ -423,13 +434,13 @@ namespace iS3_DataManager
         {
             ViewData = new TreeViewData(tunnel, Standard);
             DataTemplateTreeview.DataContext = ViewData;
-            if(PropertyLV.Items.Count==1)
-            PropertyLV.Items.RemoveAt(0);
+            if (PropertyLV.Items.Count == 1)
+                PropertyLV.Items.RemoveAt(0);
         }
 
         private void TunnelTypeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {           
-           tunnel= TunnelTypeCB.SelectedItem as Tunnel;
+        {
+            tunnel = TunnelTypeCB.SelectedItem as Tunnel;
             ReloadWindow();
         }
 
@@ -437,7 +448,7 @@ namespace iS3_DataManager
         {
             DataImporter_Word dataImporter = new DataImporter_Word();
             dataImporter.OpenDoc();
-        }    
+        }
 
         private void SaveChangeBT_Click(object sender, RoutedEventArgs e)
         {
@@ -451,7 +462,7 @@ namespace iS3_DataManager
         {
             DataCleaner dataCleaner = new DataCleaner(dataSet, Standard);
             MessageBox.Show("Program is cleaning the Data, please wait a few seconds...");
-            Console.ReadLine();
+            //  Console.ReadLine();
             dataCleaner.Clean();
             dataSet = dataCleaner.dataSet;
             DataDG.DataContext = dataSet;
@@ -467,6 +478,12 @@ namespace iS3_DataManager
         private void Environment_Click(object sender, RoutedEventArgs e)
         {
             LoadStandard("Environment");
+        }        
+
+        private void MenuItem_SaveClick(object sender, RoutedEventArgs e)
+        {
+            ClassGenerator generator = new ClassGenerator();
+            generator.GenerateClass(Standard);
         }
     }
 }

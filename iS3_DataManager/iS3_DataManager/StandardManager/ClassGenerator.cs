@@ -38,11 +38,12 @@ namespace iS3_DataManager.StandardManager
                     string newClass = "using System; \nusing System.ComponentModel.DataAnnotations.Schema;\n";
                     newClass += "using iS3.Core.Model;\n";
                     newClass += "\nnamespace "+"iS3."+standard.Code+".Model\n { \n \t";
-                    newClass += "[Table(\""+standard.Code+"_" + dGObject.Code + "\")]\n";
+                    newClass += "///<summary>///"+(dGObject.LangStr??dGObject.Code)+"///</summary>\n";
+                    newClass += "\t[Table(\""+standard.Code+"_" + dGObject.Code + "\")]\n";
                     newClass += "\tpublic class " + dGObject.Code + ":DGObject\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
-                        newClass += "/// <summary>\n///"+meta.LangStr+"\n/// </summary>\n";
+                        newClass += "\t\t/// <summary>\n\t\t///"+meta.LangStr+" \n\t\t///</summary>\n";
                         if (meta.Nullable == false)
                         {
                             if (Types[meta.DataType] != "string")
@@ -77,13 +78,13 @@ namespace iS3_DataManager.StandardManager
                     sw.Close();
                     fs.Close();
                 }
-
-            }
+                System.Windows.MessageBox.Show("Gengerated Successfully!");
+        }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show(e.ToString());
             }
-        }
+}
 
     }
 }

@@ -19,19 +19,22 @@ namespace iS3_DataManager.ViewManager
         DataGrid DataDG;
         DataTable dataTable;
         Models.StandardDef standard;
+        SetSelectedItemDelegate selectDelegate; 
         public ChangeStyle(DataTable dataTable, ref DataGrid dataGrid, Models.StandardDef standardDef)
         {
             DataDG = dataGrid;
             this.dataTable = dataTable;
             standard = standardDef;
+            selectDelegate = new SetSelectedItemDelegate(SetSelectedItemInBackground);
         }
         public DataGrid RefreshStyle()
         {
-            try
-            {
+           
                 Models.DGObjectDef dGObject = standard.GetDGObjectDefByName(dataTable.TableName);
                 int rowNum = 0;
                 foreach (DataRow row in dataTable.Rows)
+                {
+                try
                 {
                     if (rowNum == 0) { rowNum = 1; continue; }
                     int columnNum = 0;
@@ -51,14 +54,16 @@ namespace iS3_DataManager.ViewManager
                         else if ((meta.IsKey == true | meta.Nullable == false) & (row[meta.LangStr].ToString() == null | row[meta.LangStr].ToString() == "")) CheckIfEmpty(rowNum, columnNum);
                         columnNum++;
                     }
+                }
+                catch (Exception ex)
+                {
                     rowNum++;
+                    continue;
+                }
+                rowNum++;
                 }
                 return DataDG;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+
         }
 
         private void Check(int i, int j)
@@ -68,7 +73,10 @@ namespace iS3_DataManager.ViewManager
                 DataRowView drv = DataDG.Items[i] as DataRowView;
                 DataGridRow row = GetRow(DataDG,i);
                 DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(row);
-                DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(j);
+               DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(j);
+                
+
+
                 cell.Background = new SolidColorBrush(Colors.Red);
             }
         }
@@ -85,7 +93,7 @@ namespace iS3_DataManager.ViewManager
         }
         public static T GetVisualChild<T>(Visual parent) where T : Visual
         {
-            T childContent = default;
+            T childContent = default(T);
             int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < numVisuals; i++)
             {
@@ -102,16 +110,26 @@ namespace iS3_DataManager.ViewManager
             }
             return childContent;
         }
-        public static DataGridRow GetRow(DataGrid datagrid, int columnIndex)
+        public  DataGridRow GetRow(DataGrid datagrid, int columnIndex)
         {
-            DataGridRow row = (DataGridRow)datagrid.ItemContainerGenerator.ContainerFromIndex(columnIndex);
+            DataGridRow row = datagrid.ItemContainerGenerator.ContainerFromIndex(columnIndex) as DataGridRow;
             if (row == null)
             {
-                datagrid.UpdateLayout();
-                datagrid.ScrollIntoView(datagrid.Items[columnIndex]);
-                row = (DataGridRow)datagrid.ItemContainerGenerator.ContainerFromIndex(columnIndex);
+                datagrid.Dispatcher.Invoke(selectDelegate, datagrid, columnIndex);
+                row = datagrid.ItemContainerGenerator.ContainerFromIndex(columnIndex) as DataGridRow;
             }
             return row;
         }
+        delegate void SetSelectedItemDelegate(DataGrid datagrid, int columnIndex);
+        private void SetSelectedItemInBackground(DataGrid datagrid, int columnIndex)
+        {
+            
+            datagrid.ScrollIntoView(datagrid.Items[columnIndex]);
+            datagrid.UpdateLayout();
+            DataGridRow row = datagrid.ItemContainerGenerator.ContainerFromIndex(columnIndex) as DataGridRow;
+            
+        }
+
+
     }
 }
