@@ -482,8 +482,15 @@ namespace iS3_DataManager
 
         private void MenuItem_SaveClick(object sender, RoutedEventArgs e)
         {
-            ClassGenerator generator = new ClassGenerator();
-            generator.GenerateClass(Standard);
+            try
+            {
+                ClassGenerator generator = new ClassGenerator();
+                generator.GenerateClass(Standard);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

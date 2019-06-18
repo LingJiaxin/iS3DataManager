@@ -32,6 +32,7 @@ namespace iS3_DataManager.StandardManager
             GetType.Add("deg", "double");
             GetType.Add("X", "string");
             GetType.Add("DateTime", "string");
+            GetType.Add("double", "double");
             GetType.Add("decimal", "double");
             this.Gettype=GetType;            
         }

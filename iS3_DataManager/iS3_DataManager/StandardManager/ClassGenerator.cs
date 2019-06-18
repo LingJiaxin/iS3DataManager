@@ -12,25 +12,25 @@ namespace iS3_DataManager.StandardManager
         public StandardDef standard;
         public void GenerateClass(StandardDef standardDef)
         {
-            try
-            {
+            //try
+            //{
                 this.standard = standardDef;
                 foreach (DomainDef domain in standardDef.DomainContainer)
                 {
                     GenerateClass(domain);
                 }
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(e.ToString());
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    System.Windows.MessageBox.Show(e.ToString());
+            //}
         }
         
         /// <param name="domain"></param>
         public void GenerateClass(DomainDef domain)
         {
-            try
-            {
+            //try
+            //{
                 Dictionary<string, string> Types = new DataType().Gettype;
                 foreach (DGObjectDef dGObject in domain.DGObjectContainer)
                 {
@@ -79,11 +79,11 @@ namespace iS3_DataManager.StandardManager
                     fs.Close();
                 }
                 System.Windows.MessageBox.Show("Gengerated Successfully!");
-        }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show(e.ToString());
-            }
+        //}
+        //    catch (Exception e)
+        //    {
+        //        System.Windows.MessageBox.Show(e.ToString());
+        //    }
 }
 
     }
