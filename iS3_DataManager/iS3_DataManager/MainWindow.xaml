@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:iS3_DataManager"
         xmlns:viewManager="clr-namespace:iS3_DataManager.ViewManager"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="iS3_DataManager.MainWindow"
-        mc:Ignorable="d"
-        Title="iS3 Data Manager" Height="400" Width="688">
+        mc:Ignorable="d" Height="400" Width="688" Title="隧道数据管理工具">
     <Window.Resources>
         <Style TargetType="{x:Type ListBoxItem}" x:Key="ListBoxItemStyle">
             <Setter Property="Foreground" Value="White"/>
@@ -75,78 +74,9 @@
                 <MenuItem Header="Initial Environment Standard" Click="Environment_Click"/>
             </MenuItem>
             <MenuItem Header="About"/>
-        </Menu>
-        <ListBox x:Name="ChoiceLB" HorizontalAlignment="Left" Grid.Row="1" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}" Background="#FF6EADD4" SelectionChanged="SelectionChanged" Grid.ColumnSpan="2">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBoxItem Content="Data Template"/>
-            <ListBoxItem Content="Data Entry"/>
-        </ListBox>
-        <TextBlock Grid.Row="1" Margin="302.641,7.38,177.856,5" Grid.Column="1" Text="Tunnel Type：" TextAlignment="Center" MinWidth="75" HorizontalAlignment="Left"/>
-
-        <Grid x:Name="DataTemplateGrid" Grid.Row="2" Visibility="Collapsed" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
-                <TextBlock Text="Domain:" Margin="20,0,0,0"/>
-                <TextBlock Text="Description:" Margin="230,0,40,0"/>
-                <!--<TextBlock Text="Object:" Margin="20,0,40,0"/>-->
-            </StackPanel>
-            <!--<StackPanel Orientation="Horizontal" Grid.Row="1">-->
-            <!--<TreeView x:Name="DataTemplateTreeView" Margin="5,0,5,0"/>-->
-            <!--<ListBox x:Name="DomainNameLB" Width="100" Margin="5,0,5,0"/>
-                <ListBox x:Name="ObjectNameLB" Width="100" Margin="25,0,5,0"/>-->
-            <!--<ListBox x:Name="DescriptionLB" Width="300" Margin="270,0,5,0"/>-->
-            <!--</StackPanel>-->
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <ListView x:Name="PropertyLV" Margin="40,0,-32,0" Grid.Column="1" HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" Width="Auto" MinWidth="350"
-                          >
-                    <ListView.View>
-                        <GridView>
-                            <!--Property-->
-                            <GridViewColumn Header="Property"  Width="auto" DisplayMemberBinding="{Binding LangStr}"/>
-                            <!--PropertyName-->
-                            <GridViewColumn Header="PropertyName" Width="auto" DisplayMemberBinding="{Binding PropertyName}"/>
-                            <!--DataType-->
-                            <GridViewColumn Header="DataType"  Width="auto" DisplayMemberBinding="{Binding DataType}"/>
-                            <!--Unit-->
-                            <GridViewColumn Header="Unit" Width="auto" DisplayMemberBinding="{Binding Unit}"/>
-                            <!--Description-->
-                            <GridViewColumn Header="Description" Width="auto" DisplayMemberBinding="{Binding Description}"/>
-                        </GridView>
-                    </ListView.View>
-                    <System:String>Export Data Template</System:String>
-                </ListView>
-                <TreeView Grid.Column="0" x:Name="DataTemplateTreeview" Margin="10,0,14,0" SelectedItemChanged="DataTemplateTreeview_SelectedItemChanged"
-                          ItemsSource="{Binding TreeNodes,Mode=TwoWay}">
-                    <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate  ItemsSource="{Binding Path=ChildNodes}">
-                            <TextBlock Text="{Binding Context}"/>
-                        </HierarchicalDataTemplate>
-                    </TreeView.ItemTemplate>
-                    <TreeView.ItemContainerStyle>
-                        <Style TargetType="{x:Type TreeViewItem}">
-                            <Setter Property="IsExpanded" Value="{Binding isExpanded, Mode=TwoWay}" />
-                            <Setter Property="FontWeight" Value="Normal" />
-                        </Style>
-                    </TreeView.ItemContainerStyle>
-                </TreeView>
-            </Grid>
-            <Button Margin="0,5,5,5" Grid.Row="2" Width="150" Height="20" Click="ExportDataTemplate_Click" HorizontalAlignment="Right" Content="Generate Template"/>
-        </Grid>
+        </Menu>        
         <Grid x:Name="DataEntryGrid" Grid.Row="2" Visibility="Visible" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="85*"/>
                 <ColumnDefinition Width="166*"/>
                 <ColumnDefinition Width="90*"/>
             </Grid.ColumnDefinitions>
@@ -154,24 +84,28 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Width="100" Height="20" Content="Import Data" Click="ImportData_Click" HorizontalAlignment="Left" Margin="0,5,0,5.4"/>
-            <!--<Button Grid.Row="0" Width="100" Content="Save Data" Click="SaveData_Click" HorizontalAlignment="Right" Grid.Column="2" Margin="0,5,-0.4,6.4"/>-->
-            <DataGrid x:Name="DataDG" Grid.Column="1" Margin="10.4,9.6,81.6,31.6" Grid.Row="1"
+            <TreeView Grid.Column="0" Grid.Row="1" x:Name="DataTemplateTreeview" Margin="10,0,14,0" SelectedItemChanged="DataTemplateTreeview_SelectedItemChanged"
+                          ItemsSource="{Binding TreeNodes,Mode=TwoWay}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate  ItemsSource="{Binding Path=ChildNodes}">
+                        <TextBlock Text="{Binding Context}"/>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding isExpanded, Mode=TwoWay}" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+            <DataGrid x:Name="DataDG" Grid.Column="1" Margin="70,10,22,29" Grid.Row="1"
                       AutoGenerateColumns="True" DataContext="{Binding}" CellEditEnding="DataDG_CellEditEnding" MinHeight="250" Grid.ColumnSpan="2">
-
             </DataGrid>
-            <ListBox x:Name="DataHeaderLB" Margin="25,9.6,0,28.6" Grid.Row="1" MinHeight="250"
-                     SelectionMode="Single" 
-                     SelectionChanged="DataHeaderLB_SelectionChanged"
-                     DisplayMemberPath="{Binding}" HorizontalAlignment="Left" MinWidth="100"/>
             <Button x:Name="SaveChangeBT" Content="SaveChange" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,132.6,0" VerticalAlignment="Top" 
                     Width="90" Click="SaveChangeBT_Click" Grid.ColumnSpan="2"/>
             <Button x:Name="CheckDataBT" Content="CleanData" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,79,0" VerticalAlignment="Top" Width="90" 
                     Click="CheckDataBT_Click"/>
         </Grid>
-        <ComboBox x:Name="TunnelTypeCB" Grid.Column="1" HorizontalAlignment="Left" Margin="389.958,0,0,5" Grid.Row="1" 
-                  d:LayoutOverrides="Height" MinWidth="100"
-                  DisplayMemberPath="TunnelType" SelectionChanged="TunnelTypeCB_SelectionChanged"  MinHeight="18" />
 
     </Grid>
 </Window>
