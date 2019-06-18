@@ -122,14 +122,10 @@ namespace iS3_DataManager.ViewManager
         }
         delegate void SetSelectedItemDelegate(DataGrid datagrid, int columnIndex);
         private void SetSelectedItemInBackground(DataGrid datagrid, int columnIndex)
-        {
-            
+        {            
             datagrid.ScrollIntoView(datagrid.Items[columnIndex]);
             datagrid.UpdateLayout();
             DataGridRow row = datagrid.ItemContainerGenerator.ContainerFromIndex(columnIndex) as DataGridRow;
-            
-        }
-
-
+                    }
     }
 }
