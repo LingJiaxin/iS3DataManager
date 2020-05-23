@@ -13,9 +13,9 @@ namespace iS3_DataManager.Models
    public class PropertyMeta:LangBase
     {
         public bool IsKey { get; set; }
-        [Required]
+       
         public string PropertyName { get; set; }
-        [Required]
+        
         public string DataType { get; set; }
         public string Unit { get; set; }
         public string Description { get; set; }
@@ -27,7 +27,6 @@ namespace iS3_DataManager.Models
         public string RegularExp { get; set; }
         public PropertyMeta()
         {
-
         }
         public PropertyMeta(string propertyName, string dataType, string unit, string description, string langStr, bool IsKey = false, bool nullable = true, string regularExpression = null)
         {

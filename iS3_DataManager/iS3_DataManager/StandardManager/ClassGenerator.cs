@@ -9,58 +9,82 @@ namespace iS3_DataManager.StandardManager
 {
     public class ClassGenerator
     {
-        public void GenerateClass(DataStandardDef standardDef)
+        public StandardDef standard;
+        public void GenerateClass(StandardDef standardDef)
         {
-            try
-            {
+            //try
+            //{
+                this.standard = standardDef;
                 foreach (DomainDef domain in standardDef.DomainContainer)
                 {
                     GenerateClass(domain);
                 }
-            }
-            catch(Exception e)
-            {
-                System.Windows.MessageBox.Show(e.ToString());
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    System.Windows.MessageBox.Show(e.ToString());
+            //}
         }
+        
+        /// <param name="domain"></param>
         public void GenerateClass(DomainDef domain)
-        {try
-            {
-                
+        {
+            //try
+            //{
+                Dictionary<string, string> Types = new DataType().Gettype;
                 foreach (DGObjectDef dGObject in domain.DGObjectContainer)
                 {
-                    
-                    string newClass = "using System; \n namespace iS3_DataManager.ObjectModels\n { \n \tpublic class " + dGObject.Code + "\n \t{ \n";
+
+                    string newClass = "using System; \nusing System.ComponentModel.DataAnnotations.Schema;\n";
+                    newClass += "using iS3.Core.Model;\n";
+                    newClass += "\nnamespace "+"iS3."+standard.Code+".Model\n { \n \t";
+                    newClass += "///<summary>///"+(dGObject.LangStr??dGObject.Code)+"///</summary>\n";
+                    newClass += "\t[Table(\""+standard.Code+"_" + dGObject.Code + "\")]\n";
+                    newClass += "\tpublic class " + dGObject.Code + ":DGObject\n \t{ \n";
                     foreach (PropertyMeta meta in dGObject.PropertyContainer)
                     {
-
-                        if (meta.DataType != "string")
+                        newClass += "\t\t/// <summary>\n\t\t///"+meta.LangStr+" \n\t\t///</summary>\n";
+                        if (meta.Nullable == false)
                         {
-                            newClass += "\t\tpublic Nullable<" + meta.DataType + "> " + meta.PropertyName + " {get;set;}\n";
+                            if (Types[meta.DataType] != "string")
+                            {
+                                newClass += "\t\tpublic " + Types[meta.DataType] + "  " + meta.PropertyName + " {get;set;}\n";
+                            }
+                            else
+                            {
+                                newClass += "\t\tpublic " + Types[meta.DataType] + " " + meta.PropertyName + " {get;set;}\n";
+                            }
                         }
                         else
                         {
-                            newClass+= "\t\tpublic " + meta.DataType + " " + meta.PropertyName + " {get;set;}\n";
-                        }
-                        
+                            if (Types[meta.DataType] != "string")
+                            {
+                                newClass += "\t\tpublic Nullable<" + Types[meta.DataType] + "> " + meta.PropertyName + " {get;set;}\n";
+                            }
+                            else
+                            {
+                                newClass += "\t\tpublic " + Types[meta.DataType] + " " + meta.PropertyName + " {get;set;}\n";
+                            }
+                        }                      
+
                     }
-                      
+
                     newClass += "\t}\n}";
-                    string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\ObjectModels\"+dGObject.Code + ".cs";
-                    FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                    string path = AppDomain.CurrentDomain.BaseDirectory + @"..\..\ObjectModels\" + dGObject.Code + ".cs";
+                    FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                     StreamWriter sw = new StreamWriter(fs);
                     sw.Write(newClass);
                     sw.Flush();
                     sw.Close();
                     fs.Close();
                 }
-                
-            }
-            catch(Exception e)
-            {
-                System.Windows.MessageBox.Show(e.ToString());                
-            }
-        }
-        
+                System.Windows.MessageBox.Show("Gengerated Successfully!");
+        //}
+        //    catch (Exception e)
+        //    {
+        //        System.Windows.MessageBox.Show(e.ToString());
+        //    }
+}
+
     }
 }

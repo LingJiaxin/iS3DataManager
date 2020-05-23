@@ -14,11 +14,11 @@ using Microsoft.Win32;
 
 namespace iS3_DataManager.DataManager
 {
-    public class DataImporter_Excel :IDataImporter
+    public class DataImporter_Excel : IDataImporter
     {
 
 
-        public List<DataSet> Import(DataStandardDef standard)
+        public List<DataSet> Import(StandardDef standard)
         {
             List<DataSet> domainContainer = null;
             OpenFileDialog ofd = new OpenFileDialog
@@ -36,13 +36,13 @@ namespace iS3_DataManager.DataManager
             return domainContainer;
         }
 
-        public DataSet Import(string path, DataStandardDef standard)
+        public DataSet Import(string path, StandardDef standard)
         {
 
             try
             {
                 string domainName = Path.GetFileNameWithoutExtension(path);
-                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName);
+                DomainDef domain = standard.DomainContainer.Find(x => x.Code == domainName | x.LangStr == domainName);
                 DataSet ds = new DataSet(domainName);
 
                 IWorkbook wb = ReadWorkbook(path);
@@ -51,15 +51,17 @@ namespace iS3_DataManager.DataManager
                 //sheetNames equal to objectName
                 foreach (string sheetName in sheetNames)
                 {
-                    DGObjectDef objectDef = domain.DGObjectContainer.Find(x => x.Code == sheetName);
+                    DGObjectDef objectDef = standard.GetDGObjectDefByName(sheetName);
                     DataTable dt = ReadSheet(wb.GetSheet(sheetName), objectDef);
-                    ds.Tables.Add(dt);
+                    if (dt != null) ds.Tables.Add(dt);
                 }
+
                 return ds;
             }
 
             catch (Exception)
             {
+                System.Windows.MessageBox.Show("Check if the Standard adapt to data");
                 return null;
             }
 
@@ -121,14 +123,13 @@ namespace iS3_DataManager.DataManager
             if (sheet == null)
             {
                 return null;
-                
             }
             else
             {
-                DataTable dt = new DataTable(objectDef.Code);
+                DataTable dt = new DataTable(objectDef.LangStr);
                 foreach (PropertyMeta meta in objectDef.PropertyContainer)
                 {
-                    dt.Columns.Add(meta.PropertyName);
+                    dt.Columns.Add(meta.LangStr);
                 }
 
                 foreach (IRow row in sheet)
@@ -139,21 +140,24 @@ namespace iS3_DataManager.DataManager
                     {
                         if (row.GetCell(i) != null)
                         {
-                            dr[meta.PropertyName] = row.GetCell(i++);
+                            dr[meta.LangStr] = row.GetCell(i++);
                         }
                         else
                         {
-                            dr[meta.PropertyName] = null;
+                            i++;
+                            dr[meta.LangStr] = null;
                         }
                     }
                     dt.Rows.Add(dr);
                 }
                 for (int i = 0; i < 3; i++)
                 {
-                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 lines )
+                    dt.Rows.RemoveAt(0);    //remove the decription line(first 3 linesS)
                 }
                 return dt;
             }
+
+
         }
     }
 }

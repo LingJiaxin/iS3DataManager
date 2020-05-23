@@ -5,7 +5,7 @@ namespace iS3_DataManager.Interface
 {
    public interface IDataImporter
     {
-        List<System.Data.DataSet> Import(DataStandardDef standard);
-        System.Data.DataSet Import(string path,DataStandardDef standard);
+        List<System.Data.DataSet> Import(StandardDef standard);
+        System.Data.DataSet Import(string path,StandardDef standard);
     }
 }

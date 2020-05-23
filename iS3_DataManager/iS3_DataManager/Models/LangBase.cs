@@ -15,8 +15,7 @@ namespace iS3_DataManager.Models
     {
         public string LangStr
         {
-            get;set;
-            
+            get;set;            
         }
 
 
